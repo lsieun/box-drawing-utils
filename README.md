@@ -1,2 +1,204 @@
 # box-drawing-utils
+
 :sunny:
+
+Use [box-drawing characters](https://unicode-table.com/en/blocks/box-drawing/) to draw different graphs.
+
+## Examples
+
+### text
+
+```java
+public class TextRun {
+    public static void main(String[] args) {
+        // 第一步，创建TextCanvas对象
+        TextCanvas canvas = new TextCanvas();
+
+        // 第二步，文本信息
+
+        // 单选文本
+        canvas.drawText(2, 0, "You know some birds are not meant to be caged, their feathers are just too bright.");
+
+        // 多行文本
+        List<String> textList = new ArrayList<>();
+        textList.add("I love three things in the world: the sun, the moon, and you.");
+        textList.add("The sun for the day, the moon for the night, and you forever.");
+        canvas.drawMultiLineText(4, 5, textList);
+
+        // 多行文本+边框
+        canvas.drawMultiLineTextWithBorder(7, 10, textList);
+
+        // 第三步，打印输出
+        List<String> lines = canvas.getLines();
+        lines.forEach(System.out::println);
+    }
+}
+```
+
+输出结果：
+
+```text
+You know some birds are not meant to be caged, their feathers are just too bright.
+ 
+     I love three things in the world: the sun, the moon, and you.
+     The sun for the day, the moon for the night, and you forever.
+ 
+          ┌───────────────────────────────────────────────────────────────┐
+          │ I love three things in the world: the sun, the moon, and you. │
+          │ The sun for the day, the moon for the night, and you forever. │
+          └───────────────────────────────────────────────────────────────┘
+```
+
+### lines
+
+```java
+public class StateLineRun {
+    public static void main(String[] args) {
+        TextStateCanvas canvas = new TextStateCanvas();
+
+        canvas.moveTo(10, 20);
+        canvas.turnUp().drawLine(3)
+                .switchRight().drawLine(10)
+                .switchDown().drawLine(5)
+                .switchLeft().drawLine(20)
+                .switchUp().drawLine(7)
+                .switchRight().drawLine(30);
+
+        canvas.moveTo(20, 30);
+        canvas.turnUp().drawLine(3)
+                .switchLeft().drawLine(10)
+                .switchDown().drawLine(5)
+                .switchRight().drawLine(20)
+                .switchUp().drawLine(7)
+                .switchLeft().drawLine(30);
+
+        canvas.getLines().forEach(System.out::println);
+    }
+}
+```
+
+输出结果：
+
+```text
+          ┌──────────────────────────────
+          │
+          │         ┌──────────┐
+          │         │          │
+          │         │          │
+          │         │          │
+          │                    │
+          │                    │
+          └────────────────────┘
+ 
+          ──────────────────────────────┐
+                                        │
+                   ┌──────────┐         │
+                   │          │         │
+                   │          │         │
+                   │          │         │
+                   │                    │
+                   │                    │
+                   └────────────────────┘
+```
+
+### tree
+
+```java
+public class TreeRun {
+    public static void main(String[] args) {
+        Tree tree1 = getSample1();
+        draw(tree1);
+
+        Tree tree2 = getSample2();
+        draw(tree2);
+    }
+
+    public static void draw(Tree tree) {
+        TreeTextGraph graph = TreeTextGraphUtils.createGraphFromTree(tree);
+        TreeTextGraphUtils.updatePosition(graph);
+        TreeTextGraphUtils.print(graph);
+        TreeTextGraphUtils.draw(graph);
+    }
+
+    public static Tree getSample1() {
+        Tree tree = Tree.valueOf("Java ASM");
+
+        Tree child1 = Tree.valueOf("analysis");
+        Tree child2 = Tree.valueOf("generation");
+        Tree child3 = Tree.valueOf("transformation");
+        tree.addChild(child1);
+        tree.addChild(child2);
+        tree.addChild(child3);
+
+        Tree child11 = Tree.valueOf("find potential bugs");
+        Tree child12 = Tree.valueOf("detect unused code");
+        Tree child13 = Tree.valueOf("reverse engineer code");
+        child1.addChild(child11);
+        child1.addChild(child12);
+        child1.addChild(child13);
+
+        Tree child31 = Tree.valueOf("optimize programs");
+        Tree child32 = Tree.valueOf("obfuscate programs");
+        Tree child33 = Tree.valueOf("insert performance monitoring code");
+        child3.addChild(child31);
+        child3.addChild(child32);
+        child3.addChild(child33);
+
+        return tree;
+    }
+
+    public static Tree getSample2() {
+        Tree tree = Tree.valueOf("Java ASM");
+
+        Tree child1 = Tree.valueOf("Core API");
+        Tree child2 = Tree.valueOf("Tree API");
+        tree.addChild(child1);
+        tree.addChild(child2);
+
+        Tree child11 = Tree.valueOf("asm.jar");
+        Tree child12 = Tree.valueOf("asm-util.jar");
+        Tree child13 = Tree.valueOf("asm-commons.jar");
+        child1.addChild(child11);
+        child1.addChild(child12);
+        child1.addChild(child13);
+
+        Tree child21 = Tree.valueOf("asm-tree.jar");
+        Tree child22 = Tree.valueOf("asm-analysis.jar");
+        child2.addChild(child21);
+        child2.addChild(child22);
+
+        return tree;
+    }
+}
+```
+
+输出结果：
+
+```text
+                                   ┌─── find potential bugs
+                                   │
+            ┌─── analysis ─────────┼─── detect unused code
+            │                      │
+            │                      └─── reverse engineer code
+            │
+Java ASM ───┼─── generation
+            │
+            │                      ┌─── optimize programs
+            │                      │
+            └─── transformation ───┼─── obfuscate programs
+                                   │
+                                   └─── insert performance monitoring code
+```
+
+```text
+                             ┌─── asm.jar
+                             │
+            ┌─── Core API ───┼─── asm-util.jar
+            │                │
+            │                └─── asm-commons.jar
+Java ASM ───┤
+            │
+            │                ┌─── asm-tree.jar
+            └─── Tree API ───┤
+                             └─── asm-analysis.jar
+```

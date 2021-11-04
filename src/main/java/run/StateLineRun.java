@@ -5,8 +5,8 @@ import lsieun.box.drawing.TextStateCanvas;
 public class StateLineRun {
     public static void main(String[] args) {
         TextStateCanvas canvas = new TextStateCanvas();
-        canvas.moveTo(10, 20);
 
+        canvas.moveTo(10, 20);
         canvas.turnUp().drawLine(3)
                 .switchRight().drawLine(10)
                 .switchDown().drawLine(5)
