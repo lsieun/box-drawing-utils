@@ -27,7 +27,10 @@ public class TextStateCanvas extends TextCanvas {
     }
 
     public TextStateCanvas drawLine(int count) {
-        if (count <= 0) {
+        if (count == 0) {
+            return this;
+        }
+        else if (count < 0) {
             throw new IllegalArgumentException("count should be greater than zero: " + count);
         }
 
@@ -82,7 +85,7 @@ public class TextStateCanvas extends TextCanvas {
             mergePixel(row, col, BoxDrawing.LIGHT_UP_AND_LEFT.val);
         }
         else {
-            // do nothing
+            assert false : "should not be here";
         }
 
         moveUp(1);
@@ -98,7 +101,7 @@ public class TextStateCanvas extends TextCanvas {
             mergePixel(row, col, BoxDrawing.LIGHT_DOWN_AND_LEFT.val);
         }
         else {
-            // do nothing
+            assert false : "should not be here";
         }
 
         moveDown(1);
@@ -114,7 +117,7 @@ public class TextStateCanvas extends TextCanvas {
             mergePixel(row, col, BoxDrawing.LIGHT_UP_AND_LEFT.val);
         }
         else {
-            // do nothing
+            assert false : "should not be here";
         }
 
         moveLeft(1);
@@ -130,7 +133,7 @@ public class TextStateCanvas extends TextCanvas {
             mergePixel(row, col, BoxDrawing.LIGHT_UP_AND_RIGHT.val);
         }
         else {
-            // do nothing
+            assert false : "should not be here";
         }
 
         moveRight(1);
