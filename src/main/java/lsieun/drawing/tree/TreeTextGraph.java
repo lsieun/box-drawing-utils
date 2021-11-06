@@ -1,9 +1,9 @@
-package lsieun.box.drawing.utils;
+package lsieun.drawing.tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeTextGraph {
+class TreeTextGraph {
     private static final int NOT_SET = -1;
 
     public int row = NOT_SET;

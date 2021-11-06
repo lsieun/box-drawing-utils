@@ -1,4 +1,4 @@
-package lsieun.box.drawing;
+package lsieun.canvas;
 
 public class TextStateCanvas extends TextCanvas {
     private int row;
@@ -54,6 +54,12 @@ public class TextStateCanvas extends TextCanvas {
             default:
                 throw new RuntimeException("Unsupported Direction: " + direction);
         }
+        return this;
+    }
+
+    public TextStateCanvas drawText(String text) {
+        drawText(row, col, text);
+        col += text.length();
         return this;
     }
 

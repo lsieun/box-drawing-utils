@@ -1,6 +1,6 @@
 package run;
 
-import lsieun.box.drawing.TextStateCanvas;
+import lsieun.canvas.TextStateCanvas;
 
 public class StateLineRun {
     public static void main(String[] args) {

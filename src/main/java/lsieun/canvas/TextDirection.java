@@ -1,4 +1,4 @@
-package lsieun.box.drawing;
+package lsieun.canvas;
 
 public enum TextDirection {
     UP,

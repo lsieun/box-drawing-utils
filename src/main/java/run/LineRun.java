@@ -1,6 +1,6 @@
 package run;
 
-import lsieun.box.drawing.TextCanvas;
+import lsieun.canvas.TextCanvas;
 
 import java.util.List;
 

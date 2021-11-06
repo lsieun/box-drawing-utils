@@ -4,6 +4,10 @@
 
 Use [box-drawing characters](https://unicode-table.com/en/blocks/box-drawing/) to draw different graphs.
 
+```text
+git clone https://github.com/lsieun/box-drawing-utils
+```
+
 ## Examples
 
 ### text
@@ -47,6 +51,37 @@ You know some birds are not meant to be caged, their feathers are just too brigh
           │ I love three things in the world: the sun, the moon, and you. │
           │ The sun for the day, the moon for the night, and you forever. │
           └───────────────────────────────────────────────────────────────┘
+```
+
+```java
+public class TextWithNoteRun {
+    public static void main(String[] args) {
+        List<String> lines = new ArrayList<>();
+        lines.add("Analyzer<BasicValue> analyzer = new Analyzer<>(new BasicInterpreter());");
+        lines.add("Frame<BasicValue>[] frames = analyzer.analyze(owner, mn);");
+
+        TextWithNote text = new TextWithNote(lines);
+        text.addNote(0, 2, TextDirection.UP, 2, "Analyzer");
+        text.addNote(0, 14, TextDirection.UP, 1, "Value");
+        text.addNote(0, 56, TextDirection.UP, 1, "Interpreter");
+        text.addNote(1, 2, TextDirection.DOWN, 2, "Frame");
+        text.addNote(1, 11, TextDirection.DOWN, 1, "Value");
+        text.draw();
+    }
+}
+```
+
+输出结果：
+
+```text
+  ┌─── Analyzer
+  │           ┌─── Value                                ┌─── Interpreter
+  │           │                                         │
+Analyzer<BasicValue> analyzer = new Analyzer<>(new BasicInterpreter());
+Frame<BasicValue>[] frames = analyzer.analyze(owner, mn);
+  │        │
+  │        └─── Value
+  └─── Frame
 ```
 
 ### lines
@@ -107,17 +142,10 @@ public class StateLineRun {
 public class TreeRun {
     public static void main(String[] args) {
         Tree tree1 = getSample1();
-        draw(tree1);
+        tree1.draw();
 
         Tree tree2 = getSample2();
-        draw(tree2);
-    }
-
-    public static void draw(Tree tree) {
-        TreeTextGraph graph = TreeTextGraphUtils.createGraphFromTree(tree);
-        TreeTextGraphUtils.updatePosition(graph);
-        TreeTextGraphUtils.print(graph);
-        TreeTextGraphUtils.draw(graph);
+        tree2.draw();
     }
 
     public static Tree getSample1() {

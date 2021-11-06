@@ -1,23 +1,14 @@
 package run;
 
-import lsieun.box.drawing.utils.Tree;
-import lsieun.box.drawing.utils.TreeTextGraph;
-import lsieun.box.drawing.utils.TreeTextGraphUtils;
+import lsieun.drawing.tree.Tree;
 
 public class TreeRun {
     public static void main(String[] args) {
         Tree tree1 = getSample1();
-        draw(tree1);
+        tree1.draw();
 
         Tree tree2 = getSample2();
-        draw(tree2);
-    }
-
-    public static void draw(Tree tree) {
-        TreeTextGraph graph = TreeTextGraphUtils.createGraphFromTree(tree);
-        TreeTextGraphUtils.updatePosition(graph);
-        TreeTextGraphUtils.print(graph);
-        TreeTextGraphUtils.draw(graph);
+        tree2.draw();
     }
 
     public static Tree getSample1() {

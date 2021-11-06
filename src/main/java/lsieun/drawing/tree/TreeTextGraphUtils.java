@@ -1,12 +1,12 @@
-package lsieun.box.drawing.utils;
+package lsieun.drawing.tree;
 
-import lsieun.box.drawing.BoxDrawing;
-import lsieun.box.drawing.TextStateCanvas;
+import lsieun.canvas.BoxDrawing;
+import lsieun.canvas.TextStateCanvas;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeTextGraphUtils {
+class TreeTextGraphUtils {
     private static final int PADDING_SPACE = 1;
     private static final int CONNECTION_LINE_LENGTH = 3;
 

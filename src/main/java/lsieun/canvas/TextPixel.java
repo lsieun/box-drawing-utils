@@ -1,4 +1,4 @@
-package lsieun.box.drawing;
+package lsieun.canvas;
 
 public class TextPixel implements Comparable<TextPixel> {
     public final int row;

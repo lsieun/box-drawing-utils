@@ -1,4 +1,4 @@
-package lsieun.box.drawing;
+package lsieun.canvas;
 
 import java.util.ArrayList;
 import java.util.Collections;
