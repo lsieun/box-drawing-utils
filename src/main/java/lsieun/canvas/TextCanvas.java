@@ -32,10 +32,10 @@ public class TextCanvas {
         int rowStop = rowStart + rowCount - 1;
         int colStop = colStart + colCount - 1;
 
-        pixelList.add(TextPixel.valueOf(rowStart, colStart, BoxDrawing.LIGHT_DOWN_AND_RIGHT.val));
-        pixelList.add(TextPixel.valueOf(rowStart, colStop, BoxDrawing.LIGHT_DOWN_AND_LEFT.val));
-        pixelList.add(TextPixel.valueOf(rowStop, colStart, BoxDrawing.LIGHT_UP_AND_RIGHT.val));
-        pixelList.add(TextPixel.valueOf(rowStop, colStop, BoxDrawing.LIGHT_UP_AND_LEFT.val));
+        mergePixel(rowStart, colStart, BoxDrawing.LIGHT_DOWN_AND_RIGHT.val);
+        mergePixel(rowStart, colStop, BoxDrawing.LIGHT_DOWN_AND_LEFT.val);
+        mergePixel(rowStop, colStart, BoxDrawing.LIGHT_UP_AND_RIGHT.val);
+        mergePixel(rowStop, colStop, BoxDrawing.LIGHT_UP_AND_LEFT.val);
 
         drawHorizontalLine(rowStart, colStart + 1, colCount - 2);
         drawHorizontalLine(rowStop, colStart + 1, colCount - 2);
