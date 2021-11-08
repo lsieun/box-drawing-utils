@@ -18,6 +18,7 @@ public class TextWithNoteRun {
         text.addNote(0, 56, TextDirection.UP, 1, "Interpreter");
         text.addNote(1, 2, TextDirection.DOWN, 2, "Frame");
         text.addNote(1, 11, TextDirection.DOWN, 1, "Value");
+        text.addNote(1, 29, 27, TextDirection.DOWN, 1, "invoke analyze method");
         text.draw();
     }
 }

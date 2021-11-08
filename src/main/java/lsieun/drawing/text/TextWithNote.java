@@ -1,5 +1,6 @@
 package lsieun.drawing.text;
 
+import lsieun.canvas.BoxDrawing;
 import lsieun.canvas.Drawable;
 import lsieun.canvas.TextDirection;
 import lsieun.canvas.TextStateCanvas;
@@ -20,10 +21,14 @@ public class TextWithNote implements Drawable {
     }
 
     public void addNote(int row, int col, TextDirection direction, int height, String text) {
+        addNote(row, col, 0, direction, height, text);
+    }
+
+    public void addNote(int row, int col, int range, TextDirection direction, int height, String text) {
         if (direction != TextDirection.UP && direction != TextDirection.DOWN) {
             throw new IllegalArgumentException("direction is not correct: " + direction);
         }
-        noteList.add(Note.valueOf(row, col, direction, height, text));
+        noteList.add(Note.valueOf(row, col, range, direction, height, text));
     }
 
     @Override
@@ -37,16 +42,40 @@ public class TextWithNote implements Drawable {
             int currentRow = this.row + note.row;
             int currentCol = this.col + note.col;
             if (note.direction == TextDirection.UP) {
-                canvas.moveTo(currentRow - 1, currentCol);
-                canvas.turnUp().drawLine(note.height).switchRight().drawLine(3);
-                canvas.moveRight(1);
-                canvas.drawText(note.text);
+                if (note.range <= 2) {
+                    canvas.moveTo(currentRow - 1, currentCol);
+                    canvas.turnUp().drawLine(note.height).switchRight().drawLine(3);
+                    canvas.moveRight(1);
+                    canvas.drawText(note.text);
+                }
+                else {
+                    canvas.moveTo(currentRow - 1, currentCol);
+                    canvas.turnRight().drawText(BoxDrawing.LIGHT_DOWN_AND_RIGHT.val).drawLine(note.range - 2)
+                            .drawText(BoxDrawing.LIGHT_DOWN_AND_LEFT.val);
+                    canvas.mergePixel(currentRow - 1, currentCol + note.range / 2, BoxDrawing.LIGHT_UP_AND_HORIZONTAL.val);
+                    canvas.moveTo(currentRow - 2, currentCol + note.range / 2);
+                    canvas.turnUp().drawLine(note.height).switchRight().drawLine(3);
+                    canvas.moveRight(1);
+                    canvas.drawText(note.text);
+                }
             }
             else if (note.direction == TextDirection.DOWN) {
-                canvas.moveTo(currentRow + 1, currentCol);
-                canvas.turnDown().drawLine(note.height).switchRight().drawLine(3);
-                canvas.moveRight(1);
-                canvas.drawText(note.text);
+                if (note.range <= 2) {
+                    canvas.moveTo(currentRow + 1, currentCol);
+                    canvas.turnDown().drawLine(note.height).switchRight().drawLine(3);
+                    canvas.moveRight(1);
+                    canvas.drawText(note.text);
+                }
+                else {
+                    canvas.moveTo(currentRow + 1, currentCol);
+                    canvas.turnRight().drawText(BoxDrawing.LIGHT_UP_AND_RIGHT.val).drawLine(note.range - 2)
+                            .drawText(BoxDrawing.LIGHT_UP_AND_LEFT.val);
+                    canvas.mergePixel(currentRow + 1, currentCol + note.range / 2, BoxDrawing.LIGHT_DOWN_AND_HORIZONTAL.val);
+                    canvas.moveTo(currentRow + 2, currentCol + note.range / 2);
+                    canvas.turnDown().drawLine(note.height).switchRight().drawLine(3);
+                    canvas.moveRight(1);
+                    canvas.drawText(note.text);
+                }
             }
             else {
                 assert false : "impossible";
