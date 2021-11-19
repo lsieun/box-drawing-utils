@@ -89,7 +89,7 @@ public class TextWithNote implements Drawable {
     private void updateRow() {
         for (Note note : noteList) {
             if (note.direction == TextDirection.UP) {
-                int deltaRow = note.height + 1;
+                int deltaRow = note.height + 2;
                 if (deltaRow > this.row) {
                     this.row = deltaRow;
                 }

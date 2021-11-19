@@ -31,7 +31,8 @@ public class TextStateCanvas extends TextCanvas {
             return this;
         }
         else if (count < 0) {
-            throw new IllegalArgumentException("count should be greater than zero: " + count);
+//            throw new IllegalArgumentException("count should be greater than zero: " + count);
+            return this;
         }
 
         switch (direction) {
