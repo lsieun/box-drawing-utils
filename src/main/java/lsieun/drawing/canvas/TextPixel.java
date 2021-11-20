@@ -1,8 +1,8 @@
-package lsieun.canvas;
+package lsieun.drawing.canvas;
 
 public class TextPixel implements Comparable<TextPixel> {
-    public final int row;
-    public final int col;
+    public int row;
+    public int col;
     public String value;
 
     public TextPixel(int row, int col, String value) {

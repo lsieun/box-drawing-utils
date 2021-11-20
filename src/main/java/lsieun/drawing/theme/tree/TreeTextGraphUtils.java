@@ -1,7 +1,4 @@
-package lsieun.drawing.tree;
-
-import lsieun.canvas.BoxDrawing;
-import lsieun.canvas.TextStateCanvas;
+package lsieun.drawing.theme.tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,60 +14,6 @@ class TreeTextGraphUtils {
             String line = String.format("(%02d, %02d): %s", item.row, item.col, item.tree.line);
             System.out.println(line);
         }
-    }
-
-    public static void draw(TreeTextGraph graph) {
-        // 1. get list
-        List<TreeTextGraph> list = getList(graph);
-
-        // 2. draw text
-        TextStateCanvas canvas = new TextStateCanvas();
-        for (TreeTextGraph item : list) {
-            canvas.drawText(item.row, item.col, item.tree.line);
-        }
-
-        // 3. draw connection line
-        for (TreeTextGraph item : list) {
-            List<TreeTextGraph> children = item.children;
-            int size = children.size();
-            if (size < 1) continue;
-
-            int startRow = children.get(0).row;
-            int midRow = item.row;
-            int stopRow = children.get(size - 1).row;
-
-            int startCol = item.col + item.tree.line.length() + PADDING_SPACE;
-            int midCol = item.col + item.length + CONNECTION_LINE_LENGTH + PADDING_SPACE;
-            int colCount = midCol - startCol;
-
-            canvas.moveTo(midRow, startCol);
-            canvas.turnRight().drawLine(colCount).switchUp().drawLine(midRow - startRow - 1);
-
-            canvas.moveTo(midRow, startCol);
-            canvas.turnRight().drawLine(colCount).switchDown().drawLine(stopRow - midRow - 1);
-
-            for (int i = 0; i < size; i++) {
-                TreeTextGraph child = children.get(i);
-                String ch;
-                if (i == 0) {
-                    ch = BoxDrawing.LIGHT_DOWN_AND_RIGHT.val;
-                }
-                else if (i == size - 1) {
-                    ch = BoxDrawing.LIGHT_UP_AND_RIGHT.val;
-                }
-                else {
-                    ch = BoxDrawing.LIGHT_VERTICAL_AND_RIGHT.val;
-                }
-
-                canvas.mergePixel(child.row, midCol, ch);
-                canvas.moveTo(child.row, midCol + 1);
-                canvas.turnRight().drawLine(CONNECTION_LINE_LENGTH);
-            }
-        }
-
-        // 4. print
-        List<String> lines = canvas.getLines();
-        lines.forEach(System.out::println);
     }
 
     public static void updatePosition(TreeTextGraph graph) {

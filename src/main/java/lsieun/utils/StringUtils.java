@@ -1,12 +1,10 @@
-package lsieun.canvas;
+package lsieun.utils;
 
 import java.util.Formatter;
 import java.util.List;
 
-public interface Drawable {
-    void draw();
-
-    default String list2str(List<String> list) {
+public class StringUtils {
+    public static String list2str(List<String> list) {
         StringBuilder sb = new StringBuilder();
         Formatter fm = new Formatter(sb);
         for (String item : list) {

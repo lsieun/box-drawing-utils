@@ -1,4 +1,4 @@
-package lsieun.canvas;
+package lsieun.drawing.canvas;
 
 public enum TextAlign {
     LEFT,

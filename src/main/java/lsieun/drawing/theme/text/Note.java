@@ -1,6 +1,6 @@
-package lsieun.drawing.text;
+package lsieun.drawing.theme.text;
 
-import lsieun.canvas.TextDirection;
+import lsieun.drawing.canvas.TextDirection;
 
 public class Note {
     public int row;
