@@ -1,7 +1,5 @@
 package lsieun.drawing.canvas;
 
-import lsieun.utils.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Formatter;
@@ -10,7 +8,7 @@ import java.util.List;
 public class Canvas {
     private int row;
     private int col;
-    public final List<TextPixel> pixelList = new ArrayList<>();
+    private final List<TextPixel> pixelList = new ArrayList<>();
 
     // region move
     public Canvas moveTo(int row, int col) {
@@ -296,11 +294,33 @@ public class Canvas {
     @Override
     public String toString() {
         List<String> lines = getLines();
-        return StringUtils.list2str(lines);
+        return list2str(lines);
     }
 
     public void draw(int row, int col, Drawable drawable) {
         drawable.draw(this, row, col);
+    }
+
+    public void overlay(Canvas canvas) {
+        for (TextPixel pixel : canvas.pixelList) {
+            int targetRow = pixel.row;
+            int targetCol = pixel.col;
+            TextPixel targetPixel = findPixel(targetRow, targetCol);
+            if (targetPixel != null) {
+                if (BoxDrawing.isValid(targetPixel.value) && BoxDrawing.isValid(pixel.value)) {
+                    targetPixel.value = BoxDrawing.merge(targetPixel.value, pixel.value).val;
+                }
+                else {
+                    targetPixel.value = pixel.value;
+                }
+            }
+            else {
+                targetPixel = TextPixel.valueOf(targetRow, targetCol, pixel.value);
+                pixelList.add(targetPixel);
+            }
+        }
+
+        Collections.sort(pixelList);
     }
 
     // region private methods
@@ -344,6 +364,15 @@ public class Canvas {
             }
         }
         return list;
+    }
+
+    private static String list2str(List<String> list) {
+        StringBuilder sb = new StringBuilder();
+        Formatter fm = new Formatter(sb);
+        for (String item : list) {
+            fm.format("%s%n", item);
+        }
+        return sb.toString();
     }
     // endregion
 }

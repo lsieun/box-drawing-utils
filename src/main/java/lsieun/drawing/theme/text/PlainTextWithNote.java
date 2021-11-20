@@ -1,9 +1,11 @@
 package lsieun.drawing.theme.text;
 
-import lsieun.drawing.canvas.*;
+import lsieun.drawing.canvas.BoxDrawing;
+import lsieun.drawing.canvas.Canvas;
+import lsieun.drawing.canvas.Drawable;
+import lsieun.drawing.canvas.TextDirection;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PlainTextWithNote implements Drawable {
@@ -28,13 +30,10 @@ public class PlainTextWithNote implements Drawable {
     @Override
     public void draw(Canvas canvas, int startRow, int startCol) {
         Canvas localCanvas = getLocalCanvas();
-        for (TextPixel pixel : localCanvas.pixelList) {
-            pixel.row += startRow;
-            pixel.col += startCol;
-        }
+        localCanvas.updatePosition(startRow, startCol);
+        localCanvas.rectifyPosition();
 
-        canvas.pixelList.addAll(localCanvas.pixelList);
-        Collections.sort(canvas.pixelList);
+        canvas.overlay(localCanvas);
     }
 
     public Canvas getLocalCanvas() {

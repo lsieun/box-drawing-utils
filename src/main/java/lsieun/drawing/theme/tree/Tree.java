@@ -1,9 +1,11 @@
 package lsieun.drawing.theme.tree;
 
-import lsieun.drawing.canvas.*;
+import lsieun.drawing.canvas.BoxDrawing;
+import lsieun.drawing.canvas.Canvas;
+import lsieun.drawing.canvas.Drawable;
+import lsieun.drawing.canvas.TextDirection;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Tree implements Drawable {
@@ -28,8 +30,7 @@ public class Tree implements Drawable {
         Canvas localCanvas = getLocalCanvas();
         localCanvas.updatePosition(startRow, startCol);
 
-        canvas.pixelList.addAll(localCanvas.pixelList);
-        Collections.sort(canvas.pixelList);
+        canvas.overlay(localCanvas);
     }
 
     private Canvas getLocalCanvas() {

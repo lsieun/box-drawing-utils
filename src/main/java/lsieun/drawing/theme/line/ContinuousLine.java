@@ -85,7 +85,6 @@ public class ContinuousLine implements Drawable {
         localCanvas.updatePosition(startRow, startCol);
         localCanvas.rectifyPosition();
 
-        canvas.pixelList.addAll(localCanvas.pixelList);
-        Collections.sort(canvas.pixelList);
+        canvas.overlay(localCanvas);
     }
 }
