@@ -83,7 +83,6 @@ public class ContinuousLine implements Drawable {
     @Override
     public void draw(Canvas canvas, int startRow, int startCol) {
         localCanvas.updatePosition(startRow, startCol);
-        localCanvas.rectifyPosition();
 
         canvas.overlay(localCanvas);
     }

@@ -31,7 +31,6 @@ public class PlainTextWithNote implements Drawable {
     public void draw(Canvas canvas, int startRow, int startCol) {
         Canvas localCanvas = getLocalCanvas();
         localCanvas.updatePosition(startRow, startCol);
-        localCanvas.rectifyPosition();
 
         canvas.overlay(localCanvas);
     }
@@ -87,7 +86,6 @@ public class PlainTextWithNote implements Drawable {
             }
         }
 
-        canvas.rectifyPosition();
         return canvas;
     }
 

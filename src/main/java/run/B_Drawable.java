@@ -2,6 +2,10 @@ package run;
 
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
+import lsieun.utils.FileUtils;
+import run.sample.*;
+
+import java.util.List;
 
 public class B_Drawable {
     public static void main(String[] args) {
@@ -15,5 +19,12 @@ public class B_Drawable {
         // 3. print
         canvas.printPixels();
         System.out.println(canvas);
+
+        // 4. output
+        List<String> lines = canvas.getLines();
+        String filepath = PathManager.getOutputPath();
+        FileUtils.writeLines(filepath, lines);
+        String message = String.format("file:///%s", filepath);
+        System.out.println(message);
     }
 }

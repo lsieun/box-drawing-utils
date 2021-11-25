@@ -1,18 +1,15 @@
-package run;
+package run.sample;
 
 import lsieun.drawing.canvas.TextAlign;
 import lsieun.drawing.canvas.TextDirection;
-import lsieun.drawing.theme.line.ContinuousLine;
 import lsieun.drawing.theme.table.OneLineTable;
-import lsieun.drawing.theme.text.PlainText;
-import lsieun.drawing.theme.text.PlainTextWithBorder;
 import lsieun.drawing.theme.text.PlainTextWithNote;
 import lsieun.drawing.theme.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sample {
+public class ASMSample {
     public static OneLineTable getOneLineTable() {
         String[][] matrix = {
                 {"0", "Interpreter", "Value", "Range"},
@@ -22,23 +19,6 @@ public class Sample {
                 {"4", "SourceInterpreter", "SourceValue", "N"},
         };
         return new OneLineTable(matrix, TextAlign.CENTER);
-    }
-
-    public static PlainText getPlainText() {
-        List<String> textList = new ArrayList<>();
-        textList.add("You know some birds are not meant to be caged, their feathers are just too bright.");
-        textList.add("I love three things in the world: the sun, the moon, and you.");
-        textList.add("The sun for the day, the moon for the night, and you forever.");
-
-        return PlainText.valueOf(textList);
-    }
-
-    public static PlainTextWithBorder getPlainTextWithBorder() {
-        List<String> textList = new ArrayList<>();
-        textList.add("I love three things in the world: the sun, the moon, and you.");
-        textList.add("The sun for the day, the moon for the night, and you forever.");
-
-        return PlainTextWithBorder.valueOf(textList);
     }
 
     public static PlainTextWithNote getPlainTextWithNote() {
@@ -56,7 +36,7 @@ public class Sample {
         return text;
     }
 
-    public static Tree getTree1() {
+    public static Tree getTreeOfWhatASMCanDo() {
         Tree tree = Tree.valueOf("Java ASM");
 
         Tree child1 = Tree.valueOf("analysis");
@@ -83,7 +63,7 @@ public class Sample {
         return tree;
     }
 
-    public static Tree getTree2() {
+    public static Tree getTreeOfASMComponents() {
         Tree tree = Tree.valueOf("Java ASM");
 
         Tree child1 = Tree.valueOf("Core API");
@@ -104,29 +84,5 @@ public class Sample {
         child2.addChild(child22);
 
         return tree;
-    }
-
-    public static ContinuousLine getContinuousLine1() {
-        ContinuousLine line = new ContinuousLine();
-        line.setDirection(TextDirection.UP);
-        line.drawLine(3)
-                .turn(TextDirection.RIGHT).drawLine(10)
-                .turn(TextDirection.DOWN).drawLine(5)
-                .turn(TextDirection.LEFT).drawLine(20)
-                .turn(TextDirection.UP).drawLine(7)
-                .turn(TextDirection.RIGHT).drawLine(30);
-        return line;
-    }
-
-    public static ContinuousLine getContinuousLine2() {
-        ContinuousLine line = new ContinuousLine();
-        line.setDirection(TextDirection.UP);
-        line.drawLine(3)
-                .turn(TextDirection.LEFT).drawLine(10)
-                .turn(TextDirection.DOWN).drawLine(5)
-                .turn(TextDirection.RIGHT).drawLine(20)
-                .turn(TextDirection.UP).drawLine(7)
-                .turn(TextDirection.LEFT).drawLine(30);
-        return line;
     }
 }

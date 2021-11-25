@@ -121,6 +121,18 @@ table：
 └───────┴───────────────────────┴─────────────────┴───────────┘
 ```
 
+Markdown table:
+
+```text
+│ Year │ Algorithm │ Bit Length │
+│------│-----------│------------│
+│ 1992 │ MD5       │ 128        │
+│ 1993 │ SHA1      │ 160        │
+│ 2001 │ SHA256    │ 256        │
+│ 2001 │ SHA384    │ 384        │
+│ 2001 │ SHA512    │ 512        │
+```
+
 tree：
 
 ```text
@@ -150,6 +162,49 @@ Java ASM ───┤
             │                ┌─── asm-tree.jar
             └─── Tree API ───┤
                              └─── asm-analysis.jar
+```
+
+directory tree:
+
+```text
+IDEA
+├─── bin
+│    ├─── idea.bat
+│    ├─── idea.exe
+│    └─── idea.exe.vmoptions
+├─── help
+│    ├─── ReferenceCard.pdf
+│    └─── ReferenceCardForMac.pdf
+├─── jbr
+├─── lib
+│    ├─── idea.jar
+│    └─── idea_rt.jar
+├─── license
+├─── plugins
+│    ├─── java
+│    └─── java-ide-customization
+└─── redist
+```
+
+binary tree:
+
+```text
+                      ■
+          0 ┌─────────┴────┐ 1
+            ■              ▧
+     0 ┌────┴────┐ 1       └────┐ 1
+       ▨         □              □
+0 ┌────┘         left-right     right-right
+  □
+  left-left-left
+```
+
+byte:
+
+```text
++--------+---+========+=============================+
+│76543210│   │        │this is a multiple-bytes data│
++--------+---+========+=============================+
 ```
 
 ## License

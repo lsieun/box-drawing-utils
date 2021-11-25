@@ -36,36 +36,9 @@ public class Canvas {
         this.col += count;
         return this;
     }
-
-    public void rectifyPosition() {
-        int minRow = 0;
-        int minCol = 0;
-        for (TextPixel pixel : pixelList) {
-            int row = pixel.row;
-            if (row < minRow) {
-                minRow = row;
-            }
-            int col = pixel.col;
-            if (col < minCol) {
-                minCol = col;
-            }
-        }
-
-        for (TextPixel pixel : pixelList) {
-            pixel.row -= minRow;
-            pixel.col -= minCol;
-        }
-    }
-
-    public void updatePosition(int startRow, int startCol) {
-        for (TextPixel pixel : pixelList) {
-            pixel.row += startRow;
-            pixel.col += startCol;
-        }
-    }
     // endregion
 
-    // region Point
+    // region draw simple object: Point
     public void drawPixel(BoxDrawing value) {
         TextPixel pixel = findPixel(row, col);
         if (pixel != null) {
@@ -137,7 +110,7 @@ public class Canvas {
     }
     // endregion
 
-    // region Line
+    // region draw simple object: Line and Text
     public Canvas drawHorizontalLine(int num) {
         int step = num > 0 ? 1 : -1;
         int count = Math.abs(num);
@@ -168,7 +141,7 @@ public class Canvas {
     }
     // endregion
 
-    // region Plane
+    // region draw simple object: Rectangle and Table
     public void drawRectangle(int width, int height) {
         // left top
         drawPixel(BoxDrawing.LIGHT_DOWN_AND_RIGHT);
@@ -250,6 +223,64 @@ public class Canvas {
     }
     // endregion
 
+    // region draw complex object: Drawable and canvas
+    public void draw(int row, int col, Drawable drawable) {
+        drawable.draw(this, row, col);
+    }
+
+    public void overlay(Canvas canvas) {
+        for (TextPixel pixel : canvas.pixelList) {
+            int targetRow = pixel.row;
+            int targetCol = pixel.col;
+            TextPixel targetPixel = findPixel(targetRow, targetCol);
+            if (targetPixel != null) {
+                if (BoxDrawing.isValid(targetPixel.value) && BoxDrawing.isValid(pixel.value)) {
+                    targetPixel.value = BoxDrawing.merge(targetPixel.value, pixel.value).val;
+                }
+                else {
+                    targetPixel.value = pixel.value;
+                }
+            }
+            else {
+                targetPixel = TextPixel.valueOf(targetRow, targetCol, pixel.value);
+                pixelList.add(targetPixel);
+            }
+        }
+
+        Collections.sort(pixelList);
+    }
+    // endregion
+
+    // region position
+    public void updatePosition(int startRow, int startCol) {
+        for (TextPixel pixel : pixelList) {
+            pixel.row += startRow;
+            pixel.col += startCol;
+        }
+    }
+
+    public void rectifyPosition() {
+        int minRow = 0;
+        int minCol = 0;
+        for (TextPixel pixel : pixelList) {
+            int row = pixel.row;
+            if (row < minRow) {
+                minRow = row;
+            }
+            int col = pixel.col;
+            if (col < minCol) {
+                minCol = col;
+            }
+        }
+
+        for (TextPixel pixel : pixelList) {
+            pixel.row -= minRow;
+            pixel.col -= minCol;
+        }
+    }
+    // endregion
+
+    // region output
     public void printPixels() {
         Collections.sort(pixelList);
         StringBuilder sb = new StringBuilder();
@@ -296,32 +327,7 @@ public class Canvas {
         List<String> lines = getLines();
         return list2str(lines);
     }
-
-    public void draw(int row, int col, Drawable drawable) {
-        drawable.draw(this, row, col);
-    }
-
-    public void overlay(Canvas canvas) {
-        for (TextPixel pixel : canvas.pixelList) {
-            int targetRow = pixel.row;
-            int targetCol = pixel.col;
-            TextPixel targetPixel = findPixel(targetRow, targetCol);
-            if (targetPixel != null) {
-                if (BoxDrawing.isValid(targetPixel.value) && BoxDrawing.isValid(pixel.value)) {
-                    targetPixel.value = BoxDrawing.merge(targetPixel.value, pixel.value).val;
-                }
-                else {
-                    targetPixel.value = pixel.value;
-                }
-            }
-            else {
-                targetPixel = TextPixel.valueOf(targetRow, targetCol, pixel.value);
-                pixelList.add(targetPixel);
-            }
-        }
-
-        Collections.sort(pixelList);
-    }
+    // endregion
 
     // region private methods
     private TextPixel findPixel(int row, int col) {
