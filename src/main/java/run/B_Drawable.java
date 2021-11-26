@@ -2,7 +2,7 @@ package run;
 
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
-import lsieun.utils.FileUtils;
+import lsieun.drawing.utils.FileUtils;
 import run.sample.*;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class B_Drawable {
     public static void main(String[] args) {
         // 1. graph
-        Drawable graph = Sample.getContinuousLine1();
+        Drawable graph = Sample.getDirectoryTree();
 
         // 2. draw
         Canvas canvas = new Canvas();

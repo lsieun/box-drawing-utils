@@ -85,4 +85,34 @@ public class ASMSample {
 
         return tree;
     }
+
+    public static Tree getTreeOfASMTransformation() {
+        Tree tree = Tree.valueOf("ASM Transformation");
+
+        Tree child1 = Tree.valueOf("stateless transformations");
+        Tree child2 = Tree.valueOf("stateful transformations");
+        tree.addChild(child1);
+        tree.addChild(child2);
+
+        Tree child21 = Tree.valueOf("state machine");
+        Tree child22 = Tree.valueOf("examples");
+        child2.addChild(child21);
+        child2.addChild(child22);
+
+        Tree child211 = Tree.valueOf("a finite number of states");
+        Tree child212 = Tree.valueOf("current state");
+        Tree child213 = Tree.valueOf("state transitions");
+        child21.addChild(child211);
+        child21.addChild(child212);
+        child21.addChild(child213);
+
+        Tree child221 = Tree.valueOf("iconst_0 iadd");
+        Tree child222 = Tree.valueOf("aload_0 aload_0 getfield putfield");
+        Tree child223 = Tree.valueOf("getstatic ldc invokevirtual");
+        child22.addChild(child221);
+        child22.addChild(child222);
+        child22.addChild(child223);
+
+        return tree;
+    }
 }

@@ -4,7 +4,7 @@ import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.canvas.TextAlign;
 
-public class OneLineTable implements Drawable {
+public class OneLineTable extends AbstractTable implements Drawable {
     public final String[][] matrix;
     public final TextAlign align;
 
@@ -23,25 +23,21 @@ public class OneLineTable implements Drawable {
     }
 
     @Override
+    protected int getCellLength(int row, int col) {
+        String item = matrix[row][col];
+        return item == null ? 0 : item.length();
+    }
+
+    @Override
     public void draw(Canvas canvas, int startRow, int startCol) {
         int rowCount = matrix.length;
         int colCount = matrix[0].length;
 
         int[] rowHeightArray = new int[rowCount];
-        int[] colWidthArray = new int[colCount];
+        int[] colWidthArray = getColWidthArray(rowCount, colCount);
 
         for (int i = 0; i < rowCount; i++) {
             rowHeightArray[i] = 1 + 2 * row_padding;
-        }
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < colCount; j++) {
-                String item = matrix[i][j];
-                if (item == null) continue;
-                int length = item.length() + 2 * col_padding;
-                if (length > colWidthArray[j]) {
-                    colWidthArray[j] = length;
-                }
-            }
         }
 
         // draw border

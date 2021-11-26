@@ -1,4 +1,4 @@
-package lsieun.utils;
+package lsieun.drawing.utils;
 
 public class BitUtils {
     public static String fromInt(int intValue) {

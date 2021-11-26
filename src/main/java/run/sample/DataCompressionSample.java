@@ -2,7 +2,7 @@ package run.sample;
 
 import lsieun.drawing.theme.tree.BinaryTree;
 import lsieun.drawing.theme.tree.Tree;
-import lsieun.utils.BitUtils;
+import lsieun.drawing.utils.BitUtils;
 
 public class DataCompressionSample {
     public static Tree getTreeOfDataCompression() {
