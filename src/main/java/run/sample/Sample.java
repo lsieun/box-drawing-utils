@@ -6,6 +6,8 @@ import lsieun.drawing.theme.bit.ByteEntry;
 import lsieun.drawing.theme.bit.ByteType;
 import lsieun.drawing.theme.bit.MultiBytes;
 import lsieun.drawing.theme.line.ContinuousLine;
+import lsieun.drawing.theme.shape.Rectangle;
+import lsieun.drawing.theme.shape.RectangleWithText;
 import lsieun.drawing.theme.table.MarkdownTable;
 import lsieun.drawing.theme.table.OneLineTable;
 import lsieun.drawing.theme.text.PlainText;
@@ -172,6 +174,19 @@ public class Sample {
         list.add(HuffmanTree.valueOf("o", 16));
         list.add(HuffmanTree.valueOf("u", 29));
         return HuffmanTree.generateTree(list);
+    }
+
+    public static Rectangle getRectangle() {
+        return new Rectangle(10, 3);
+    }
+
+    public static RectangleWithText getRectangleWithText() {
+        List<String> lines = new ArrayList<>();
+        lines.add("Bad times make a good man.");
+        lines.add("The greatest test of courage on earth is to bear defeat without losing heart.");
+        lines.add("Sow nothing, reap nothing.");
+        lines.add("Life is but a hard and tortuous journey.");
+        return new RectangleWithText(50, 3, lines, TextAlign.CENTER);
     }
 
 }

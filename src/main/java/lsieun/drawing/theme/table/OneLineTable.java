@@ -25,7 +25,8 @@ public class OneLineTable extends AbstractTable implements Drawable {
     @Override
     protected int getCellLength(int row, int col) {
         String item = matrix[row][col];
-        return item == null ? 0 : item.length();
+        int length =  item == null ? 0 : item.length();
+        return length + 2 * col_padding;
     }
 
     @Override
@@ -62,23 +63,23 @@ public class OneLineTable extends AbstractTable implements Drawable {
 
                 int currentWidth = colWidthArray[j];
 
-                canvas.moveTo(currentRow + 1 + row_padding, currentCol);
+                int row = currentRow + 1 + row_padding;
+                int left = currentCol;
+                int right = left + currentWidth + 1;
+
                 switch (align) {
                     case LEFT: {
-                        int padding = col_padding + 1;
-                        canvas.right(padding);
+                        canvas.moveTo(row, left + col_padding + 1);
                         canvas.drawText(item);
                         break;
                     }
                     case CENTER: {
-                        int padding = (currentWidth - item.length()) / 2 + 1;
-                        canvas.right(padding);
+                        canvas.moveTo(row, left + (currentWidth - item.length()) / 2 + 1);
                         canvas.drawText(item);
                         break;
                     }
                     case RIGHT: {
-                        int padding = currentWidth - col_padding - item.length() + 1;
-                        canvas.right(padding);
+                        canvas.moveTo(row, right - col_padding - item.length());
                         canvas.drawText(item);
                         break;
                     }
