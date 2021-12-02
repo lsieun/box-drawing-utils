@@ -1,6 +1,6 @@
 package lsieun.drawing.theme.text;
 
-import lsieun.drawing.canvas.BoxDrawing;
+import lsieun.drawing.canvas.Box;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.canvas.TextDirection;
@@ -56,9 +56,9 @@ public class PlainTextWithNote implements Drawable {
                 }
                 else {
                     canvas.moveTo(currentRow - 1, currentCol);
-                    canvas.drawPixel(BoxDrawing.LIGHT_DOWN_AND_RIGHT);
-                    canvas.right(1).drawHorizontalLine(note.range - 2).drawPixel(BoxDrawing.LIGHT_DOWN_AND_LEFT);
-                    canvas.moveTo(currentRow - 1, currentCol + note.range / 2).drawPixel(BoxDrawing.LIGHT_UP_AND_HORIZONTAL);
+                    canvas.drawPixel(Box.DOWN_AND_RIGHT);
+                    canvas.right(1).drawHorizontalLine(note.range - 2).drawPixel(Box.DOWN_AND_LEFT);
+                    canvas.moveTo(currentRow - 1, currentCol + note.range / 2).drawPixel(Box.UP_AND_HORIZONTAL);
                     canvas.moveTo(currentRow - 2, currentCol + note.range / 2).switchDirection(TextDirection.DOWN, TextDirection.RIGHT).drawHorizontalLine(3);
                     canvas.right(1);
                     canvas.drawText(note.text);
@@ -73,9 +73,9 @@ public class PlainTextWithNote implements Drawable {
                 }
                 else {
                     canvas.moveTo(currentRow + 1, currentCol);
-                    canvas.drawPixel(BoxDrawing.LIGHT_UP_AND_RIGHT.val);
-                    canvas.right(1).drawHorizontalLine(note.range - 2).drawPixel(BoxDrawing.LIGHT_UP_AND_LEFT);
-                    canvas.moveTo(currentRow + 1, currentCol + note.range / 2).drawPixel(BoxDrawing.LIGHT_DOWN_AND_HORIZONTAL);
+                    canvas.drawPixel(Box.UP_AND_RIGHT.val);
+                    canvas.right(1).drawHorizontalLine(note.range - 2).drawPixel(Box.UP_AND_LEFT);
+                    canvas.moveTo(currentRow + 1, currentCol + note.range / 2).drawPixel(Box.DOWN_AND_HORIZONTAL);
                     canvas.moveTo(currentRow + 2, currentCol + note.range / 2).switchDirection(TextDirection.UP, TextDirection.RIGHT).drawHorizontalLine(3);
                     canvas.right(1);
                     canvas.drawText(note.text);

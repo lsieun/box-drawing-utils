@@ -6,8 +6,8 @@ public enum BoxDrawing {
     LIGHT_DIAGONAL_CROSS(0x2573, "╳"),
     ;
 
-    public int code_point;
-    public String value;
+    public final int code_point;
+    public final String value;
 
     BoxDrawing(int code_point, String value) {
         this.code_point = code_point;

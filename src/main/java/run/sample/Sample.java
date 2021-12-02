@@ -1,15 +1,18 @@
 package run.sample;
 
+import lsieun.drawing.canvas.TextAlign;
 import lsieun.drawing.canvas.TextDirection;
 import lsieun.drawing.theme.bit.ByteEntry;
 import lsieun.drawing.theme.bit.ByteType;
 import lsieun.drawing.theme.bit.MultiBytes;
 import lsieun.drawing.theme.line.ContinuousLine;
 import lsieun.drawing.theme.table.MarkdownTable;
+import lsieun.drawing.theme.table.OneLineTable;
 import lsieun.drawing.theme.text.PlainText;
 import lsieun.drawing.theme.text.PlainTextWithBorder;
 import lsieun.drawing.theme.tree.BinaryTree;
 import lsieun.drawing.theme.tree.DirectoryTree;
+import lsieun.drawing.theme.tree.HuffmanTree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +71,31 @@ public class Sample {
         return new MarkdownTable(matrix);
     }
 
+    public static OneLineTable getOneLineTableOfMorseCode() {
+        String[][] matrix = {
+                {"A", "• −", "N", "− •"},
+                {"B", "− • • •", "O", "− − −"},
+                {"C", "− • − •", "P", "• − − •"},
+                {"D", "− • •", "Q", "− − • −"},
+                {"E", "•", "R", "• − •"},
+                {"F", "• • − •", "S", "• • •"},
+                {"G", "− − •", "T", "−"},
+                {"H", "• • • •", "U", "• • −"},
+                {"I", "• •", "V", "• • • −"},
+                {"J", "• − − −", "W", "• − −"},
+                {"K", "− • −", "X", "− • • −"},
+                {"L", "• − • •", "Y", "− • − −"},
+                {"M", "− −", "Z", "− − • •"},
+        };
+        return new OneLineTable(matrix, TextAlign.CENTER);
+    }
+
     public static MultiBytes getByteFormat() {
         MultiBytes bytes = new MultiBytes();
         bytes.add(ByteEntry.valueOf(ByteType.SINGLE, 3, "76543210"));
-        bytes.add(ByteEntry.valueOf(ByteType.SINGLE, 3, ""));
+        bytes.add(ByteEntry.valueOf(ByteType.SINGLE, 3, "one byte"));
         bytes.add(ByteEntry.valueOf(ByteType.MULTIPLE, 8, ""));
-        bytes.add(ByteEntry.valueOf(ByteType.MULTIPLE, 16, "this is a multiple-bytes data"));
+        bytes.add(ByteEntry.valueOf(ByteType.MULTIPLE, 16, "a variable number of bytes"));
         return bytes;
     }
 
@@ -141,4 +163,15 @@ public class Sample {
 
         return root;
     }
+
+    public static HuffmanTree getHuffmanTree() {
+        List<HuffmanTree> list = new ArrayList<>();
+        list.add(HuffmanTree.valueOf("a", 10));
+        list.add(HuffmanTree.valueOf("e", 15));
+        list.add(HuffmanTree.valueOf("i", 30));
+        list.add(HuffmanTree.valueOf("o", 16));
+        list.add(HuffmanTree.valueOf("u", 29));
+        return HuffmanTree.generateTree(list);
+    }
+
 }

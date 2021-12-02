@@ -1,6 +1,6 @@
 package lsieun.drawing.theme.table;
 
-import lsieun.drawing.canvas.BoxDrawing;
+import lsieun.drawing.canvas.Box;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 
@@ -38,7 +38,7 @@ public class MarkdownTable extends AbstractTable implements Drawable {
         for (int row = 0; row < rowCount + 1; row++) {
             int currentCol = 0;
             canvas.moveTo(row, currentCol);
-            canvas.drawPixel(BoxDrawing.LIGHT_VERTICAL);
+            canvas.drawPixel(Box.VERTICAL);
             for (int col = 0; col < colCount; col++) {
                 int width = colWidthArray[col];
                 if (row == 0) {
@@ -62,7 +62,7 @@ public class MarkdownTable extends AbstractTable implements Drawable {
                     currentCol += width + 1;
                     canvas.moveTo(row, currentCol);
                 }
-                canvas.drawPixel(BoxDrawing.LIGHT_VERTICAL);
+                canvas.drawPixel(Box.VERTICAL);
             }
         }
 
@@ -71,6 +71,6 @@ public class MarkdownTable extends AbstractTable implements Drawable {
 
     public String getCellValue(int row, int col) {
         String item = matrix[row][col];
-        return item == null ? BoxDrawing.SPACE.val : item;
+        return item == null ? Box.SPACE.val : item;
     }
 }

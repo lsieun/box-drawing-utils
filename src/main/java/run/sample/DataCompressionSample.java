@@ -34,23 +34,35 @@ public class DataCompressionSample {
         Tree tree = Tree.valueOf("deflate");
 
         Tree child1 = Tree.valueOf("block 1");
-        Tree child2 = Tree.valueOf("block m");
-        Tree child3 = Tree.valueOf("block n");
+        Tree child2 = Tree.valueOf("block 2");
+        Tree child3 = Tree.valueOf("block 3");
+        Tree childm = Tree.valueOf("block m");
+        Tree childn = Tree.valueOf("block n");
         tree.addChild(child1);
         tree.addChild(child2);
         tree.addChild(child3);
+        tree.addChild(childm);
+        tree.addChild(childn);
 
-        Tree child21 = Tree.valueOf("Huffman code tree 1: literals + lengths");
-        Tree child22 = Tree.valueOf("Huffman code tree 2: distances");
-        Tree child23 = Tree.valueOf("compressed data");
+        Tree child21 = Tree.valueOf("LZ77 algorithm");
+        Tree child22 = Tree.valueOf("Huffman coding");
         child2.addChild(child21);
         child2.addChild(child22);
-        child2.addChild(child23);
+
+        Tree childm1 = Tree.valueOf("a pair of Huffman code trees");
+        Tree childm2 = Tree.valueOf("a compressed data");
+        childm.addChild(childm1);
+        childm.addChild(childm2);
+
+        Tree childm11 = Tree.valueOf("literals + lengths");
+        Tree childm12 = Tree.valueOf("distances");
+        childm1.addChild(childm11);
+        childm1.addChild(childm12);
 
         Tree child231 = Tree.valueOf("literal bytes");
-        Tree child232 = Tree.valueOf("pointers to duplicated strings: <length, backward distance>");
-        child23.addChild(child231);
-        child23.addChild(child232);
+        Tree child232 = Tree.valueOf("pointers: <length, backward distance>");
+        childm2.addChild(child231);
+        childm2.addChild(child232);
 
         return tree;
     }

@@ -27,7 +27,7 @@ public class BinaryTree implements Drawable {
     public BinaryTree leftChild;
     public BinaryTree rightChild;
 
-    private BinaryTree(String name) {
+    protected BinaryTree(String name) {
         this.name = name;
     }
 

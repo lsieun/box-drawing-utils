@@ -1,6 +1,6 @@
 package lsieun.drawing.theme.tree;
 
-import lsieun.drawing.canvas.BoxDrawing;
+import lsieun.drawing.canvas.Box;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.canvas.TextDirection;
@@ -68,15 +68,15 @@ public class Tree implements Drawable {
 
             for (int i = 0; i < size; i++) {
                 TreeTextGraph child = children.get(i);
-                BoxDrawing ch;
+                Box ch;
                 if (i == 0) {
-                    ch = BoxDrawing.LIGHT_DOWN_AND_RIGHT;
+                    ch = Box.DOWN_AND_RIGHT;
                 }
                 else if (i == size - 1) {
-                    ch = BoxDrawing.LIGHT_UP_AND_RIGHT;
+                    ch = Box.UP_AND_RIGHT;
                 }
                 else {
-                    ch = BoxDrawing.LIGHT_VERTICAL_AND_RIGHT;
+                    ch = Box.VERTICAL_AND_RIGHT;
                 }
 
                 canvas.moveTo(child.row, midCol);

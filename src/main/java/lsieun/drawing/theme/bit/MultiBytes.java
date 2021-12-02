@@ -1,6 +1,6 @@
 package lsieun.drawing.theme.bit;
 
-import lsieun.drawing.canvas.BoxDrawing;
+import lsieun.drawing.canvas.Box;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 
@@ -47,7 +47,7 @@ public class MultiBytes implements Drawable {
             }
 
             canvas.moveTo(row + 1, col);
-            canvas.drawPixel(BoxDrawing.LIGHT_VERTICAL);
+            canvas.drawPixel(Box.VERTICAL);
             canvas.right(1);
             canvas.drawText(text);
 
@@ -64,7 +64,7 @@ public class MultiBytes implements Drawable {
         canvas.moveTo(row, col);
         canvas.drawPixel(PLUS);
         canvas.moveTo(row + 1, col);
-        canvas.drawPixel(BoxDrawing.LIGHT_VERTICAL);
+        canvas.drawPixel(Box.VERTICAL);
         canvas.moveTo(row + 2, col);
         canvas.drawPixel(PLUS);
 
