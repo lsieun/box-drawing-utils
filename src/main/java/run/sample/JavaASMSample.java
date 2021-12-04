@@ -9,7 +9,7 @@ import lsieun.drawing.theme.tree.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ASMSample {
+public class JavaASMSample {
     public static OneLineTable getOneLineTable() {
         String[][] matrix = {
                 {"0", "Interpreter", "Value", "Range"},

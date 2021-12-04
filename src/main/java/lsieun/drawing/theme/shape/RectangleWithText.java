@@ -4,6 +4,7 @@ import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.canvas.TextAlign;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RectangleWithText extends Rectangle implements Drawable {
@@ -60,5 +61,11 @@ public class RectangleWithText extends Rectangle implements Drawable {
             }
         }
 
+    }
+
+    public static RectangleWithText valueOf(int width, int height, String text, TextAlign align) {
+        List<String> list = new ArrayList<>();
+        list.add(text);
+        return new RectangleWithText(width, height, list, align);
     }
 }

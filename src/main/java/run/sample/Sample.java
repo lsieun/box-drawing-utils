@@ -16,6 +16,7 @@ import lsieun.drawing.theme.tree.BinaryTree;
 import lsieun.drawing.theme.tree.DirectoryTree;
 import lsieun.drawing.theme.tree.HuffmanTree;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -189,4 +190,34 @@ public class Sample {
         return new RectangleWithText(50, 3, lines, TextAlign.CENTER);
     }
 
+
+    public static DirectoryTree readDirectory() {
+        String filepath = "D:\\tmp\\myAgent\\java-agent-manual-01";
+        File file = new File(filepath);
+        String name = file.getName();
+
+        DirectoryTree root = DirectoryTree.valueOf(name);
+        readDirectory(file, root);
+
+        return root;
+    }
+
+    public static void readDirectory(File file, DirectoryTree tree) {
+        if (!file.exists() || !file.isDirectory()) {
+            return;
+        }
+
+        File[] files = file.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                String name = f.getName();
+                DirectoryTree child = DirectoryTree.valueOf(name);
+                tree.add(child);
+
+                if (f.isDirectory()) {
+                    readDirectory(f, child);
+                }
+            }
+        }
+    }
 }
