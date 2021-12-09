@@ -93,4 +93,39 @@ public class Tree implements Drawable {
     public static Tree valueOf(String line) {
         return new Tree(line);
     }
+
+    public static List<Tree> parseLines(List<String> lines) {
+        List<Tree> list = new ArrayList<>();
+
+        Tree currentTree = null;
+        for (String line : lines) {
+            if (line == null) continue;
+            int index = line.indexOf("-");
+            if (index < 0) continue;
+
+            String name = line.substring(index + 1).trim();
+
+            if (index == 0) {
+                Tree tree = Tree.valueOf(name);
+                list.add(tree);
+                currentTree = tree;
+            }
+            else {
+                addItem2Tree(currentTree, index, name);
+            }
+        }
+
+        return list;
+    }
+
+    public static void addItem2Tree(Tree root, int level, String name) {
+        Tree tree = root;
+        for (int i = 1; i < level; i++) {
+            int size = tree.children.size();
+            tree = tree.children.get(size - 1);
+        }
+
+        Tree newChild = Tree.valueOf(name);
+        tree.addChild(newChild);
+    }
 }

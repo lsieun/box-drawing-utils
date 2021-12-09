@@ -1,0 +1,61 @@
+- ObjectWeb ASM
+ - Core API
+  - asm.jar
+   - ClassReader
+   - ClassVisitor
+    - FieldVisitor
+    - MethodVisitor
+     - Label
+     - frame
+   - ClassWriter
+    - FieldWriter
+    - MethodWriter
+  - asm-util.jar
+  - asm-commons.jar
+ - Tree API
+  - asm-tree.jar
+  - asm-analysis.jar
+
+
+- What ASM Can Do
+ - analysis
+  - find potential bugs
+  - detect unused code
+  - reverse engineer code
+ - generation
+ - transformation
+  - optimize programs
+  - obfuscate programs
+  - insert performance monitoring code
+
+
+- ClassVisitor
+ - visit()
+ - visitField()
+ - visitMethod()
+ - visitEnd()
+
+
+- MethodVisitor
+ - visitCode()
+ - visitXxxInsn()
+  - visitXxxInsn()
+  - visitLabel()
+  - visitFrame()
+  - visitTryCatchBlock()
+ - visitMaxs()
+ - visitEnd()
+
+
+- ASM Transformation
+ - stateless transformations
+ - stateful transformations
+  - state machine
+   - a finite number of states
+   - current state
+   - state transitions
+  - examples
+   - iconst_0 iadd
+   - aload_0 aload_0 getfield putfield
+   - getstatic ldc invokevirtual
+

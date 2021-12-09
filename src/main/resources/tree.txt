@@ -1,0 +1,41 @@
+
+- ClassLoader
+ - loadClass
+  - findClass
+   - defineClass --> ClassFileTransformer.transform
+  - resolveClass
+
+- Agent.jar
+ - META-INF/MANIFEST.MF
+ - Agent Class
+  - premain(String agentArgs, Instrumentation inst)
+  - agentmain(String agentArgs, Instrumentation inst)
+ - ClassFileTransformer
+
+- java.lang.instrument
+ - ClassDefinition (类)
+ - ClassFileTransformer (接口)
+ - Instrumentation (接口)
+ - IllegalClassFormatException (异常)
+ - UnmodifiableClassException (异常)
+
+
+- Instrumentation
+ - void addTransformer(ClassFileTransformer transformer, boolean canRetransform)
+ - boolean removeTransformer(ClassFileTransformer transformer)
+
+- class state
+ - loading
+  - define: ClassLoader.defineClass
+  - transform
+ - loaded
+  - redefine: Instrumentation.redefineClasses
+  - retransform: Instrumentation.retransformClasses
+
+- Load-Time Instrumentation
+ - Command-Line
+  - -javaagent:jarpath
+  - -javaagent:jarpath=options
+ - Agent.jar
+  - MANIFEST.MF - Premain-Class: lsieun.agent.LoadTimeAgent
+  - Agent Class - premain(String agentArgs, Instrumentation inst)

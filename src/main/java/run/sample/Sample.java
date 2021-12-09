@@ -15,10 +15,16 @@ import lsieun.drawing.theme.text.PlainTextWithBorder;
 import lsieun.drawing.theme.tree.BinaryTree;
 import lsieun.drawing.theme.tree.DirectoryTree;
 import lsieun.drawing.theme.tree.HuffmanTree;
+import lsieun.drawing.theme.tree.Tree;
+import lsieun.drawing.utils.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class Sample {
     public static PlainText getPlainText() {
@@ -72,25 +78,6 @@ public class Sample {
                 {"2001", "SHA512", "512"},
         };
         return new MarkdownTable(matrix);
-    }
-
-    public static OneLineTable getOneLineTableOfMorseCode() {
-        String[][] matrix = {
-                {"A", "• −", "N", "− •"},
-                {"B", "− • • •", "O", "− − −"},
-                {"C", "− • − •", "P", "• − − •"},
-                {"D", "− • •", "Q", "− − • −"},
-                {"E", "•", "R", "• − •"},
-                {"F", "• • − •", "S", "• • •"},
-                {"G", "− − •", "T", "−"},
-                {"H", "• • • •", "U", "• • −"},
-                {"I", "• •", "V", "• • • −"},
-                {"J", "• − − −", "W", "• − −"},
-                {"K", "− • −", "X", "− • • −"},
-                {"L", "• − • •", "Y", "− • − −"},
-                {"M", "− −", "Z", "− − • •"},
-        };
-        return new OneLineTable(matrix, TextAlign.CENTER);
     }
 
     public static MultiBytes getByteFormat() {
@@ -192,7 +179,7 @@ public class Sample {
 
 
     public static DirectoryTree readDirectory() {
-        String filepath = "D:\\tmp\\myAgent\\java-agent-manual-01";
+        String filepath = "D:\\gitee\\java-agent-maven";
         File file = new File(filepath);
         String name = file.getName();
 
@@ -211,13 +198,107 @@ public class Sample {
         if (files != null) {
             for (File f : files) {
                 String name = f.getName();
+                if (name.startsWith(".")) continue;
+
                 DirectoryTree child = DirectoryTree.valueOf(name);
-                tree.add(child);
+
 
                 if (f.isDirectory()) {
                     readDirectory(f, child);
+
+                    // do not show empty folder
+                    if (child.children.size() > 0) {
+                        tree.add(child);
+                    }
+                }
+                else {
+                    tree.add(child);
                 }
             }
         }
+    }
+
+    public static DirectoryTree readJarFile() {
+        String filepath = "D:\\gitee\\java-agent-maven\\target\\TheAgent.jar";
+        File file = new File(filepath);
+        String name = file.getName();
+
+        DirectoryTree root = DirectoryTree.valueOf(name);
+        List<String> list = getAllEntries(filepath);
+        for (String item : list) {
+            if (item.endsWith("/")) continue;
+            DirectoryTree child = DirectoryTree.valueOf(item);
+            root.add(child);
+        }
+
+        return root;
+    }
+
+    public static List<String> getAllEntries(String filePath) {
+        List<String> list = new ArrayList<>();
+        try {
+            JarFile jarFile = new JarFile(filePath);
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                list.add(entry.getName());
+            }
+            jarFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static Tree readTree() {
+        String filepath = FileUtils.getFilePath("tree-of-java-asm.txt");
+        List<String> lines = FileUtils.readLines(filepath);
+        List<Tree> list = Tree.parseLines(lines);
+
+        for (Tree tree : list) {
+            String str = tree.line;
+            if (str == null) continue;
+            if (str.startsWith("What ASM Can Do")) {
+                return tree;
+            }
+        }
+        return list.get(0);
+    }
+
+    public static OneLineTable readOneLineTable() {
+        String filepath = FileUtils.getFilePath("table.txt");
+        List<String> lines = FileUtils.readLines(filepath);
+
+        String name = "Morse-Code";
+        boolean flag = false;
+        List<String> list = new ArrayList<>();
+        for (String line : lines) {
+            if (line == null) continue;
+            line = line.trim();
+            if ("".equals(line)) continue;
+            if (line.startsWith("#")) {
+                line = line.substring(1).trim();
+                flag = line.startsWith(name);
+                continue;
+            }
+
+            if (flag) {
+                list.add(line);
+            }
+        }
+
+        int row = list.size();
+        int col = list.get(0).split(",").length;
+
+        String[][] matrix = new String[row][col];
+        for (int i = 0; i < row; i++) {
+            String line = list.get(i);
+            String[] array = line.split(",");
+            for (int j = 0; j < col; j++) {
+                String item = array[j].trim();
+                matrix[i][j] = item;
+            }
+        }
+        return new OneLineTable(matrix, TextAlign.CENTER);
     }
 }

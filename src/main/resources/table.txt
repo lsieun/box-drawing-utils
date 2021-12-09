@@ -1,0 +1,27 @@
+# Java-ASM-Interpreter-Value
+0, Interpreter, Value, Range
+1, BasicInterpreter, BasicValue, 7
+2, BasicVerifier, BasicValue, 7
+3, SimpleVerifier, BasicValue, N
+4, SourceInterpreter, SourceValue, N
+
+# Java-ASM-ClassWriter-flags
+flags, max stacks and max locals, stack map frames
+0, NO, NO
+COMPUTE_MAXS, YES, NO
+COMPUTE_FRAMES, YES, YES
+
+# Morse-Code
+A, • −, N, − •
+B, − • • •, O, − − −
+C, − • − •, P, • − − •
+D, − • •, Q, − − • −
+E, •, R, • − •
+F, • • − •, S, • • •
+G, − − •, T, −
+H, • • • •, U, • • −
+I, • •, V, • • • −
+J, • − − −, W, • − −
+K, − • −, X, − • • −
+L, • − • •, Y, − • − −
+M, − −, Z, − − • •

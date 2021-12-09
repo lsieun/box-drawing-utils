@@ -3,22 +3,23 @@ package run.sample;
 import lsieun.drawing.canvas.Box;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.TextAlign;
+import lsieun.drawing.canvas.TextDirection;
 import lsieun.drawing.theme.shape.RectangleWithText;
+import lsieun.drawing.theme.text.PlainTextWithNote;
 import lsieun.drawing.theme.tree.Tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JavaAgentSample {
+    public static PlainTextWithNote getPlainTextWithNote() {
+        List<String> lines = new ArrayList<>();
+        lines.add("$ jar -cvmf manifest.mf TheAgent.jar lsieun/");
 
-    public static Tree getTreeOfJavaAgentJar() {
-        Tree root = Tree.valueOf("TheAgent.jar");
-
-        Tree child1 = Tree.valueOf("META-INF/MANIFEST.MF");
-        Tree child2 = Tree.valueOf("Agent Class: LoadTimeAgent.class");
-        Tree child3 = Tree.valueOf("ClassFileTransformer: SimpleClassFileTransformer.class");
-        root.addChild(child1);
-        root.addChild(child2);
-        root.addChild(child3);
-
-        return root;
+        PlainTextWithNote text = new PlainTextWithNote(lines);
+        text.addNote(0, 10, 18, TextDirection.UP, 1, "f: TheAgent.jar");
+        text.addNote(0, 9, 8, TextDirection.DOWN, 1, "m: manifest.mf");
+        return text;
     }
 
     public static void main(String[] args) {
