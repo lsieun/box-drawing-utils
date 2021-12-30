@@ -22,6 +22,21 @@ class TreeTextGraphUtils {
         updateCol(graph);
 
         // 2. update row again
+//        updateRowAgain(graph);
+    }
+
+    public static List<TreeTextGraph> getList(TreeTextGraph graph) {
+        List<TreeTextGraph> list = new ArrayList<>();
+        list.add(graph);
+        for (int i = 0; i < list.size(); i++) {
+            TreeTextGraph item = list.get(i);
+            List<TreeTextGraph> children = item.children;
+            list.addAll(children);
+        }
+        return list;
+    }
+
+    public static void updateRowAgain(TreeTextGraph graph) {
         List<TreeTextGraph> list = getList(graph);
         for (int i = list.size() - 1; i >= 0; i--) {
             TreeTextGraph item = list.get(i);
@@ -44,17 +59,6 @@ class TreeTextGraphUtils {
                 item.row = sum / 2;
             }
         }
-    }
-
-    public static List<TreeTextGraph> getList(TreeTextGraph graph) {
-        List<TreeTextGraph> list = new ArrayList<>();
-        list.add(graph);
-        for (int i = 0; i < list.size(); i++) {
-            TreeTextGraph item = list.get(i);
-            List<TreeTextGraph> children = item.children;
-            list.addAll(children);
-        }
-        return list;
     }
 
     public static void addRow(TreeTextGraph graph, int row) {

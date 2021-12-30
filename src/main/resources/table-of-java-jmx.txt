@@ -1,0 +1,9 @@
+# management interfaces
+Management Interface, ObjectName
+ClassLoadingMXBean, java.lang:type=ClassLoading
+MemoryMXBean, java.lang:type=Memory
+ThreadMXBean, java.lang:type=Threading
+RuntimeMXBean, java.lang:type=Runtime
+OperatingSystemMXBean, java.lang:type=OperatingSystem
+PlatformLoggingMXBean, java.util.logging:type=Logging
+

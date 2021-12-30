@@ -1,0 +1,39 @@
+- JMX Architecture
+ - Instrumentation
+  - resource
+   - applications
+   - devices
+   - services
+  - Managed Bean
+   - standard MBean
+    - SmartBoyMBean
+    - StupidBoyMBean
+   - dynamic MBean
+   - MXBean
+    - MemoryMXBean
+    - RuntimeMXBean
+    - ThreadMXBean
+ - JMX Agent
+  - MBean Server
+   - MBeans within the same Java VM
+   - MBeans outside the same Java VM
+  - Agent Services
+   - Dynamic class loading
+   - Monitors
+   - Timers
+   - relation service
+ - Remote Management
+  - Protocol Adaptors and Connectors
+   - Connectors
+    - JMXServiceURL
+    - JMXConnectorServer
+    - JMXConnector
+    - MBeanServerConnection
+   - Protocol Adaptors
+  - JMX Remote API
+  - Java RMI
+
+
+- Monitoring and Management of JVM
+ - Platform MBean Server
+ - Platform MXBeans

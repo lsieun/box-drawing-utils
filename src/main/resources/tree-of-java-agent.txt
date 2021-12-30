@@ -1,0 +1,48 @@
+
+- VirtualMachine
+ - 1. Get VM
+  - VirtualMachine.attach(String id)
+  - VirtualMachine.attach(VirtualMachineDescriptor vmd)
+ - 2. Use VM
+  - Load Agent
+   - VirtualMachine.loadAgent(String agent)
+   - VirtualMachine.loadAgent(String agent, String options)
+  - read system properties
+   - VirtualMachine.getAgentProperties()
+   - VirtualMachine.getSystemProperties()
+ - 3. detach VM
+  - VirtualMachine.detach()
+
+- Instrumentation
+ - ability
+  - isRedefineClassesSupported()
+  - isRetransformClassesSupported()
+  - isNativeMethodPrefixSupported()
+ - transformer
+  - addTransformer()
+  - removeTransformer()
+ - target
+  - classloader
+   - appendToBootstrapClassLoaderSearch()
+   - appendToSystemClassLoaderSearch()
+  - class
+   - status
+    - loading
+     - transform
+    - loaded
+     - get
+      - getAllLoadedClasses()
+      - getInitiatedClasses()
+     - modifiable
+      - isModifiableClass()
+      - redefineClasses()
+      - retransformClasses()
+   - native method
+    - isNativeMethodPrefixSupported()
+    - setNativeMethodPrefix()
+  - object
+   - getObjectSize()
+  - module
+   - isModifiableModule()
+   - redefineModule()
+

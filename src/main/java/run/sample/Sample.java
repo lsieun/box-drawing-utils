@@ -266,10 +266,24 @@ public class Sample {
     }
 
     public static OneLineTable readOneLineTable() {
-        String filepath = FileUtils.getFilePath("table.txt");
+        String[][] matrix = readMatrix();
+        return new OneLineTable(matrix, TextAlign.CENTER);
+    }
+
+    public static MarkdownTable readMarkdownTable() {
+        String[][] matrix = readMatrix();
+        return new MarkdownTable(matrix);
+    }
+
+    public static String[][] readMatrix() {
+        return readMatrix("table-of-java-jmx.txt", "management interfaces", ",");
+    }
+
+    public static String[][] readMatrix(final String filename, final String title, final String cellSeparator) {
+        String filepath = FileUtils.getFilePath(filename);
         List<String> lines = FileUtils.readLines(filepath);
 
-        String name = "Morse-Code";
+        String name = title;
         boolean flag = false;
         List<String> list = new ArrayList<>();
         for (String line : lines) {
@@ -288,17 +302,17 @@ public class Sample {
         }
 
         int row = list.size();
-        int col = list.get(0).split(",").length;
+        int col = list.get(0).split(cellSeparator).length;
 
         String[][] matrix = new String[row][col];
         for (int i = 0; i < row; i++) {
             String line = list.get(i);
-            String[] array = line.split(",");
+            String[] array = line.split(cellSeparator);
             for (int j = 0; j < col; j++) {
                 String item = array[j].trim();
                 matrix[i][j] = item;
             }
         }
-        return new OneLineTable(matrix, TextAlign.CENTER);
+        return matrix;
     }
 }

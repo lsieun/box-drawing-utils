@@ -1,10 +1,12 @@
 package lsieun.drawing.theme.table;
 
-import lsieun.drawing.canvas.Box;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 
 public class MarkdownTable extends AbstractTable implements Drawable {
+    private static final String MARKDOWN_BORDER = "|";
+    private static final String MARKDOWN_SEPARATOR = "-";
+    private static final String SPACE = " ";
 
     private final String[][] matrix;
 
@@ -38,7 +40,7 @@ public class MarkdownTable extends AbstractTable implements Drawable {
         for (int row = 0; row < rowCount + 1; row++) {
             int currentCol = 0;
             canvas.moveTo(row, currentCol);
-            canvas.drawPixel(Box.VERTICAL);
+            canvas.drawPixel(MARKDOWN_BORDER);
             for (int col = 0; col < colCount; col++) {
                 int width = colWidthArray[col];
                 if (row == 0) {
@@ -51,7 +53,7 @@ public class MarkdownTable extends AbstractTable implements Drawable {
                 else if (row == 1) {
                     canvas.right(1);
                     for (int i = 0; i < width; i++) {
-                        canvas.drawPixel("-");
+                        canvas.drawPixel(MARKDOWN_SEPARATOR);
                         canvas.right(1);
                     }
                 }
@@ -62,7 +64,7 @@ public class MarkdownTable extends AbstractTable implements Drawable {
                     currentCol += width + 1;
                     canvas.moveTo(row, currentCol);
                 }
-                canvas.drawPixel(Box.VERTICAL);
+                canvas.drawPixel(MARKDOWN_BORDER);
             }
         }
 
@@ -71,6 +73,6 @@ public class MarkdownTable extends AbstractTable implements Drawable {
 
     public String getCellValue(int row, int col) {
         String item = matrix[row][col];
-        return item == null ? Box.SPACE.val : item;
+        return item == null ? SPACE : item;
     }
 }

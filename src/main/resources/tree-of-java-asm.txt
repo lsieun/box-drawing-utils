@@ -5,8 +5,8 @@
    - ClassVisitor
     - FieldVisitor
     - MethodVisitor
-     - Label
-     - frame
+     - visitLabel
+     - visitFrame
    - ClassWriter
     - FieldWriter
     - MethodWriter
@@ -39,10 +39,6 @@
 - MethodVisitor
  - visitCode()
  - visitXxxInsn()
-  - visitXxxInsn()
-  - visitLabel()
-  - visitFrame()
-  - visitTryCatchBlock()
  - visitMaxs()
  - visitEnd()
 
@@ -58,4 +54,53 @@
    - iconst_0 iadd
    - aload_0 aload_0 getfield putfield
    - getstatic ldc invokevirtual
+
+- method invocation
+ - static method
+  - invokestatic
+ - instance method
+  - invokevirtual (class)
+  - invokespecial (class)
+   - constructor
+   - private
+   - super
+  - invokeinterface (interface)
+ - dynamic method
+  - invokedynamic
+
+- Java: three basic control structures
+ - sequence
+ - selection (if, switch)
+ - looping (for, while)
+
+- Bytecode: control flow
+ - sequence
+ - jump
+  - selection (if, switch)
+  - looping (for, while)
+
+- AdviceAdapter
+ - onMethodEnter()
+ - onMethodExit()
+
+- ClassNode
+ - FieldNode
+ - MethodNode
+  - InsnList
+   - AbstractInsnNode
+    - FieldInsnNode
+    - IincInsnNode
+    - InsnNode
+    - IntInsnNode
+    - InvokeDynamicInsnNode
+    - JumpInsnNode
+    - LabelNode
+    - LdcInsnNode
+    - LookupSwitchInsnNode
+    - MethodInsnNode
+    - MultiANewArrayInsnNode
+    - TableSwitchInsnNode
+    - TypeInsnNode
+    - VarInsnNode
+  - TryCatchBlockNode
 
