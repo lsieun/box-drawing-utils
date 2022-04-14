@@ -5,10 +5,12 @@
    - devices
    - services
   - Managed Bean
-   - standard MBean
+   - Standard MBean
     - SmartBoyMBean
     - StupidBoyMBean
-   - dynamic MBean
+   - Dynamic MBean
+   - Open MBean
+   - Model MBean
    - MXBean
     - MemoryMXBean
     - RuntimeMXBean
@@ -33,7 +35,45 @@
   - JMX Remote API
   - Java RMI
 
+- JMX API
+ - MBean
+ - MBeanServer
+  - create
+   - MBeanServerFactory
+    - createMBeanServer()
+    - newMBeanServer()
+   - ManagementFactory
+    - getPlatformMBeanServer()
+  - release
+   - MBeanServerFactory
+    - releaseMBeanServer()
+  - bean
+   - registerMBean()
+   - unregisterMBean()
 
 - Monitoring and Management of JVM
  - Platform MBean Server
  - Platform MXBeans
+
+- Monitoring and Management Features
+ - Java Virtual Machine Instrumentation
+  - Platform MBean Server
+  - Platform MXBeans
+ - Monitoring and Management API
+  - java.lang.management
+   - Java virtual machine
+   - underlying operating system
+  - Attach
+   - com.sun.tools.attach
+   - com.sun.tools.attach.spi
+  - JConsole
+   - com.sun.tools.jconsole
+ - Monitoring and Management Tools
+  - JConsole
+ - Java Management Extensions Technology
+  - MBeans
+  - MBean Server
+
+- MBeanServer.registerMBean()
+ - MBean
+ - ObjectName

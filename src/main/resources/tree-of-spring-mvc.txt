@@ -1,0 +1,122 @@
+
+- Spring MVC
+ - filter
+  - CharacterEncodingFilter
+  - HiddenHttpMethodFilter
+ - servlet
+  - DispatcherServlet
+   - interceptor
+   - controller
+    - request
+     - first-line
+      - @PathVariable
+     - header
+      - @CookieValue
+     - payload
+      - @RequestParam
+      - file upload
+       - CommonsMultipartResolver
+    - response
+     - first-line
+     - header
+     - payload
+      - view
+       - Thymeleaf: ThymeleafViewResolver
+       - JSP
+      - JSON
+      - XML
+      - file download
+    - exception
+     - DefaultHandlerExceptionResolver
+     - SimpleMappingExceptionResolver
+  - default-servlet-handler
+  - annotation-driven
+
+- @RequestMapping
+ - method
+  - GET
+  - POST
+  - PUT
+  - DELETE
+ - value/path
+  - plain
+  - ant
+   - ?: except '?','/'
+   - *
+   - **
+  - placeholder
+ - params
+  - existence
+   - params = {"username"}
+   - params = {"!username"}
+  - equal
+   - params = {"username=admin"}
+   - params = {"username!=admin"}
+ - headers
+
+- Request Data
+ - Servlet API
+ - Annotation
+  - @RequestParam
+  - @RequestHeader
+  - @CookieValue
+ - POJO
+
+- Share Data
+ - Request
+  - HttpServerRequest
+  - ModelAndView: data + html
+  - Model       : data
+  - Map         : data
+  - ModelMap    : data
+ - Session
+ - Application
+
+- BindingAwareModelMap
+ - ExtendedModelMap(c)
+  - ModelMap(c)
+   - LinkedHashMap(c)
+    - HashMap(c)
+    - Map(i)
+  - Model(i)
+
+- @RestController
+ - @Controller
+ - @ResponseBody
+
+- ApplicationContext
+ - WebApplicationContext
+
+- DispatcherServlet
+ - FrameworkServlet
+  - HttpServletBean
+   - HttpServlet
+    - GenericServlet
+     - Servlet(i)
+     - ServletConfig(i)
+   - EnvironmentCapable(i)
+   - EnvironmentAware(i)
+  - ApplicationContextAware(i)
+
+
+- MultipartFile
+ - isEmpty()
+ - form
+  - getName()
+  - getContentType()
+ - file
+  - meta-info
+   - getOriginalFilename()
+   - getSize()
+  - content
+   - getBytes()
+   - getInputStream()
+   - getResource()
+ - auxiliary
+  - transferTo(File dest)
+  - transferTo(Path dest)
+
+
+
+
+

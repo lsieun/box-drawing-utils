@@ -147,11 +147,27 @@ class TreeTextGraphUtils {
 
         List<TreeTextGraph> children = graph.children;
         int size = children.size();
-        int minRow = children.get(0).row;
-        int maxRow = children.get(size - 1).row;
+        if (size == 0) {
+            return;
+        }
+        if (size == 1) {
+            graph.row = children.get(0).row;
+        }
+        else {
+            TreeTextGraph firstChild = children.get(0);
+            TreeTextGraph lastChild = children.get(size - 1);
+            int minRow = firstChild.row;
+            int maxRow = lastChild.row;
+            int sum = minRow + maxRow;
+            if (sum % 2 != 0) {
+                addRow(lastChild, 1);
+                sum += 1;
+            }
 
-        graph.row = (minRow + maxRow) / 2;
+            graph.row = sum / 2;
+        }
     }
+
 
     public static TreeTextGraph findTheTopMostLeaf(TreeTextGraph rootGraph) {
         TreeTextGraph targetGraph = rootGraph;

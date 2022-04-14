@@ -104,3 +104,10 @@
     - VarInsnNode
   - TryCatchBlockNode
 
+- Tree-Based Transformation
+ - ClassNode
+  - ClassTransformer
+  - Two Common Patterns
+ - MethodNode
+  - MethodTransformer
+  - Two Common Patterns

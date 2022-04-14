@@ -100,6 +100,12 @@ public class Tree implements Drawable {
         Tree currentTree = null;
         for (String line : lines) {
             if (line == null) continue;
+            // title
+            if (line.startsWith("#")) continue;
+            // code segment
+            if (line.startsWith("`")) continue;
+            // line separator
+            if (line.startsWith("---")) continue;
             int index = line.indexOf("-");
             if (index < 0) continue;
 
@@ -111,7 +117,7 @@ public class Tree implements Drawable {
                 currentTree = tree;
             }
             else {
-                addItem2Tree(currentTree, index, name);
+                addItem2Tree(currentTree, index / 4, name);
             }
         }
 

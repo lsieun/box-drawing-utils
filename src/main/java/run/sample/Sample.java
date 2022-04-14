@@ -17,6 +17,7 @@ import lsieun.drawing.theme.tree.DirectoryTree;
 import lsieun.drawing.theme.tree.HuffmanTree;
 import lsieun.drawing.theme.tree.Tree;
 import lsieun.drawing.utils.FileUtils;
+import run.PathManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -179,7 +180,7 @@ public class Sample {
 
 
     public static DirectoryTree readDirectory() {
-        String filepath = "D:\\gitee\\java-agent-maven";
+        String filepath = PathManager.getDirectory();
         File file = new File(filepath);
         String name = file.getName();
 
@@ -219,7 +220,7 @@ public class Sample {
     }
 
     public static DirectoryTree readJarFile() {
-        String filepath = "D:\\gitee\\java-agent-maven\\target\\TheAgent.jar";
+        String filepath = PathManager.getJarPath();
         File file = new File(filepath);
         String name = file.getName();
 
@@ -251,18 +252,38 @@ public class Sample {
     }
 
     public static Tree readTree() {
-        String filepath = FileUtils.getFilePath("tree-of-java-asm.txt");
+        String filepath = FileUtils.getFilePath(PathManager.getFileName());
         List<String> lines = FileUtils.readLines(filepath);
         List<Tree> list = Tree.parseLines(lines);
 
         for (Tree tree : list) {
             String str = tree.line;
             if (str == null) continue;
-            if (str.startsWith("What ASM Can Do")) {
+            if (str.startsWith(PathManager.getItem())) {
                 return tree;
             }
         }
         return list.get(0);
+    }
+
+    public static DirectoryTree readDirectoryTree() {
+        String filepath = FileUtils.getFilePath(PathManager.getFileName());
+        List<String> lines = FileUtils.readLines(filepath);
+        List<DirectoryTree> list = DirectoryTree.parseLines(lines);
+
+        DirectoryTree targetTree = list.get(0);
+
+        for (DirectoryTree tree : list) {
+            String str = tree.name;
+            if (str == null) continue;
+            if (str.startsWith(PathManager.getItem())) {
+                targetTree = tree;
+                break;
+            }
+        }
+
+        // DirectoryTree.sort(targetTree);
+        return targetTree;
     }
 
     public static OneLineTable readOneLineTable() {
@@ -276,7 +297,7 @@ public class Sample {
     }
 
     public static String[][] readMatrix() {
-        return readMatrix("table-of-java-jmx.txt", "management interfaces", ",");
+        return readMatrix(PathManager.getFileName(), PathManager.getItem(), ",");
     }
 
     public static String[][] readMatrix(final String filename, final String title, final String cellSeparator) {

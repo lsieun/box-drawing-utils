@@ -66,3 +66,30 @@
  - getSystemResource(String name):URL
   - getBootstrapResource(name)
   - systemClassLoader.getResource(name)
+
+- Translation of Lambda Expressions
+ - compile-time
+  - lambda expression itself
+  - functional interface type
+ - runtime
+
+- invokedynamic
+ - the binary representation of lambda creation in the bytecode
+ - the mechanics of evaluating the lambda expression at runtime
+
+- invokedynamic call site
+ - static parameters
+  - lambda body
+  - lambda descriptor
+ - dynamic parameters
+  - captured values
+
+- JEP
+ - JSR
+  - Specification
+   - JLS
+   - JVM Specification
+   - Servlet Specification
+   - JSP Specification
+   - EJB Specification
+

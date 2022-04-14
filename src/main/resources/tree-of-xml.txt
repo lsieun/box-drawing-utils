@@ -1,0 +1,189 @@
+
+- XML Processing
+ - Parsing
+ - Validation
+
+- XML document
+ - element (1)
+ - ...
+ - element
+  - tag
+   - start tag
+    - name: <company>
+    - attribute: <company name="Learn XML">
+   - end tag
+    - </company>
+  - text content
+  - nested elements
+ - ...
+ - element (N)
+
+- XML Element
+ - tag
+  - start tag
+   - name: <company>
+   - attribute: <company name="ABC">
+  - end tag
+   - </company>
+ - attribute
+  - name
+  - value
+ - content
+  - empty
+  - text content
+   - CDATA
+  - nested elements
+
+- XML Validation
+ - DTD
+  - type
+   - CDATA
+   - PCDATA
+ - Schema
+  - namespaces
+  - type
+   - primitive types
+   - simple types
+   - complex types
+
+- DTD Element
+ - ANY
+  - None-Empty
+   - Element
+    - order
+     - sequence (,)
+     - or       (|)
+    - occurrence
+     - *
+     - +
+     - ?
+   - Text
+    - PCDATA
+  - EMPTY
+
+- DTD Attribute
+ - type
+  - character
+   - CDATA
+  - list
+   - (en1|en2|..)
+  - id
+   - ID
+   - IDREF
+   - IDREFS
+  - token
+   - NMTOKEN
+   - NMTOKENS
+  - entity
+   - ENTITY
+   - ENTITIES
+  - notation
+   - NOTATION
+  - xml
+   - xml:
+ - value
+  - value
+  - #REQUIRED
+  - #IMPLIED
+  - #FIXED value
+
+- DTD1 Entity
+ - target
+  - general   (XML)
+  - parameter (DTD)
+ - source
+  - internal (DTD)
+  - external (file)
+ - content
+  - parsed   (text/xml)
+  - unparsed (binary)
+
+- DTD Entity
+ - general entity
+  - internal
+   - parsed
+  - external
+   - parsed
+   - unparsed
+ - parameter entity
+  - internal
+   - parsed
+  - external
+   - parsed
+
+
+- content model
+ - empty
+ - simple
+  - text nodes
+ - complex
+  - child elements
+ - mixed
+  - text nodes
+  - child elements
+
+
+
+- DocumentBuilderFactory
+ - factory
+  - newInstance()
+  - newInstance(String factoryClassName, ClassLoader classLoader)
+ - DocumentBuilder
+  - newDocumentBuilder()
+
+- InputSource
+ - publicId
+  - setPublicId(String publicId)
+  - getPublicId()
+ - systemId
+  - setSystemId(String systemId)
+  - getSystemId()
+ - byteStream
+  - setByteStream(InputStream byteStream)
+  - getByteStream()
+ - encoding
+  - setEncoding(String encoding)
+  - getEncoding()
+ - characterStream
+  - setCharacterStream(Reader characterStream)
+  - getCharacterStream()
+
+- XMLReader
+ - feature
+  - getFeature(String name)
+  - setFeature(String name, boolean value)
+ - property
+  - getProperty(String name)
+  - setProperty(String name, Object value)
+ - Event handlers
+  - handler
+   - ContentHandler
+   - DTDHandler
+   - ErrorHandler
+  - resolver
+   - EntityResolver
+ - Parsing
+  - parse(InputSource input)
+  - parse(String systemId)
+
+- ContentHandler
+ - locator
+  - setDocumentLocator(Locator locator)
+ - document
+  - startDocument()
+  - endDocument()
+ - namespace
+  - startPrefixMapping(String prefix, String uri)
+  - endPrefixMapping(String prefix)
+ - element
+  - startElement(String uri, String localName, String qName, Attributes atts)
+  - endElement(String uri, String localName, String qName)
+ - character
+  - characters(char ch[], int start, int length)
+ - whitespace
+  - ignorableWhitespace(char ch[], int start, int length)
+ - instruction
+  - processingInstruction(String target, String data)
+ - entity
+  - skippedEntity (String name)
+

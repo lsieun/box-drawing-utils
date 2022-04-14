@@ -71,7 +71,6 @@ public class DirectoryTree implements Drawable, Comparable<DirectoryTree> {
         List<DirectoryTree> children = tree.children;
         int size = children.size();
         if (size > 0) {
-            Collections.sort(children);
             DirectoryTree firstChild = children.get(0);
             drawTree(canvas, firstChild, row + 1, col + HORIZON_LENGTH + HORIZON_SPACE + 1);
         }
@@ -105,5 +104,51 @@ public class DirectoryTree implements Drawable, Comparable<DirectoryTree> {
 
     public static DirectoryTree valueOf(String name) {
         return new DirectoryTree(name);
+    }
+
+    public static void sort(DirectoryTree tree) {
+        if (tree == null) return;
+        List<DirectoryTree> children = tree.children;
+        if (children.size() == 0) return;
+
+        Collections.sort(children);
+        for (DirectoryTree child : children) {
+            sort(child);
+        }
+    }
+
+    public static List<DirectoryTree> parseLines(List<String> lines) {
+        List<DirectoryTree> list = new ArrayList<>();
+
+        DirectoryTree currentTree = null;
+        for (String line : lines) {
+            if (line == null) continue;
+            int index = line.indexOf("-");
+            if (index < 0) continue;
+
+            String name = line.substring(index + 1).trim();
+
+            if (index == 0) {
+                DirectoryTree tree = DirectoryTree.valueOf(name);
+                list.add(tree);
+                currentTree = tree;
+            }
+            else {
+                addItem2Tree(currentTree, index, name);
+            }
+        }
+
+        return list;
+    }
+
+    public static void addItem2Tree(DirectoryTree root, int level, String name) {
+        DirectoryTree tree = root;
+        for (int i = 1; i < level; i++) {
+            int size = tree.children.size();
+            tree = tree.children.get(size - 1);
+        }
+
+        DirectoryTree newChild = DirectoryTree.valueOf(name);
+        tree.add(newChild);
     }
 }

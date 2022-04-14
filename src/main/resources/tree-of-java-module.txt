@@ -1,0 +1,327 @@
+
+- module system
+ - module
+ - module path
+  - compilation module path
+  - upgrade module path
+  - system module path
+  - application module path
+ - observable modules
+  - named module
+   - system modules
+    - Java SE modules
+    - JDK modules
+   - application modules
+    - explicit module
+    - automatic module
+  - unnamed module
+ - module resolution
+  - root modules
+   - default set
+    - java.se
+    - java.*
+   - phase
+    - compile time: being compiled modules
+    - link time   : empty
+    - runtime     : application main module (`--module`)
+   - manual
+    - --add-modules <module>(,<module>)*
+   - initial module
+ - module graph
+ - module layer
+
+- module definition
+ - module artifact
+  - a modular JAR file
+  - a JMOD file
+ - exploded-module directory
+  - a compiled module definition
+  - a source module definition
+
+- module resolution
+ - state
+  - a compiled module definition
+  - a source module definition
+ - phase
+  - compile time
+  - runtime
+  - link time
+
+- Module System Option
+ - Module paths
+  - --module-source-path
+  - --upgrade-module-path
+  - --system
+  - --module-path
+ - Root modules
+  - --module
+  - --add-modules
+ - Limiting the observable modules
+  - --limit-modules
+ - Increasing readability
+  - --add-reads
+ - Breaking encapsulation
+  - --add-exports
+  - --add-opens
+ - Patching module content
+  - --patch-module
+
+- module types
+ - named module
+  - system module
+  - application module
+   - explicit module
+   - automatic module
+ - unnamed module
+
+- use cases
+ - named --> named
+  - reflection     : IllegalAccessException
+  - deep reflection: InaccessibleObjectException
+ - unnamed --> application named
+  - reflection     : IllegalAccessException
+  - deep reflection: InaccessibleObjectException
+ - unnamed --> platform
+  - reflection     : IllegalAccessException
+  - deep reflection: WARNING
+
+- Module
+ - Introspection
+  - getName()
+  - getDescriptor(): ModuleDescriptor
+ - Modify
+  - addReads()
+  - addExports()
+  - addOpens()
+  - addUses()
+ - Annotation
+
+- ModuleDescriptor
+ - basic
+  - name()
+  - modifiers()
+ - properties
+  - requires()
+  - exports()
+  - opens()
+  - uses()
+  - provides()
+ - isXxx
+  - isOpen()
+  - isAutomatic()
+ - extension
+  - mainClass()
+  - packages()
+
+- JPMS: key goals
+ - reliable configuration
+ - strong encapsulation
+  - readability
+  - visibility
+  - accessibility
+ - scalable Java platform
+
+- JPMS: classification
+ - named module
+ - automatic module
+ - unnamed module
+
+- JPMS: access control
+ - named module
+  - exported packages
+   - public   : OK
+   - protected: OK
+   - private  : NO
+  - non-exported packages
+ - automatic module
+ - unnamed module
+  - exports all of its packages
+
+- JPMS: step
+ - module declaration
+  - module-info.java
+
+- module declaration
+ - filename
+  - module-info.java
+ - content
+  - module name
+   - reverse-domain-name pattern
+   - com.example.www
+  - directive
+   - requires
+   - exports
+   - open, opens
+   - uses
+   - provides
+
+- module-info.java
+ - dependency
+  - requires
+  - requires transitive
+  - requires static
+ - public api
+  - exports
+  - exports-to
+ - reflective access
+  - open
+  - opens
+  - opens-to
+ - service provider
+  - uses
+  - provides
+
+- JPMS: loading class
+ - named module
+  - module path
+ - automatic module
+  - module path
+ - unnamed module
+  - classpath
+
+- module boundary
+ - package boundary
+  - type/class boundary
+   - member boundary
+
+- reflective
+ - compile time
+ - run time
+
+- module types
+ - observable
+  - platform modules
+   - base module
+  - application modules
+   - initial module: main method
+ - non-observable
+
+
+- Project Jigsaw
+ - JEPs
+  - JEP 200: The Modular JDK
+  - JEP 201: Modular Source Code
+  - JEP 220: Modular Run-Time Images
+  - JEP 260: Encapsulate Most Internal APIs
+  - JEP 261: Module System
+  - JEP 282: jlink: The Java Linker
+ - JSRs
+  - JSR 376: Java Platform Module System
+
+- Module Readability
+ - source : 'requires' directive in module-info.java
+ - compile: '--add-reads' option for javac/java
+ - runtime: reflection API
+
+- Reflection.verifyMemberAccess
+ - first
+  - currentClass == memberClass: true
+ - ModuleAccess
+  - same module
+   - goto MemberAccess
+  - not same module
+   - exported package    : goto MemberAccess
+   - not exported package: false
+ - MemberAccess
+  - non-public class
+   - not same package: false
+  - public class
+   - public member: true
+   - private member
+    - two nested class: true
+   - protected member:
+    - isSubclassOf(currentClass, memberClass) ? goto protected instance member
+   - non-private
+    - same package: goto protected instance member
+   - protected instance members
+
+- Reflection checkCanSetAccessible
+ - special
+  - callerModule == declaringModule: true
+  - callerModule == java.base      : true
+  - declaringModule == UNNAMED     : true
+ - export
+  - exported package
+   - public class
+    - public member: true
+    - protected member & static & subclass: true
+   - non-public class
+  - non-exported package
+ - open
+  - opened package: true
+  - non-opened package
+
+- Reflection: Shallow
+ - same module
+  - same package
+   - same class: true
+   - not same class
+  - not same package
+   - public class
+   - non-public class: false
+ - diff module
+  - export
+   - exported package
+   - not exported package: false
+  - open
+   - opened
+   - not opened
+
+- Reflection: Deep
+
+- Reflection Case
+ - export
+  - public class
+   - public method
+    - OK
+   - private method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+  - non-public class
+   - public method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+   - private method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+ - open
+  - public class
+   - public method
+    - OK
+   - private method
+    - shallow: IllegalAccessException
+    - deep: OK
+  - non-public class
+   - public method
+    - shallow: IllegalAccessException
+    - deep: OK
+   - private method
+    - shallow: IllegalAccessException
+    - deep: OK
+
+- Reflection Case
+ - internal
+  - public class
+   - public method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+   - private method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+  - non-public class
+   - public method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+   - private method
+    - shallow: IllegalAccessException
+    - deep: InaccessibleObjectException
+
+- Use Cases
+ - named module
+  - reflection: IllegalAccessException
+  - deep reflection: InaccessibleObjectException
+ - unnamed module
+  - reflection:
+  - deep reflection:
+
+

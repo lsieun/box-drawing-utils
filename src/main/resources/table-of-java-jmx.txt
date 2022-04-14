@@ -7,3 +7,15 @@ RuntimeMXBean, java.lang:type=Runtime
 OperatingSystemMXBean, java.lang:type=OperatingSystem
 PlatformLoggingMXBean, java.util.logging:type=Logging
 
+# Platform MXBeans
+Interface | Part of VM Managed | Object Name | Instances per VM
+ClassLoadingMXBean | Class loading system | java.lang:type=ClassLoading | One
+CompilationMXBean | Compilation system | java.lang:type=Compilation | Zero or one
+GarbageCollectorMXBean | Garbage collector | java.lang:type=GarbageCollector,name=collectorName | One or more
+LoggingMXBean | Logging system | java.util.logging:type=Logging | One
+MemoryManagerMXBean (subinterface of GarbageCollectorMXBean) | Memory pool | java.lang:type=MemoryManager,name=managerName | One or more
+MemoryPoolMXBean | Memory | java.lang:type=MemoryPool,name=poolName | One or more
+MemoryMXBean | Memory system | java.lang:type=Memory | One
+OperatingSystemMXBean | Underlying operating system | java.lang:type=OperatingSystem | One
+RuntimeMXBean | Runtime system | java.lang:type=Runtime | One
+ThreadMXBean | Thread system | java.lang:type=Threading | One
