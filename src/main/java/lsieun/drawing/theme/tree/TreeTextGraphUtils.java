@@ -159,10 +159,10 @@ class TreeTextGraphUtils {
             int minRow = firstChild.row;
             int maxRow = lastChild.row;
             int sum = minRow + maxRow;
-            if (sum % 2 != 0) {
-                addRow(lastChild, 1);
-                sum += 1;
-            }
+//            if (sum % 2 != 0) {
+//                addRow(lastChild, 1);
+//                sum += 1;
+//            }
 
             graph.row = sum / 2;
         }
