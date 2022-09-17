@@ -68,7 +68,7 @@
 
 ## javafx.scene
 
-- Node
+- 2Node
     - Parent
         - Region
             - Pane
@@ -84,6 +84,27 @@
         - Group
     - Shape
         - Text
+
+## javafx.scene.layout
+
+- layout
+    - static layout
+    - dynamic layout
+
+- Node
+    - Parent
+        - Group
+        - Region
+            - Pane
+                - HBox
+                - VBox
+                - BorderPane
+                - StackPane
+                - TextFlow
+                - AnchorPane
+                - TilePane
+                - GridPane
+                - FlowPane
 
 ## Properties And Bindings
 
