@@ -179,18 +179,18 @@ public class Sample {
     }
 
 
-    public static DirectoryTree readDirectory() {
+    public static DirectoryTree readDirectory(boolean includeEmptyDirectory) {
         String filepath = PathManager.getDirectory();
         File file = new File(filepath);
         String name = file.getName();
 
         DirectoryTree root = DirectoryTree.valueOf(name);
-        readDirectory(file, root);
+        readDirectory(file, root, includeEmptyDirectory);
 
         return root;
     }
 
-    public static void readDirectory(File file, DirectoryTree tree) {
+    public static void readDirectory(File file, DirectoryTree tree, boolean includeEmptyDirectory) {
         if (!file.exists() || !file.isDirectory()) {
             return;
         }
@@ -205,11 +205,16 @@ public class Sample {
 
 
                 if (f.isDirectory()) {
-                    readDirectory(f, child);
+                    readDirectory(f, child, includeEmptyDirectory);
 
                     // do not show empty folder
                     if (child.children.size() > 0) {
                         tree.add(child);
+                    }
+                    else {
+                        if (includeEmptyDirectory) {
+                            tree.add(child);
+                        }
                     }
                 }
                 else {
