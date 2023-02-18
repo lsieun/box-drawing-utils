@@ -1,0 +1,103 @@
+# Jackson
+
+- ObjectMapper
+
+- ConfigFeature
+    - MapperFeature
+        - USE_ANNOTATIONS(true)
+        - USE_GETTERS_AS_SETTERS(true)
+    - SerializationFeature
+    - DeserializationFeature
+        - Error handling features
+            - FAIL_ON_UNKNOWN_PROPERTIES(true)
+            - FAIL_ON_NULL_FOR_PRIMITIVES(false)
+            - FAIL_ON_NUMBERS_FOR_ENUMS(false)
+
+- Configuration settings
+    - shared
+    - mix-in annotations
+    - serialization
+    - deserialization
+- Module-related
+- Caching
+- Life-cycle
+    - constructing instance
+- ObjectReader/ObjectWriter
+- Versioned
+- Module registration
+- Factory methods for creating
+    - JsonGenerators
+    - JsonParsers
+- Configuration
+    - main config object access
+    - ser/deser factory, provider access
+    - mix-in annotations
+    - introspection
+    - global-default/per-type override settings
+    - basic type handling
+    - deserialization
+    - serialization
+    - other
+        - DateFormat
+        - TimeZone
+    - simple features:
+        - MapperFeature
+        - SerializationFeature
+        - DeserializationFeature
+        - DatatypeFeature
+        - JsonParser.Feature
+        - JsonGenerator.Feature
+        - JsonFactory.Feature
+- Subtype registration
+
+- Public API
+    - from ObjectCodec: deserialization (mapping from JSON to Java types)
+    - from ObjectCodec: serialization (mapping from Java types to Json)
+    - not included in ObjectCodec: deserialization (mapping from JSON to Java types)
+    - from TreeCodec via ObjectCodec: Tree Model support
+- Extended Public API
+    - accessors
+    - deserialization, convenience methods
+        - readValue
+    - serialization (mapping from Java types to JSON)
+        - writeValue
+        - writeValueAsString
+        - writeValueAsBytes
+    - constructing ObjectWriters for more advanced configuration
+    - constructing ObjectReaders for more advanced configuration
+    - convenience type conversion
+    - JSON Schema generation
+
+- TreeCodec
+    - TreeNode readTree(JsonParser p)
+    - void writeTree(JsonGenerator g, TreeNode tree)
+
+- TreeNode
+    - introspection
+        - asToken()
+        - numberType()
+        - size()
+        - isValueNode()
+        - isContainerNode()
+            - isArray()
+            - isObject()
+        - isMissingNode()
+    - traversal
+        - get
+            - get(String fieldName)
+            - get(int index)
+        - path
+            - path(String fieldName)
+            - path(int index)
+        - all
+            - fieldNames()
+        - at
+            - at(JsonPointer ptr)
+            - at(String jsonPointerExpression)
+    - convert
+        - traverse()
+        - traverse(ObjectCodec codec)
+
+- JsonGenerator
+  - 
+

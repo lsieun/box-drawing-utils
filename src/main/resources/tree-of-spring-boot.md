@@ -33,3 +33,40 @@
     - tomcat-embed-websocket
         - tomcat-embed-core
 
+- spring-boot-starter-test
+    - spring-test
+        - spring-core
+    - spring-boot-test
+        - spring-boot
+    - spring-boot-test-autoconfigure
+    - json-path
+    - assertj-core
+    - hamcrest
+    - junit-jupiter
+    - mockito-core
+    - mockito-junit-jupiter
+    - jsonassert
+    - xmlunit-core
+
+- RestOperations
+    - GET
+        - getForEntity
+        - getForObject
+    - HEAD
+        - headForHeaders
+    - POST
+        - postForLocation
+        - postForObject
+        - postForEntity
+    - PUT
+        - put
+    - PATCH
+        - patchForObject
+    - DELETE
+        - delete
+    - OPTIONS
+        - optionsForAllow
+    - exchange
+        - exchange
+    - General execution
+        - execute
