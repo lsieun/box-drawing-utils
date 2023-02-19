@@ -13,64 +13,195 @@
             - FAIL_ON_NULL_FOR_PRIMITIVES(false)
             - FAIL_ON_NUMBERS_FOR_ENUMS(false)
 
-- Configuration settings
-    - shared
-    - mix-in annotations
-    - serialization
-    - deserialization
-- Module-related
-- Caching
-- Life-cycle
-    - constructing instance
-- ObjectReader/ObjectWriter
-- Versioned
-- Module registration
-- Factory methods for creating
-    - JsonGenerators
-    - JsonParsers
-- Configuration
-    - main config object access
-    - ser/deser factory, provider access
-    - mix-in annotations
-    - introspection
-    - global-default/per-type override settings
-    - basic type handling
-    - deserialization
-    - serialization
-    - other
-        - DateFormat
-        - TimeZone
-    - simple features:
-        - MapperFeature
-        - SerializationFeature
-        - DeserializationFeature
-        - DatatypeFeature
-        - JsonParser.Feature
-        - JsonGenerator.Feature
-        - JsonFactory.Feature
-- Subtype registration
+## core
 
-- Public API
-    - from ObjectCodec: deserialization (mapping from JSON to Java types)
-    - from ObjectCodec: serialization (mapping from Java types to Json)
-    - not included in ObjectCodec: deserialization (mapping from JSON to Java types)
-    - from TreeCodec via ObjectCodec: Tree Model support
-- Extended Public API
-    - accessors
-    - deserialization, convenience methods
-        - readValue
-    - serialization (mapping from Java types to JSON)
-        - writeValue
-        - writeValueAsString
-        - writeValueAsBytes
-    - constructing ObjectWriters for more advanced configuration
-    - constructing ObjectReaders for more advanced configuration
-    - convenience type conversion
-    - JSON Schema generation
+### JsonFactory
+
+- JsonFactory
+    - reader
+        - JsonParser
+    - writer
+        - JsonGenerator
+
+
+- JsonFactory
+    - Parser
+        - blocking
+            - createParser(File f)
+            - createParser(URL url)
+            - createParser(InputStream in)
+            - createParser(Reader r)
+            - createParser(byte[] data)
+            - createParser(byte[] data, int offset, int len)
+            - createParser(String content)
+            - createParser(char[] content)
+            - createParser(char[] content, int offset, int len)
+            - createParser(DataInput in)
+        - non-blocking
+            - createNonBlockingByteArrayParser()
+            - createNonBlockingByteBufferParser()
+    - Generator
+        - createGenerator(OutputStream out, JsonEncoding enc)
+        - createGenerator(OutputStream out)
+        - createGenerator(Writer w)
+        - createGenerator(File f, JsonEncoding enc)
+        - createGenerator(DataOutput out, JsonEncoding enc)
+        - createGenerator(DataOutput out)
+
+### JsonGenerator
+
+- JsonGenerator
+    - write
+        - structural
+            - array
+                - writeStartArray()
+                - writeStartArray(Object forValue)
+                - writeStartArray(Object forValue, int size)
+                - writeEndArray()
+            - object
+                - writeStartObject()
+                - writeStartObject(Object forValue)
+                - writeStartObject(Object forValue, int size)
+                - writeEndObject()
+            - field
+                - writeFieldName(String name)
+                - writeFieldName(SerializableString name)
+                - writeFieldId(long id)
+        - array
+            - writeArray(int[] array, int offset, int length)
+            - writeArray(long[] array, int offset, int length)
+            - writeArray(double[] array, int offset, int length)
+            - writeArray(String[] array, int offset, int length)
+        - text
+            - writeString(String text)
+            - writeString(Reader reader, int len)
+            - writeString(char[] buffer, int offset, int len)
+            - writeString(SerializableString text)
+            - writeRawUTF8String(byte[] buffer, int offset, int len)
+            - writeUTF8String(byte[] buffer, int offset, int len)
+        - binary
+            - writeRaw(String text)
+            - writeRaw(String text, int offset, int len)
+            - writeRaw(char[] text, int offset, int len)
+            - writeRaw(char c)
+            - writeRaw(SerializableString raw)
+            - writeRawValue(String text)
+            - writeRawValue(String text, int offset, int len)
+            - writeRawValue(char[] text, int offset, int len)
+            - writeRawValue(SerializableString raw)
+            - writeBinary(Base64Variant bv, byte[] data, int offset, int len)
+            - writeBinary(byte[] data, int offset, int len)
+            - writeBinary(byte[] data)
+            - writeBinary(InputStream data, int dataLength)
+            - writeBinary(Base64Variant bv, InputStream data, int dataLength)
+        - numeric
+            - writeNumber(short v)
+            - writeNumber(int v)
+            - writeNumber(long v)
+            - writeNumber(BigInteger v)
+            - writeNumber(double v)
+            - writeNumber(float v)
+            - writeNumber(BigDecimal v)
+            - writeNumber(String encodedValue)
+            - writeNumber(char[] encodedValueBuffer, int offset, int len)
+        - other
+            - writeBoolean(boolean state)
+            - writeNull()
+            - writeEmbeddedObject(Object object)
+        - object
+            - writePOJO(Object pojo)
+            - writeObject(Object pojo)
+            - writeTree(TreeNode rootNode)
+    - convenience
+        - number
+            - writeNumberField(String fieldName, short value)
+            - writeNumberField(String fieldName, int value)
+            - writeNumberField(String fieldName, long value)
+            - writeNumberField(String fieldName, BigInteger value)
+            - writeNumberField(String fieldName, float value)
+            - writeNumberField(String fieldName, double value)
+            - writeNumberField(String fieldName, BigDecimal value)
+        - text
+            - writeStringField(String fieldName, String value)
+        - object
+            - writePOJOField(String fieldName, Object pojo)
+            - writeObjectField(String fieldName, Object pojo)
+        - collection
+            - writeArrayFieldStart(String fieldName)
+            - writeObjectFieldStart(String fieldName)
+        - other
+            - writeBinaryField(String fieldName, byte[] data)
+            - writeBooleanField(String fieldName, boolean value)
+            - writeNullField(String fieldName)
+            - writeOmittedField(String fieldName)
+
+### JsonParser
+
+- JsonParser
+    - Codec
+        - getCodec()
+        - setCodec(ObjectCodec oc)
+    - InputSource
+        - getInputSource()
+    - token
+        - text
+            - currentName()
+            - getText()
+            - getText(Writer writer)
+            - getTextCharacters()
+            - getTextLength()
+            - getTextOffset()
+            - hasTextCharacters()
+        - numeric
+            - getNumberValue()
+            - getNumberValueExact()
+            - getNumberType()
+            - getByteValue()
+            - getShortValue()
+            - getIntValue()
+            - getLongValue()
+            - getBigIntegerValue()
+            - getFloatValue()
+            - getDoubleValue()
+            - getDecimalValue()
+        - other
+            - getBooleanValue()
+            - getEmbeddedObject()
+        - binary
+            - getBinaryValue(Base64Variant bv)
+            - getBinaryValue()
+            - readBinaryValue(OutputStream out)
+            - readBinaryValue(Base64Variant bv, OutputStream out)
+
+### ObjectCodec
+
+- ObjectCodec
+    - de-serialization
+        - readValue(JsonParser p, Class<T> valueType)
+        - readValue(JsonParser p, TypeReference<T> valueTypeRef)
+        - readValue(JsonParser p, ResolvedType valueType)
+        - readValues(JsonParser p, Class<T> valueType)
+        - readValues(JsonParser p, TypeReference<T> valueTypeRef)
+        - readValues(JsonParser p, ResolvedType valueType)
+    - serialization
+        - writeValue(JsonGenerator gen, Object value)
+    - conversion
+        - treeToValue(TreeNode n, Class<T> valueType)
+    - basic accessor
+        - getFactory()
+
+### TreeCodec
 
 - TreeCodec
-    - TreeNode readTree(JsonParser p)
-    - void writeTree(JsonGenerator g, TreeNode tree)
+    - readTree(JsonParser p)
+    - writeTree(JsonGenerator g, TreeNode tree)
+    - missingNode()
+    - nullNode()
+    - createArrayNode()
+    - createObjectNode()
+    - treeAsTokens(TreeNode node)
+
+### TreeNode
 
 - TreeNode
     - introspection
@@ -98,6 +229,372 @@
         - traverse()
         - traverse(ObjectCodec codec)
 
-- JsonGenerator
-  - 
+## databind
+
+### JsonNode
+
+- JsonNode
+    - Public API
+        - type introspection
+            - getNodeType()
+            - isPojo()
+            - isNumber()
+            - isIntegralNumber()
+            - isFloatingPointNumber()
+            - isShort()
+            - isInt()
+            - isLong()
+            - isFloat()
+            - isDouble()
+            - isBigDecimal()
+            - isBigInteger()
+            - isTextual()
+            - isBoolean()
+            - isNull()
+            - isBinary()
+            - canConvertToInt()
+            - canConvertToLong()
+            - canConvertToExactIntegral()
+        - straight value access
+            - textValue()
+            - binaryValue()
+            - booleanValue()
+            - numberValue()
+            - shortValue()
+            - intValue()
+            - longValue()
+            - floatValue()
+            - doubleValue()
+            - decimalValue()
+            - bigIntegerValue()
+        - value access with conversion(s)
+            - asText()
+            - asText(String defaultValue)
+            - asInt()
+            - asInt(int defaultValue)
+            - asLong()
+            - asLong(long defaultValue)
+            - asDouble()
+            - asDouble(double defaultValue)
+            - asBoolean()
+            - asBoolean(boolean defaultValue)
+        - extended traversal
+            - require()
+            - requireNonNull()
+            - required(String propertyName)
+            - required(int index)
+            - requiredAt(String pathExpr)
+            - requiredAt(JsonPointer path)
+        - value find
+            - has(String fieldName)
+            - has(int index)
+            - hasNonNull(String fieldName)
+            - hasNonNull(int index)
+        - container access
+            - elements()
+            - fields()
+        - find methods
+            - findValue(String fieldName)
+            - findValues(String fieldName)
+            - findValuesAsText(String fieldName)
+            - findPath(String fieldName)
+            - findParent(String fieldName)
+            - findParents(String fieldName)
+            - findValues(String fieldName, List<JsonNode> foundSoFar)
+            - findValuesAsText(String fieldName, List<String> foundSoFar)
+            - findParents(String fieldName, List<JsonNode> foundSoFar)
+        - path handling
+            - withObject(String expr)
+            - withObject(String expr, OverwriteMode overwriteMode, boolean preferIndex)
+            - withObject(JsonPointer ptr)
+            - withObject(JsonPointer ptr, OverwriteMode overwriteMode, boolean preferIndex)
+            - withArray(String exprOrProperty)
+            - withArray(String expr, OverwriteMode overwriteMode, boolean preferIndex)
+            - withArray(JsonPointer ptr)
+            - withArray(JsonPointer ptr, OverwriteMode overwriteMode, boolean preferIndex)
+        - standard methods
+            - toPrettyString()
+
+- JsonNode
+    - BaseJsonNode
+        - ContainerNode
+            - ArrayNode
+            - ObjectNode
+        - ValueNode
+            - BooleanNode
+            - BinaryNode
+            - NumericNode
+            - TextNode
+            - POJONode
+            - NullNode
+            - MissingNode
+
+### ObjectMapper
+
+- ObjectMapper
+    - Module registration
+        - discovery
+            - registerModule(Module module)
+            - registerModules(Module... modules)
+            - registerModules(Iterable<? extends Module> modules)
+            - getRegisteredModuleIds()
+            - findModules()
+            - findModules(ClassLoader classLoader)
+            - findAndRegisterModules()
+    - Factory methods
+        - JsonGenerator
+            - createGenerator(OutputStream out)
+            - createGenerator(OutputStream out, JsonEncoding enc)
+            - createGenerator(Writer w)
+            - createGenerator(File outputFile, JsonEncoding enc)
+            - createGenerator(DataOutput out)
+        - JsonParser
+            - createParser(File src)
+            - createParser(URL src)
+            - createParser(InputStream in)
+            - createParser(Reader r)
+            - createParser(byte[] content)
+            - createParser(byte[] content, int offset, int len)
+            - createParser(String content)
+            - createParser(char[] content)
+            - createParser(char[] content, int offset, int len)
+            - createParser(DataInput content)
+            - createNonBlockingByteArrayParser()
+    - Configuration
+        - main config object
+            - getSerializationConfig()
+            - getDeserializationConfig()
+            - getDeserializationContext()
+        - ser/deser factory, provider access
+            - setSerializerFactory(SerializerFactory f)
+            - getSerializerFactory()
+            - setSerializerProvider(DefaultSerializerProvider p)
+            - getSerializerProvider()
+            - getSerializerProviderInstance()
+        - mix-in annotations
+            - setMixIns(Map<Class<?>, Class<?>> sourceMixins)
+            - addMixIn(Class<?> target, Class<?> mixinSource)
+            - setMixInResolver(ClassIntrospector.MixInResolver resolver)
+            - findMixInClassFor(Class<?> cls)
+            - mixInCount()
+        - introspection
+            - getVisibilityChecker()
+            - setVisibility(VisibilityChecker<?> vc)
+            - setVisibility(PropertyAccessor forMethod, JsonAutoDetect.Visibility visibility)
+            - getSubtypeResolver()
+            - setSubtypeResolver(SubtypeResolver str)
+            - setAnnotationIntrospector(AnnotationIntrospector ai)
+        - global-default/per-type override settings
+        - basic type handling
+            - getTypeFactory()
+            - setTypeFactory(TypeFactory f)
+            - constructType(Type t)
+            - constructType(TypeReference<?> typeRef)
+        - deserialization
+            - getNodeFactory()
+            - setNodeFactory(JsonNodeFactory f)
+            - setConstructorDetector(ConstructorDetector cd)
+            - addHandler(DeserializationProblemHandler h)
+            - clearProblemHandlers()
+            - setConfig(DeserializationConfig config)
+        - serialization
+            - setFilterProvider(FilterProvider filterProvider)
+            - setBase64Variant(Base64Variant v)
+            - setConfig(SerializationConfig config)
+        - other
+            - tokenStreamFactory()
+            - getFactory()
+            - setDateFormat(DateFormat dateFormat)
+            - getDateFormat()
+            - setTimeZone(TimeZone tz)
+        - simple features
+            - MapperFeature
+                - isEnabled(MapperFeature f)
+            - SerializationFeature
+                - isEnabled(SerializationFeature f)
+                - configure(SerializationFeature f, boolean state)
+                - enable(SerializationFeature f)
+                - enable(SerializationFeature first, SerializationFeature... f)
+                - disable(SerializationFeature f)
+                - disable(SerializationFeature first, SerializationFeature... f)
+            - DeserializationFeature
+                - isEnabled(DeserializationFeature f)
+                - configure(DeserializationFeature f, boolean state)
+                - enable(DeserializationFeature feature)
+                - enable(DeserializationFeature first, DeserializationFeature... f)
+                - disable(DeserializationFeature feature)
+                - disable(DeserializationFeature first, DeserializationFeature... f)
+            - DatatypeFeature
+                - configure(DatatypeFeature f, boolean state)
+            - JsonParser.Feature
+                - isEnabled(JsonParser.Feature f)
+                - configure(JsonParser.Feature f, boolean state)
+                - enable(JsonParser.Feature... features)
+                - disable(JsonParser.Feature... features)
+            - JsonGenerator.Feature
+                - isEnabled(JsonGenerator.Feature f)
+                - configure(JsonGenerator.Feature f, boolean state)
+                - enable(JsonGenerator.Feature... features)
+                - disable(JsonGenerator.Feature... features)
+            - JsonFactory.Feature
+                - isEnabled(JsonFactory.Feature f)
+            - stream
+                - isEnabled(StreamReadFeature f)
+                - isEnabled(StreamWriteFeature f)
+
+- ObjectMapper
+    - Public API
+        - deserialization
+            - JsonNode
+                - readTree(InputStream in)
+                - readTree(Reader r)
+                - readTree(String content)
+                - readTree(byte[] content)
+                - readTree(byte[] content, int offset, int len)
+                - readTree(File file)
+                - readTree(URL source)
+        - serialization
+            - writeTree(JsonGenerator g, JsonNode rootNode)
+        - conversion
+            - treeToValue(TreeNode n, JavaType valueType)
+            - valueToTree(Object fromValue)
+    - Extended Public API
+        - accessor
+            - canSerialize(Class<?> type)
+            - canSerialize(Class<?> type, AtomicReference<Throwable> cause)
+            - canDeserialize(JavaType type)
+            - canDeserialize(JavaType type, AtomicReference<Throwable> cause)
+        - deserialization
+            - file
+                - readValue(File src, Class<T> valueType)
+                - readValue(File src, TypeReference<T> valueTypeRef)
+                - readValue(File src, JavaType valueType)
+            - url
+                - readValue(URL src, Class<T> valueType)
+                - readValue(URL src, TypeReference<T> valueTypeRef)
+                - readValue(URL src, JavaType valueType)
+            - string
+                - readValue(String content, Class<T> valueType)
+                - readValue(String content, TypeReference<T> valueTypeRef)
+                - readValue(String content, JavaType valueType)
+            - reader
+                - readValue(Reader src, Class<T> valueType)
+                - readValue(Reader src, TypeReference<T> valueTypeRef)
+                - readValue(Reader src, JavaType valueType)
+            - InputStream
+                - readValue(InputStream src, Class<T> valueType)
+                - readValue(InputStream src, TypeReference<T> valueTypeRef)
+                - readValue(InputStream src, JavaType valueType)
+            - byte[]
+                - readValue(byte[] src, Class<T> valueType)
+                - readValue(byte[] src, int offset, int len, Class<T> valueType)
+                - readValue(byte[] src, TypeReference<T> valueTypeRef)
+                - readValue(byte[] src, int offset, int len, TypeReference<T> valueTypeRef)
+                - readValue(byte[] src, JavaType valueType)
+                - readValue(byte[] src, int offset, int len, JavaType valueType)
+            - DataInput
+                - readValue(DataInput src, Class<T> valueType)
+                - readValue(DataInput src, JavaType valueType)
+        - serialization
+            - void
+                - writeValue(File resultFile, Object value)
+                - writeValue(OutputStream out, Object value)
+                - writeValue(DataOutput out, Object value)
+                - writeValue(Writer w, Object value)
+            - String
+                - writeValueAsString(Object value)
+            - byte[]
+                - writeValueAsBytes(Object value)
+        - ObjectWriter
+            - writer()
+            - writer(SerializationFeature feature)
+            - writer(SerializationFeature first, SerializationFeature... other)
+            - writer(DateFormat df)
+            - writerWithView(Class<?> serializationView)
+            - writerFor(Class<?> rootType)
+            - writerFor(TypeReference<?> rootType)
+            - writerFor(JavaType rootType)
+            - writer(PrettyPrinter pp)
+            - writerWithDefaultPrettyPrinter()
+            - writer(FilterProvider filterProvider)
+            - writer(FormatSchema schema)
+            - writer(Base64Variant defaultBase64)
+            - writer(CharacterEscapes escapes)
+            - writer(ContextAttributes attrs)
+        - ObjectReader
+            - reader()
+            - reader(DeserializationFeature feature)
+            - reader(DeserializationFeature first, DeserializationFeature... other)
+            - readerForUpdating(Object valueToUpdate)
+            - readerFor(JavaType type)
+            - readerFor(Class<?> type)
+            - readerFor(TypeReference<?> typeRef)
+            - readerForArrayOf(Class<?> type)
+            - readerForListOf(Class<?> type)
+            - readerForMapOf(Class<?> type)
+            - reader(JsonNodeFactory nodeFactory)
+            - reader(FormatSchema schema)
+            - reader(InjectableValues injectableValues)
+            - readerWithView(Class<?> view)
+            - reader(Base64Variant defaultBase64)
+            - reader(ContextAttributes attrs)
+        - conversion
+            - convertValue(Object fromValue, Class<T> toValueType)
+            - convertValue(Object fromValue, TypeReference<T> toValueTypeRef)
+            - convertValue(Object fromValue, JavaType toValueType)
+            - updateValue(T valueToUpdate, Object overrides)
+
+### ObjectNode
+
+- ObjectNode
+    - JsonNode
+        - set
+            - set(String propertyName, JsonNode value)
+            - setAll(Map<String,? extends JsonNode> properties)
+            - setAll(ObjectNode other)
+        - replace
+            - replace(String propertyName, JsonNode value)
+        - without
+            - without(String propertyName)
+            - without(Collection<String> propertyNames)
+        - put
+            - put(String propertyName, JsonNode value)
+            - putIfAbsent(String propertyName, JsonNode value)
+        - remove
+            - remove(String propertyName)
+            - remove(Collection<String> propertyNames)
+            - removeAll()
+        - retain
+            - retain(Collection<String> propertyNames)
+            - retain(String... propertyNames)
+    - typed
+        - ArrayNode
+            - putArray(String propertyName)
+        - ObjectNode
+            - putObject(String propertyName)
+            - putPOJO(String propertyName, Object pojo)
+            - putRawValue(String propertyName, RawValue raw)
+            - putNull(String propertyName)
+            - put(String fieldName, short v)
+            - put(String fieldName, Short v)
+            - put(String fieldName, int v)
+            - put(String fieldName, Integer v)
+            - put(String fieldName, long v)
+            - put(String fieldName, Long v)
+            - put(String fieldName, float v)
+            - put(String fieldName, Float v)
+            - put(String fieldName, double v)
+            - put(String fieldName, Double v)
+            - put(String fieldName, BigDecimal v)
+            - put(String fieldName, BigInteger v)
+            - put(String fieldName, String v)
+            - put(String fieldName, boolean v)
+            - put(String fieldName, Boolean v)
+            - put(String fieldName, byte[] v)
+
+### ObjectWriter
+
+
+
+
 
