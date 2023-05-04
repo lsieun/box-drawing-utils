@@ -236,48 +236,51 @@
 - JsonNode
     - Public API
         - type introspection
-            - getNodeType()
-            - isPojo()
-            - isNumber()
-            - isIntegralNumber()
-            - isFloatingPointNumber()
-            - isShort()
-            - isInt()
-            - isLong()
-            - isFloat()
-            - isDouble()
-            - isBigDecimal()
-            - isBigInteger()
-            - isTextual()
-            - isBoolean()
-            - isNull()
-            - isBinary()
-            - canConvertToInt()
-            - canConvertToLong()
-            - canConvertToExactIntegral()
-        - straight value access
-            - textValue()
-            - binaryValue()
-            - booleanValue()
-            - numberValue()
-            - shortValue()
-            - intValue()
-            - longValue()
-            - floatValue()
-            - doubleValue()
-            - decimalValue()
-            - bigIntegerValue()
-        - value access with conversion(s)
-            - asText()
-            - asText(String defaultValue)
-            - asInt()
-            - asInt(int defaultValue)
-            - asLong()
-            - asLong(long defaultValue)
-            - asDouble()
-            - asDouble(double defaultValue)
-            - asBoolean()
-            - asBoolean(boolean defaultValue)
+            - getNodeType():JsonNodeType
+            - is
+                - isBoolean()
+                - isBinary()
+                - isNumber()
+                    - isIntegralNumber()
+                        - isShort()
+                        - isInt()
+                        - isLong()
+                    - isFloatingPointNumber()
+                        - isFloat()
+                        - isDouble()
+                    - isBigDecimal()
+                    - isBigInteger()
+                - isTextual()
+                - isPojo()
+                - isNull()
+            - can
+                - canConvertToInt()
+                - canConvertToLong()
+                - canConvertToExactIntegral()
+        - value
+            - straight value access
+                - booleanValue()
+                - binaryValue()
+                - numberValue()
+                    - shortValue()
+                    - intValue()
+                    - longValue()
+                    - floatValue()
+                    - doubleValue()
+                    - decimalValue()
+                    - bigIntegerValue()
+                - textValue()
+            - value access with conversion(s)
+                - asText()
+                - asText(String defaultValue)
+                - asInt()
+                - asInt(int defaultValue)
+                - asLong()
+                - asLong(long defaultValue)
+                - asDouble()
+                - asDouble(double defaultValue)
+                - asBoolean()
+                - asBoolean(boolean defaultValue)
         - extended traversal
             - require()
             - requireNonNull()
@@ -285,33 +288,37 @@
             - required(int index)
             - requiredAt(String pathExpr)
             - requiredAt(JsonPointer path)
-        - value find
-            - has(String fieldName)
-            - has(int index)
-            - hasNonNull(String fieldName)
-            - hasNonNull(int index)
+        - find
+            - value find
+                - has(String fieldName):boolean
+                - has(int index)
+                - hasNonNull(String fieldName)
+                - hasNonNull(int index)
+            - find methods
+                - findValue(String fieldName):JsonNode
+                - findValues(String fieldName):List<JsonNode>
+                - findValues(String fieldName, List<JsonNode> foundSoFar)
+                - findValuesAsText(String fieldName):List<String>
+                - findValuesAsText(String fieldName, List<String> foundSoFar)
+                - findPath(String fieldName):JsonNode
+                - findParent(String fieldName):JsonNode
+                - findParents(String fieldName):List<JsonNode>
+                - findParents(String fieldName, List<JsonNode> foundSoFar)
+            - path handling
+                - withObject
+                    - withObject(String expr):ObjectNode
+                    - withObject(String expr, OverwriteMode overwriteMode, boolean preferIndex)
+                    - withObject(JsonPointer ptr)
+                    - withObject(JsonPointer ptr, OverwriteMode overwriteMode, boolean preferIndex)
+                - withArray
+                    - withArray(String exprOrProperty):ArrayNode
+                    - withArray(String expr, OverwriteMode overwriteMode, boolean preferIndex)
+                    - withArray(JsonPointer ptr)
+                    - withArray(JsonPointer ptr, OverwriteMode overwriteMode, boolean preferIndex)
         - container access
+            - iterator()
             - elements()
             - fields()
-        - find methods
-            - findValue(String fieldName)
-            - findValues(String fieldName)
-            - findValuesAsText(String fieldName)
-            - findPath(String fieldName)
-            - findParent(String fieldName)
-            - findParents(String fieldName)
-            - findValues(String fieldName, List<JsonNode> foundSoFar)
-            - findValuesAsText(String fieldName, List<String> foundSoFar)
-            - findParents(String fieldName, List<JsonNode> foundSoFar)
-        - path handling
-            - withObject(String expr)
-            - withObject(String expr, OverwriteMode overwriteMode, boolean preferIndex)
-            - withObject(JsonPointer ptr)
-            - withObject(JsonPointer ptr, OverwriteMode overwriteMode, boolean preferIndex)
-            - withArray(String exprOrProperty)
-            - withArray(String expr, OverwriteMode overwriteMode, boolean preferIndex)
-            - withArray(JsonPointer ptr)
-            - withArray(JsonPointer ptr, OverwriteMode overwriteMode, boolean preferIndex)
         - standard methods
             - toPrettyString()
 
