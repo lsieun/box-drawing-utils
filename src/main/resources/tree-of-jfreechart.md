@@ -17,7 +17,9 @@
     - CategoryDataset
         - DefaultCategoryDataset
     - SeriesDataset
-        - line chart
+        - XYDataset
+            - IntervalXYDataset
+                - HistogramDataset
 
 ## Plot
 
