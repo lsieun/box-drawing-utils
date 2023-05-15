@@ -1,0 +1,24 @@
+# Java HttpClient
+
+- HttpRequest.Builder
+    - builder
+        - uri
+            - uri(URI uri)
+        - version
+            - version(HttpClient.Version version)
+        - header
+            - header(String name, String value)
+            - headers(String... headers)
+            - setHeader(String name, String value)
+        - method
+            - GET()
+            - POST(BodyPublisher bodyPublisher)
+            - PUT(BodyPublisher bodyPublisher)
+            - DELETE()
+            - method(String method, BodyPublisher bodyPublisher)
+        - connection
+            - timeout(Duration duration)
+        - copy
+            - copy()
+    - request
+        - build()
