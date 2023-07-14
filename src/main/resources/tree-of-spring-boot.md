@@ -70,3 +70,15 @@
         - exchange
     - General execution
         - execute
+
+- Spring Boot Config
+    - in
+        - code
+        - config file
+            - application.properties
+            - application.yml
+            - import
+        - command-line
+    - out
+        - Environment
+        - @Value

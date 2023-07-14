@@ -1,5 +1,44 @@
 # Java HttpClient
 
+- java.net.http
+    - HttpClient
+        - Builder
+        - Redirect
+            - NEVER
+            - ALWAYS
+            - NORMAL
+        - Version
+            - HTTP_1_1
+            - HTTP_2
+    - HttpHeaders
+    - HttpRequest
+        - BodyPublisher
+        - BodyPublishers
+        - Builder
+    - HttpResponse
+        - BodyHandler
+        - BodyHandlers
+        - BodySubscriber
+        - BodySubscribers
+        - PushPromiseHandler
+        - ResponseInfo
+    - WebSocket
+        - Builder
+        - Listener
+
+## HttpClient
+
+- HttpClient
+    - instance
+        - newHttpClient()
+        - newBuilder()
+        - newWebSocketBuilder()
+    - data
+        - send
+        - sendAsync
+
+## HttpRequest
+
 - HttpRequest.Builder
     - builder
         - uri
@@ -22,3 +61,16 @@
             - copy()
     - request
         - build()
+
+## HttpResponse
+
+- HttpResponse
+    - response
+        - version()
+        - statusCode()
+        - uri()
+        - headers()
+        - body()
+    - request
+        - request()
+

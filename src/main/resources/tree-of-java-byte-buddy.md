@@ -994,6 +994,27 @@
         - withDefaultConfiguration()
         - withEmptyConfiguration()
 
+- MethodDelegation Annotation
+    - current class
+        - class
+            - @Origin
+                - Class
+                - Method
+                - String
+                - int
+        - instance
+            - @This
+        - field
+            - @FieldValue
+        - method
+            - @Argument
+            - @AllArguments
+    - class hierarchy
+        - class
+        - instance
+            - @Super
+        - method
+
 ## net.bytebuddy.implementation.bytecode
 
 ### ByteCodeAppender
@@ -1062,6 +1083,31 @@
     - advice
         - @Enter
         - @Exit
+
+- Advice
+    - Both
+        - meta
+            - @Advice.Origin
+        - field
+            - @Advice.FieldValue
+        - method
+            - instance
+                - @Advice.This
+            - arg
+                - @Advice.Argument
+                - @Advice.AllArguments
+            - local
+                - @Advice.Local
+    - @OnMethodEnter
+    - @OnMethodExit
+        - local
+            - @Advice.Enter
+        - exit
+            - return
+                - @Advice.Return
+                - @Advice.StubValue
+            - exception
+                - @Advice.Thrown
 
 - Advice Annotation
     - common
@@ -1204,6 +1250,7 @@
         - and
         - or
         - not
+        - any()
         - anyOf()
         - none()
 
