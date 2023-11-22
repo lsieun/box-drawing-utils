@@ -1,0 +1,123 @@
+- ClassLoader
+    - loadClass
+        - findClass
+            - defineClass --> ClassFileTransformer.transform
+        - resolveClass
+
+- TheAgent.jar
+    - Manifest
+        - META-INF/MANIFEST.MF
+    - Agent Class
+        - LoadTimeAgent.class: premain
+        - DynamicAgent.class: agentmain
+    - ClassFileTransformer
+        - ASMTransformer.class
+
+- java.lang.instrument
+    - ClassDefinition (类)
+    - ClassFileTransformer (接口)
+    - Instrumentation (接口)
+    - IllegalClassFormatException (异常)
+    - UnmodifiableClassException (异常)
+
+- Manifest Attributes
+    - Basic
+        - Premain-Class
+        - Agent-Class
+    - Ability
+        - Can-Redefine-Classes
+        - Can-Retransform-Classes
+        - Can-Set-Native-Method-Prefix
+    - Special
+        - Boot-Class-Path
+        - Launcher-Agent-Class
+
+- Ability
+    - Java Agent
+        - redefine
+        - retransform
+        - native method prefix
+    - JVM
+        - redefine
+        - retransform
+        - native method prefix
+
+- Instrumentation
+    - void addTransformer(ClassFileTransformer transformer, boolean canRetransform)
+    - boolean removeTransformer(ClassFileTransformer transformer)
+
+- class state
+    - loading
+        - define: ClassLoader.defineClass
+        - transform
+    - loaded
+        - redefine: Instrumentation.redefineClasses
+        - retransform: Instrumentation.retransformClasses
+
+- Load-Time Instrumentation
+    - Command-Line
+        - -javaagent:jarpath
+        - -javaagent:jarpath=options
+    - Agent Jar
+        - MANIFEST.MF - Premain-Class: lsieun.agent.LoadTimeAgent
+        - Agent Class - premain(String agentArgs, Instrumentation inst)
+
+- com.sun.tools.attach
+    - spi
+        - AttachProvider
+    - AgentInitializationException
+    - AgentLoadException
+    - AttachNotSupportedException
+    - AttachOperationFailedException
+    - AttachPermission
+    - VirtualMachine
+    - VirtualMachineDescriptor
+
+- VirtualMachine
+    - Get VM
+        - VirtualMachine.attach(String id)
+        - VirtualMachine.attach(VirtualMachineDescriptor vmd)
+    - Use VM
+        - Load Agent
+            - VirtualMachine.loadAgent(String agent)
+            - VirtualMachine.loadAgent(String agent, String options)
+        - read properties
+            - VirtualMachine.getAgentProperties()
+            - VirtualMachine.getSystemProperties()
+    - detach VM
+        - VirtualMachine.detach()
+
+- Instrumentation
+    - Agent Jar
+        - ability
+            - isRedefineClassesSupported()
+            - isRetransformClassesSupported()
+            - isNativeMethodPrefixSupported()
+        - transformer
+            - addTransformer()
+            - removeTransformer()
+    - target VM
+        - classloader
+            - appendToBootstrapClassLoaderSearch()
+            - appendToSystemClassLoaderSearch()
+        - class
+            - status
+                - loading
+                    - transform
+                - loaded
+                    - get
+                        - getAllLoadedClasses()
+                        - getInitiatedClasses()
+                    - modifiable
+                        - isModifiableClass()
+                        - redefineClasses()
+                        - retransformClasses()
+            - native method
+                - isNativeMethodPrefixSupported()
+                - setNativeMethodPrefix()
+        - object
+            - getObjectSize()
+        - module
+            - isModifiableModule()
+            - redefineModule()
+
