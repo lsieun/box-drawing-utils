@@ -147,11 +147,11 @@
     - String redefine(TypeDescription typeDescription)
     - String rebase(TypeDescription typeDescription)
 
-- NamingStrategy
-    - AbstractBase
-        - PrefixingRandom
-        - Suffixing
-            - SuffixingRandom
+- NamingStrategy (I)
+    - AbstractBase (A)
+        - PrefixingRandom (C)
+        - Suffixing (C)
+            - SuffixingRandom (C)
 
 ## net.bytebuddy.dynamic
 
