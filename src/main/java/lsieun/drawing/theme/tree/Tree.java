@@ -61,10 +61,12 @@ public class Tree implements Drawable {
             int colCount = midCol - startCol;
 
             canvas.moveTo(midRow, startCol);
-            canvas.drawHorizontalLine(colCount).switchDirection(TextDirection.LEFT, TextDirection.UP).drawVerticalLine((startRow == midRow) ? 0 : (startRow - midRow + 1));
+            canvas.drawHorizontalLine(colCount).switchDirection(TextDirection.LEFT, TextDirection.UP)
+                    .drawVerticalLine((startRow == midRow) ? 0 : (startRow - midRow + 1));
 
             canvas.moveTo(midRow, startCol);
-            canvas.drawHorizontalLine(colCount).switchDirection(TextDirection.LEFT, TextDirection.DOWN).drawVerticalLine((stopRow == midRow) ? 0 : (stopRow - midRow - 1));
+            canvas.drawHorizontalLine(colCount).switchDirection(TextDirection.LEFT, TextDirection.DOWN)
+                    .drawVerticalLine((stopRow == midRow) ? 0 : (stopRow - midRow - 1));
 
             for (int i = 0; i < size; i++) {
                 TreeTextGraph child = children.get(i);

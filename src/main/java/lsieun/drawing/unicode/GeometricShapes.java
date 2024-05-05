@@ -26,8 +26,8 @@ public enum GeometricShapes {
     BLACK_CIRCLE(0x25CF,"●"),
     ;
 
-    public int code_point;
-    public String value;
+    public final int code_point;
+    public final String value;
 
     GeometricShapes(int code_point, String value) {
         this.code_point = code_point;

@@ -1,9 +1,0 @@
-# File I/O API comparison chart
-FileChannel, RandomAccessFile, POSIX system call 
-read(),read(),read()
-write(),write(),write()
-size(),length(),fstat()
-position(),getFilePointer(),lseek()
-position(long newPosition),seek(),lseek()
-truncate(),setLength(),ftruncate()
-force(),getFD().sync(),fsync()

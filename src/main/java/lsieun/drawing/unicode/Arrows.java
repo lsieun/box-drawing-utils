@@ -7,8 +7,8 @@ public enum Arrows {
     DOWNWARDS_ARROW(0x2193, "↓"),
     ;
 
-    public int code_point;
-    public String value;
+    public final int code_point;
+    public final String value;
 
     Arrows(int code_point, String value) {
         this.code_point = code_point;

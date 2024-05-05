@@ -139,6 +139,22 @@ public class Canvas {
             col++;
         }
     }
+
+    public void drawText(int width, String text, TextAlign align) {
+        int textLen = text.length();
+        if (textLen > width) {
+            text = text.substring(0, width);
+            textLen = width;
+        }
+
+        if (align == TextAlign.RIGHT) {
+            col = col + width - textLen;
+        }
+        else if (align == TextAlign.CENTER) {
+            col = col + (width - textLen) / 2;
+        }
+        drawText(text);
+    }
     // endregion
 
     // region draw simple object: Rectangle and Table
@@ -381,4 +397,6 @@ public class Canvas {
         return sb.toString();
     }
     // endregion
+
+
 }

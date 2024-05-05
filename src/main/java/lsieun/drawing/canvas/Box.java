@@ -49,7 +49,7 @@ public enum Box {
                 return item;
             }
         }
-        throw new RuntimeException("Unexpected Value: " + val);
+        throw new IllegalArgumentException("Unexpected Value: " + val);
     }
 
     public static Box fromFlag(int flag) {
@@ -59,7 +59,7 @@ public enum Box {
                 return item;
             }
         }
-        throw new RuntimeException("Unexpected flag: " + flag);
+        throw new IllegalArgumentException("Unexpected flag: " + flag);
     }
 
     public static boolean isValid(String val) {

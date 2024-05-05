@@ -1,8 +1,10 @@
 package lsieun.drawing.utils;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -80,6 +82,27 @@ public class FileUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<String> readLinesFromClasspath(String relativePath) {
+        URL resource = FileUtils.class.getClassLoader().getResource(relativePath);
+        if (resource == null) {
+            return Collections.emptyList();
+        }
+
+        List<String> lines = new ArrayList<>();
+        try (
+                InputStream inputStream = TreeUtils.class.getClassLoader().getResourceAsStream(relativePath);
+                InputStreamReader isr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(isr)) {
+            String line;
+            while ((line = reader.readLine())!= null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 
     public static void writeLines(String filepath, List<String> lines) {

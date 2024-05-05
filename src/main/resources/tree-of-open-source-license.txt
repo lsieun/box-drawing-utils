@@ -1,6 +1,0 @@
-
-- open source licenses
- - permissive
-  - Apache License 2.0
-  - MIT
- - copyleft

@@ -11,6 +11,10 @@ public class OneLineTable extends AbstractTable implements Drawable {
     private final int row_padding;
     private final int col_padding;
 
+    public OneLineTable(String[][] matrix) {
+        this(matrix, TextAlign.CENTER, 0, 1);
+    }
+
     public OneLineTable(String[][] matrix, TextAlign align) {
         this(matrix, align, 0, 3);
     }

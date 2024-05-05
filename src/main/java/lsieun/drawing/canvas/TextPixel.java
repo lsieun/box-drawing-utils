@@ -8,7 +8,7 @@ public class TextPixel implements Comparable<TextPixel> {
     public TextPixel(int row, int col, String value) {
         this.row = row;
         this.col = col;
-        this.value = value;
+        this.value = value.intern();
     }
 
     @Override

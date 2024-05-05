@@ -39,6 +39,7 @@ public class MultiBytes implements Drawable {
 
             String border = type == ByteType.SINGLE ? MINUS : EQUAL;
 
+            // first line
             canvas.moveTo(row, col);
             canvas.drawPixel(PLUS);
             for (int i = 0; i < length; i++) {
@@ -46,11 +47,13 @@ public class MultiBytes implements Drawable {
                 canvas.drawPixel(border);
             }
 
+            // second line
             canvas.moveTo(row + 1, col);
             canvas.drawPixel(Box.VERTICAL);
             canvas.right(1);
             canvas.drawText(text);
 
+            // third line
             canvas.moveTo(row + 2, col);
             canvas.drawPixel(PLUS);
             for (int i = 0; i < length; i++) {
@@ -61,12 +64,15 @@ public class MultiBytes implements Drawable {
             col += length + 1;
         }
 
-        canvas.moveTo(row, col);
-        canvas.drawPixel(PLUS);
-        canvas.moveTo(row + 1, col);
-        canvas.drawPixel(Box.VERTICAL);
-        canvas.moveTo(row + 2, col);
-        canvas.drawPixel(PLUS);
+        {
+            // the last column
+            canvas.moveTo(row, col);
+            canvas.drawPixel(PLUS);
+            canvas.moveTo(row + 1, col);
+            canvas.drawPixel(Box.VERTICAL);
+            canvas.moveTo(row + 2, col);
+            canvas.drawPixel(PLUS);
+        }
 
         return canvas;
     }

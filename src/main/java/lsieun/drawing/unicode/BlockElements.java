@@ -5,8 +5,8 @@ public enum BlockElements {
     LEFT_HALF_BLOCK(0x258C, "▌"),
     RIGHT_HALF_BLOCK(0x2590, "▐"),
     ;
-    public int code_point;
-    public String value;
+    public final int code_point;
+    public final String value;
 
     BlockElements(int code_point, String value) {
         this.code_point = code_point;

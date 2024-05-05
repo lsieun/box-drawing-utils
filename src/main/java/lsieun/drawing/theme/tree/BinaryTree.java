@@ -3,7 +3,7 @@ package lsieun.drawing.theme.tree;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.canvas.TextDirection;
-import lsieun.drawing.unicode.*;
+import lsieun.drawing.unicode.GeometricShapes;
 
 import java.util.ArrayList;
 import java.util.Formatter;
