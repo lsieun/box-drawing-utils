@@ -1,97 +1,53 @@
 package lsieun.drawing.theme.table;
 
 import lsieun.drawing.canvas.Canvas;
-import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.canvas.TextAlign;
+import lsieun.drawing.theme.shape.rect.FullRectangle;
 
-public class OneLineTable extends AbstractTable implements Drawable {
-    public final String[][] matrix;
+public class OneLineTable extends MatrixTable {
     public final TextAlign align;
-
-    private final int row_padding;
-    private final int col_padding;
 
     public OneLineTable(String[][] matrix) {
         this(matrix, TextAlign.CENTER, 0, 1);
     }
 
     public OneLineTable(String[][] matrix, TextAlign align) {
-        this(matrix, align, 0, 3);
+        this(matrix, align, 0, 1);
     }
 
-    public OneLineTable(String[][] matrix, TextAlign align, int row_padding, int col_padding) {
-        this.matrix = matrix;
+    public OneLineTable(String[][] matrix, TextAlign align, int cellInnerRowPadding, int cellInnerColPadding) {
+        super(matrix, cellInnerRowPadding, cellInnerColPadding);
         this.align = align;
-        this.row_padding = row_padding;
-        this.col_padding = col_padding;
-    }
-
-    @Override
-    protected int getCellLength(int row, int col) {
-        String item = matrix[row][col];
-        int length =  item == null ? 0 : item.length();
-        return length + 2 * col_padding;
     }
 
     @Override
     public void draw(Canvas canvas, int startRow, int startCol) {
-        int rowCount = matrix.length;
-        int colCount = matrix[0].length;
 
-        int[] rowHeightArray = new int[rowCount];
-        int[] colWidthArray = getColWidthArray(rowCount, colCount);
-
-        for (int i = 0; i < rowCount; i++) {
-            rowHeightArray[i] = 1 + 2 * row_padding;
+        // text - rect
+        int totalRows = getTotalRows();
+        int totalCols = getTotalCols();
+        FullRectangle[][] rectMatrix = new FullRectangle[totalRows][totalCols];
+        for(int i = 0; i < totalRows; i++) {
+            for(int j = 0; j < totalCols; j++) {
+                int contentWidth = getCellContentWidth(i, j);
+                String cellValue = getCellValue(i, j);
+                FullRectangle rect = new FullRectangle(contentWidth, cellInnerColPadding, cellInnerRowPadding,cellValue, align);
+                rectMatrix[i][j] = rect;
+            }
         }
 
-        // draw border
+        // draw rect
         canvas.moveTo(startRow, startCol);
-        canvas.drawTable(rowHeightArray, colWidthArray);
+        int row = startRow;
 
-        // draw text
-        int currentRow = startRow;
-        for (int i = 0; i < rowCount; i++) {
-            if (i > 0) {
-                currentRow += rowHeightArray[i - 1] + 1;
+        for(int i = 0; i < totalRows; i++) {
+            int col = startCol;
+            for(int j = 0; j < totalCols; j++) {
+                FullRectangle rect = rectMatrix[i][j];
+                canvas.draw(row, col, rect);
+                col += rect.getWidth() - getCellBorderWidth(i, j);
             }
-
-            int currentCol = startCol;
-            for (int j = 0; j < colCount; j++) {
-                if (j > 0) {
-                    currentCol += colWidthArray[j - 1] + 1;
-                }
-
-                String item = matrix[i][j];
-                if (item == null) item = "";
-
-                int currentWidth = colWidthArray[j];
-
-                int row = currentRow + 1 + row_padding;
-                int left = currentCol;
-                int right = left + currentWidth + 1;
-
-                switch (align) {
-                    case LEFT: {
-                        canvas.moveTo(row, left + col_padding + 1);
-                        canvas.drawText(item);
-                        break;
-                    }
-                    case CENTER: {
-                        canvas.moveTo(row, left + (currentWidth - item.length()) / 2 + 1);
-                        canvas.drawText(item);
-                        break;
-                    }
-                    case RIGHT: {
-                        canvas.moveTo(row, right - col_padding - item.length());
-                        canvas.drawText(item);
-                        break;
-                    }
-                    default:
-                        assert false : "impossible";
-                }
-            }
-
+            row += rectMatrix[i][0].getHeight() - getCellBorderWidth(i, 0);
         }
     }
 }

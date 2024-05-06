@@ -1,6 +1,7 @@
 package lsieun.drawing.theme.table;
 
 import lsieun.drawing.canvas.Drawable;
+import lsieun.drawing.canvas.TextAlign;
 import lsieun.drawing.utils.CanvasUtils;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,11 @@ class MarkdownTableTest {
                 {"2001", "SHA384", "384"},
                 {"2001", "SHA512", "512"},
         };
-        Drawable drawable = new MarkdownTable(matrix);
-        CanvasUtils.print(drawable);
-    }
 
+        for(TextAlign align : TextAlign.values()) {
+            System.out.println("Text Align: " + align);
+            Drawable drawable = new MarkdownTable(matrix, align);
+            CanvasUtils.print(drawable);
+        }
+    }
 }

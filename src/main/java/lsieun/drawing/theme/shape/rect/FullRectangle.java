@@ -32,6 +32,10 @@ public class FullRectangle extends AbstractShape implements Rectangle {
         this(contentWidth, 1, 0, 0, Collections.singletonList(text), TextAlign.CENTER, VerticalAlign.MIDDLE);
     }
 
+    public FullRectangle(int contentWidth, int paddingWidth, int paddingHeight, String text, TextAlign align) {
+        this(contentWidth, 1, paddingWidth, paddingHeight, Collections.singletonList(text), align, VerticalAlign.MIDDLE);
+    }
+
     public FullRectangle(int contentWidth, List<String> lines) {
         this(contentWidth, lines.size(), 0, 0, lines, TextAlign.CENTER, VerticalAlign.MIDDLE);
     }

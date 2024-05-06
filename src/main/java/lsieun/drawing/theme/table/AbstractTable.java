@@ -1,30 +1,58 @@
 package lsieun.drawing.theme.table;
 
-import lsieun.drawing.canvas.Drawable;
+public abstract class AbstractTable implements Table {
+    private final int totalRows;
+    private final int totalCols;
+    public final int cellInnerRowPadding;
+    public final int cellInnerColPadding;
 
-public abstract class AbstractTable implements Drawable {
-    public final int cell_inner_padding;
+    public final int[] cellContentHeightArray;
+    public final int[] cellContentWidthArray;
 
-    public AbstractTable() {
-        this(1);
+    public AbstractTable(int totalRows, int totalCols) {
+        this(totalRows, totalCols, 0, 1);
     }
 
-    public AbstractTable(int cell_inner_padding) {
-        this.cell_inner_padding = cell_inner_padding;
+    public AbstractTable(
+            int totalRows, int totalCols,
+            int cellInnerRowPadding, int cellInnerColPadding
+    ) {
+        this.totalRows = totalRows;
+        this.totalCols = totalCols;
+
+        this.cellInnerRowPadding = cellInnerRowPadding;
+        this.cellInnerColPadding = cellInnerColPadding;
+
+        this.cellContentHeightArray = new int[totalRows];
+        this.cellContentWidthArray = new int[totalCols];
     }
 
-    protected abstract int getCellLength(int row, int col);
+    @Override
+    public int getTotalRows() {
+        return totalRows;
+    }
 
-    public int[] getColWidthArray(int rowCount, int colCount) {
-        int[] colWidthArray = new int[colCount];
-        for (int row = 0; row < rowCount; row++) {
-            for (int col = 0; col < colCount; col++) {
-                int length = getCellLength(row, col) + 2 * cell_inner_padding;
-                if (length > colWidthArray[col]) {
-                    colWidthArray[col] = length;
-                }
-            }
-        }
-        return colWidthArray;
+    @Override
+    public int getTotalCols() {
+        return totalCols;
+    }
+
+    @Override
+    public int getCellContentWidth(int rowIndex, int colIndex) {
+        return cellContentWidthArray[colIndex];
+    }
+
+    @Override
+    public int getCellContentHeight(int rowIndex, int colIndex) {
+        return cellContentHeightArray[rowIndex];
+    }
+
+    @Override
+    public int getCellInnerRowPadding(int rowIndex, int colIndex) {
+        return cellInnerRowPadding;
+    }
+    @Override
+    public int getCellInnerColPadding(int rowIndex, int colIndex) {
+        return cellInnerColPadding;
     }
 }

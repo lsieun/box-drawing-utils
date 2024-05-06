@@ -10,6 +10,14 @@ public class Canvas {
     private int col;
     private final List<TextPixel> pixelList = new ArrayList<>();
 
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
     // region move
     public Canvas moveTo(int row, int col) {
         this.row = row;

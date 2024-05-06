@@ -17,7 +17,7 @@ public class FixedWidthOneLineTable extends OneLineTable implements Drawable {
     }
 
     @Override
-    protected int getCellLength(int row, int col) {
+    public int getCellContentWidth(int rowIndex, int colIndex) {
         return fixedWidth;
     }
 }

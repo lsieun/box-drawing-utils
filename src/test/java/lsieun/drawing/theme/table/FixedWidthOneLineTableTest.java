@@ -13,8 +13,10 @@ class FixedWidthOneLineTableTest {
                 {"D", "E", "F"},
         };
 
-        Drawable drawable = new FixedWidthOneLineTable(matrix, TextAlign.LEFT, 10);
-
-        CanvasUtils.print(drawable);
+        for(TextAlign align : TextAlign.values()) {
+            System.out.println("Text Align: " + align);
+            Drawable drawable = new FixedWidthOneLineTable(matrix, align, 10);
+            CanvasUtils.print(drawable);
+        }
     }
 }
