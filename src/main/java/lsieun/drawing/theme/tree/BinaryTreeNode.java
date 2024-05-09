@@ -5,7 +5,7 @@ public class BinaryTreeNode<T extends BinaryTreeNode<T>> {
     public T leftChild;
     public T rightChild;
 
-
+    @SuppressWarnings("unchecked")
     public void addLeftChild(T leftChild) {
         if (leftChild == null) {
             return;
@@ -14,6 +14,7 @@ public class BinaryTreeNode<T extends BinaryTreeNode<T>> {
         leftChild.parent = (T) this;
     }
 
+    @SuppressWarnings("unchecked")
     public void addRightChild(T rightChild) {
         if (rightChild == null) {
             return;

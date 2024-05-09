@@ -11,6 +11,7 @@ public class TreeNode <T extends TreeNode<T>>{
         this.parent = parent;
     }
 
+    @SuppressWarnings("unchecked")
     public void addChild(T child) {
         if (child == null) {
             return;

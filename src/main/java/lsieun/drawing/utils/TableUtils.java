@@ -9,6 +9,10 @@ import lsieun.drawing.theme.table.TableType;
 import java.util.function.Function;
 
 public class TableUtils {
+    public static void printTable(String filepath, String item, TableType tableType) {
+        String[][] matrix = MatrixUtils.readMatrixFromFile(filepath, item);
+        printTable(matrix, tableType);
+    }
 
     public static void printTable(String[] titleNames, int[][] dataMatrix, TableType tableType) {
         printTable(titleNames, MatrixUtils.from(dataMatrix), tableType);

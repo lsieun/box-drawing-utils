@@ -14,4 +14,9 @@ public class MultiBytesUtils {
         }
         return bytes;
     }
+
+    public static void print(String... array) {
+        MultiBytes bytes = newInstance(ByteType.SINGLE, array);
+        CanvasUtils.print(bytes);
+    }
 }
