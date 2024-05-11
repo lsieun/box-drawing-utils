@@ -24,14 +24,41 @@ public class StringUtils {
         return maxLength;
     }
 
+    public static int maxLength(String[] array) {
+        if (array == null || array.length == 0) {
+            return 0;
+        }
+
+        int max = 0;
+        for (String str : array) {
+            if (str == null) {
+                continue;
+            }
+            int len = str.length();
+            if (len > max) {
+                max = len;
+            }
+        }
+        return max;
+    }
+
     public static int maxLength(String[][] matrix) {
         int max = 0;
-        for (String[] row : matrix) {
-            for (String item : row) {
-                int length = item.length();
-                if (length > max) {
-                    max = length;
-                }
+        for (String[] array : matrix) {
+            int length = maxLength(array);
+            if (length > max) {
+                max = length;
+            }
+        }
+        return max;
+    }
+
+    public static int maxLength(String[][][] cube) {
+        int max = 0;
+        for (String[][] matrix : cube) {
+            int length = maxLength(matrix);
+            if (length > max) {
+                max = length;
             }
         }
         return max;
@@ -44,7 +71,7 @@ public class StringUtils {
         for (int col = 0; col < totalCols; col++) {
             for (int row = 0; row < totalRows; row++) {
                 String str = matrix[row][col];
-                int len = str == null? 0 : str.length();
+                int len = str == null ? 0 : str.length();
                 if (len > colWidthArray[col]) {
                     colWidthArray[col] = len;
                 }
@@ -52,7 +79,6 @@ public class StringUtils {
         }
         return colWidthArray;
     }
-
 
 
     public static int maxLength(BinaryTreeNodeText root) {
@@ -77,5 +103,18 @@ public class StringUtils {
         }
 
         return max;
+    }
+
+    public static boolean isAllNull(String[] array) {
+        if (array == null) {
+            return true;
+        }
+
+        for (String str : array) {
+            if (str != null) {
+                return false;
+            }
+        }
+        return true;
     }
 }
