@@ -34,19 +34,19 @@ class CanvasTest {
         canvas.drawRectangle(11, 5);
 
         canvas.moveTo(3, 31);
-        canvas.drawText(11, "AAAAA", TextAlign.LEFT);
+        canvas.drawText(11, "AAAAA", HorizontalAlign.LEFT);
 
         canvas.moveTo(4, 31);
-        canvas.drawText(11, "BBBBB", TextAlign.RIGHT);
+        canvas.drawText(11, "BBBBB", HorizontalAlign.RIGHT);
 
         canvas.moveTo(5, 31);
-        canvas.drawText(11, "CCCCC", TextAlign.CENTER);
+        canvas.drawText(11, "CCCCC", HorizontalAlign.CENTER);
 
         canvas.moveTo(6, 31);
-        canvas.drawText(11, "DDDDDD", TextAlign.CENTER);
+        canvas.drawText(11, "DDDDDD", HorizontalAlign.CENTER);
 
         canvas.moveTo(7, 31);
-        canvas.drawText(11, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", TextAlign.CENTER);
+        canvas.drawText(11, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", HorizontalAlign.CENTER);
 
         System.out.println(canvas);
     }

@@ -1,10 +1,10 @@
 package lsieun.drawing.theme.tree;
 
 public class BinaryTreeNodeText extends BinaryTreeNode<BinaryTreeNodeText> {
-    public final String text;
+    public final String val;
 
-    public BinaryTreeNodeText(String text) {
-        this.text = text;
+    public BinaryTreeNodeText(String val) {
+        this.val = val;
     }
 
     public static BinaryTreeNodeText of(String text) {

@@ -8,7 +8,7 @@ public class FixedWidthOneLineTable extends OneLineTable implements Drawable {
     public final int fixedWidth;
 
     public FixedWidthOneLineTable(String[][] matrix) {
-        this(matrix, TextAlign.CENTER, StringUtils.maxLength(matrix));
+        this(matrix, TextAlign.CENTER_MIDDLE, StringUtils.maxLength(matrix));
     }
 
     public FixedWidthOneLineTable(String[][] matrix, TextAlign align, int fixedWidth) {

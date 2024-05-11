@@ -1,5 +1,6 @@
 package lsieun.drawing.theme.shape;
 
+import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.Drawable;
 
 public abstract class AbstractShape implements Drawable {
@@ -20,5 +21,11 @@ public abstract class AbstractShape implements Drawable {
 
     public void setStartCol(int startCol) {
         this.startCol = startCol;
+    }
+
+    @Override
+    public void draw(Canvas canvas, int startRow, int startCol) {
+        setStartRow(startRow);
+        setStartCol(startCol);
     }
 }

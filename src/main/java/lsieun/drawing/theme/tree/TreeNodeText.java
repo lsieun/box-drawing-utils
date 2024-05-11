@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreeNodeText extends TreeNode<TreeNodeText> {
-    public final String text;
+    public final String val;
 
-    public TreeNodeText(String text) {
-        this.text = text;
+    public TreeNodeText(String val) {
+        this.val = val;
     }
 
     public static TreeNodeText valueOf(String text) {

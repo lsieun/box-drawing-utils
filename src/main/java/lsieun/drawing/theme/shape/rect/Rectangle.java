@@ -72,8 +72,8 @@ public interface Rectangle extends Drawable {
     // endregion
 
     // region row and col
-    default int getRow(int rowIndex) {
-        return getStartRow() + getBorderHeight() + getPaddingHeight() + rowIndex;
+    default int getRow(int relativeRowIndex) {
+        return getStartRow() + getBorderHeight() + getPaddingHeight() + relativeRowIndex;
     }
 
     default int getCol(int colIndex) {

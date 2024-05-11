@@ -40,7 +40,7 @@ public class RectangleWithText extends SimpleRectangle implements Drawable {
                 item = item.substring(0, length);
             }
             int row = top + i + 1;
-            switch (align) {
+            switch (align.hAlign) {
                 case LEFT: {
                     canvas.moveTo(row, left + 2);
                     canvas.drawText(item);

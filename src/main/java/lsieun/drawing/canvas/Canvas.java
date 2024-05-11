@@ -148,17 +148,17 @@ public class Canvas {
         }
     }
 
-    public void drawText(int width, String text, TextAlign align) {
+    public void drawText(int width, String text, HorizontalAlign align) {
         int textLen = text.length();
         if (textLen > width) {
             text = text.substring(0, width);
             textLen = width;
         }
 
-        if (align == TextAlign.RIGHT) {
+        if (align == HorizontalAlign.RIGHT) {
             col = col + width - textLen;
         }
-        else if (align == TextAlign.CENTER) {
+        else if (align == HorizontalAlign.CENTER) {
             col = col + (width - textLen) / 2;
         }
         drawText(text);
@@ -166,11 +166,11 @@ public class Canvas {
     // endregion
 
     // region draw simple object: Rectangle and Table
-    public void drawRectangle(int width, int height) {
+    public void drawRectangle(int innerWidth, int innerHeight) {
         // left top
         drawPixel(Box.DOWN_AND_RIGHT);
         right(1);
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < innerWidth; i++) {
             drawPixel(Box.HORIZONTAL);
             right(1);
         }
@@ -178,7 +178,7 @@ public class Canvas {
         // right top
         drawPixel(Box.DOWN_AND_LEFT);
         down(1);
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < innerHeight; i++) {
             drawPixel(Box.VERTICAL);
             down(1);
         }
@@ -186,7 +186,7 @@ public class Canvas {
         // right bottom
         drawPixel(Box.UP_AND_LEFT);
         left(1);
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < innerWidth; i++) {
             drawPixel(Box.HORIZONTAL);
             left(1);
         }
@@ -194,7 +194,7 @@ public class Canvas {
         // right left
         drawPixel(Box.UP_AND_RIGHT);
         up(1);
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i < innerHeight; i++) {
             drawPixel(Box.VERTICAL);
             up(1);
         }

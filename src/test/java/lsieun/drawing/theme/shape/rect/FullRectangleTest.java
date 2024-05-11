@@ -1,6 +1,11 @@
 package lsieun.drawing.theme.shape.rect;
 
-import lsieun.drawing.canvas.*;
+import lsieun.drawing.canvas.Box;
+import lsieun.drawing.canvas.Canvas;
+import lsieun.drawing.canvas.Drawable;
+import lsieun.drawing.canvas.TextAlign;
+import lsieun.drawing.theme.text.EmptyText;
+import lsieun.drawing.theme.text.Text;
 import lsieun.drawing.utils.CanvasUtils;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -16,64 +21,59 @@ class FullRectangleTest {
     @Test
     @Order(1)
     void testEmptyRectangle() {
-        List<String> lines = new ArrayList<>();
-        Drawable drawable = new FullRectangle(5, 0, 0, 0, lines, TextAlign.LEFT, VerticalAlign.TOP);
+        Drawable drawable = FullRectangle.of(
+                5, 0, 0, 0,
+                EmptyText.INSTANCE,
+                TextAlign.CENTER_MIDDLE,
+                false
+        );
         CanvasUtils.print(drawable);
     }
 
     @Test
     @Order(2)
-    void testOneLineRectangle() {
+    void testRectangleWithText() {
         List<String> lines = new ArrayList<>();
         lines.add("Hello World");
-        Drawable drawable = new FullRectangle(0, 0, 0, 0, lines, TextAlign.LEFT, VerticalAlign.TOP);
+        lines.add("Hello World");
+        Text text = Text.of(lines);
+        Drawable drawable = FullRectangle.of(
+                0, 0, 0, 0,
+                text,
+                TextAlign.LEFT_TOP,
+                false
+        );
         CanvasUtils.print(drawable);
     }
 
 
     @Test
     @Order(3)
-    void testAlignLeft() {
-        for (VerticalAlign vAlign : VerticalAlign.values()) {
-            testAlign(TextAlign.LEFT, vAlign);
+    void testAllAlign() {
+        for (TextAlign align : TextAlign.values()) {
+            testAlign(align);
         }
     }
 
-    @Test
-    @Order(4)
-    void testAlignCenter() {
-        for (VerticalAlign vAlign : VerticalAlign.values()) {
-            testAlign(TextAlign.CENTER, vAlign);
-        }
-    }
 
-    @Test
-    @Order(5)
-    void testAlignRight() {
-        for (VerticalAlign vAlign : VerticalAlign.values()) {
-            testAlign(TextAlign.RIGHT, vAlign);
-        }
-    }
-
-    private void testAlign(TextAlign align, VerticalAlign vAlign) {
-        String str = String.format("%s + %s", align, vAlign);
-        System.out.println(str);
+    private void testAlign(TextAlign align) {
+        System.out.println(align);
 
         List<String> lines = new ArrayList<>();
         lines.add("Bad times make a good man.");
         lines.add("The greatest test of courage on earth is to bear defeat without losing heart.");
         lines.add("Sow nothing, reap nothing.");
         lines.add("Life is but a hard and tortuous journey.");
-        Drawable drawable = new FullRectangle(0, 10, 0, 0, lines, align, vAlign);
+        Drawable drawable = FullRectangle.of(0, 10, 0, 0, lines, align, false);
         CanvasUtils.print(drawable);
     }
 
     @Test
-    @Order(6)
+    @Order(4)
     void testDrawFourDirection() {
         List<String> lines = Collections.emptyList();
 
-        FullRectangle rect = new FullRectangle(20, 4, 0, 0, lines, TextAlign.LEFT, VerticalAlign.TOP);
+        FullRectangle rect = FullRectangle.of(20, 5, 0, 0, lines, TextAlign.LEFT_TOP, false);
         Canvas canvas = new Canvas();
         canvas.draw(3, 20, rect);
 

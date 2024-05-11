@@ -2,103 +2,88 @@ package lsieun.drawing.theme.shape.rect;
 
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.TextAlign;
-import lsieun.drawing.canvas.VerticalAlign;
 import lsieun.drawing.theme.shape.AbstractShape;
-import lsieun.drawing.utils.StringUtils;
+import lsieun.drawing.theme.text.EmptyText;
+import lsieun.drawing.theme.text.Text;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static lsieun.drawing.utils.NumberUtils.getOdd;
 
+/**
+ * <ul>
+ *     <li>borderWidth == 1</li>
+ *     <li>innerWidth = contentWidth + 2 * paddingWidth</li>
+ *     <li>totalWidth = contentWidth + 2 * paddingWidth + 2 * borderWidth</li>
+ *     <li>width == totalWidth</li>
+ * </ul>
+ */
 public class FullRectangle extends AbstractShape implements Rectangle {
+    private static final int PADDING_WIDTH_DEFAULT = 0;
+    private static final int PADDING_HEIGHT_DEFAULT = 0;
+    private static final TextAlign TEXT_ALIGN_DEFAULT = TextAlign.CENTER_MIDDLE;
+
+    private static final boolean REQUIRES_ODD_DEFAULT = true;
 
     public final int contentWidth;
     public final int contentHeight;
     public final int paddingWidth;
     public final int paddingHeight;
 
-    public final List<String> lines;
+    public final Text text;
     public final TextAlign align;
 
-    public final VerticalAlign verticalAlign;
 
-    public FullRectangle(int contentWidth, int contentHeight) {
-        this(contentWidth, contentHeight, 0, 0);
-    }
-
-    public FullRectangle(int contentWidth, String text) {
-        this(contentWidth, 1, 0, 0, Collections.singletonList(text), TextAlign.CENTER, VerticalAlign.MIDDLE);
-    }
-
-    public FullRectangle(int contentWidth, int paddingWidth, int paddingHeight, String text, TextAlign align) {
-        this(contentWidth, 1, paddingWidth, paddingHeight, Collections.singletonList(text), align, VerticalAlign.MIDDLE);
-    }
-
-    public FullRectangle(int contentWidth, List<String> lines) {
-        this(contentWidth, lines.size(), 0, 0, lines, TextAlign.CENTER, VerticalAlign.MIDDLE);
-    }
-
-    public FullRectangle(
-            int contentWidth, int contentHeight, int paddingWidth, int paddingHeight) {
-        this(contentWidth, contentHeight, paddingWidth, paddingHeight, Collections.emptyList(), TextAlign.CENTER, VerticalAlign.MIDDLE, true);
-    }
-
-    public FullRectangle(
-            int contentWidth, int contentHeight, int paddingWidth, int paddingHeight,
-            List<String> lines, TextAlign align, VerticalAlign verticalAlign) {
-        this(contentWidth, contentHeight, paddingWidth, paddingHeight, lines, align, verticalAlign, true);
-    }
-
-    public FullRectangle(
-            int contentWidth, int contentHeight, int paddingWidth, int paddingHeight,
-            List<String> lines, TextAlign align, VerticalAlign verticalAlign, boolean requiresOdd) {
-        Objects.requireNonNull(lines);
-        contentWidth = contentWidth == 0 ? StringUtils.maxLength(lines) : contentWidth;
-        contentHeight = contentHeight == 0 ? lines.size() : contentHeight;
+    private FullRectangle(
+            int contentWidth, int contentHeight,
+            int paddingWidth, int paddingHeight,
+            Text text, TextAlign align, boolean requiresOdd) {
+        contentWidth = contentWidth == 0 ? text.getMaxColWidth() : contentWidth;
+        contentHeight = contentHeight == 0 ? text.getTotalRows() : contentHeight;
         this.contentWidth = requiresOdd ? getOdd(contentWidth) : contentWidth;
         this.contentHeight = requiresOdd ? getOdd(contentHeight) : contentHeight;
         this.paddingHeight = paddingHeight;
         this.paddingWidth = paddingWidth;
-        this.lines = lines;
+        this.text = text;
         this.align = align;
-        this.verticalAlign = verticalAlign;
     }
 
     @Override
     public void draw(Canvas canvas, int startRow, int startCol) {
-        setStartRow(startRow);
-        setStartCol(startCol);
+        // save position
+        super.draw(canvas, startRow, startCol);
 
-        int width = contentWidth + 2 * paddingWidth;
-        int height = contentHeight + 2 * paddingHeight;
+        // innerWidth and innerHeight
+        int innerWidth = contentWidth + 2 * paddingWidth;
+        int innerHeight = contentHeight + 2 * paddingHeight;
 
+        // draw rectangle
         canvas.moveTo(startRow, startCol);
-        canvas.drawRectangle(width, height);
+        canvas.drawRectangle(innerWidth, innerHeight);
 
-        int count = Math.min(contentHeight, lines.size());
+        // draw text
+        int count = Math.min(contentHeight, text.getTotalRows());
         for (int i = 0; i < count; i++) {
-            int row = getRowWithAlign(i);
+            int row = getRowConsideringVerticalAlign(i);
             int col = getCol(0);
             canvas.moveTo(row, col);
-            canvas.drawText(contentWidth, lines.get(i), align);
+            canvas.drawText(contentWidth, text.getLine(i), align.hAlign);
         }
     }
 
-    public int getRowWithAlign(int rowIndex) {
-        switch (verticalAlign) {
+    public int getRowConsideringVerticalAlign(int textIndex) {
+        switch (align.vAlign) {
             case MIDDLE: {
-                int offset = contentHeight > lines.size() ? (contentHeight - lines.size()) / 2 : 0;
-                return getRow(rowIndex) + offset;
+                int offset = contentHeight > text.getTotalRows() ? (contentHeight - text.getTotalRows()) / 2 : 0;
+                return getRow(textIndex) + offset;
             }
             case BOTTOM: {
-                int offset = contentHeight > lines.size() ? contentHeight - lines.size() : 0;
-                return getRow(rowIndex) + offset;
+                int offset = contentHeight > text.getTotalRows() ? contentHeight - text.getTotalRows() : 0;
+                return getRow(textIndex) + offset;
             }
             case TOP:
             default: {
-                return getRow(rowIndex);
+                return getRow(textIndex);
             }
         }
     }
@@ -122,5 +107,50 @@ public class FullRectangle extends AbstractShape implements Rectangle {
     @Override
     public int getPaddingHeight() {
         return paddingHeight;
+    }
+
+    public static FullRectangle of(Text text) {
+        return of(text.getMaxColWidth(), text.getTotalRows(),
+                PADDING_WIDTH_DEFAULT, PADDING_HEIGHT_DEFAULT,
+                text, TEXT_ALIGN_DEFAULT, REQUIRES_ODD_DEFAULT);
+    }
+
+    public static FullRectangle of(int contentWidth, Text text) {
+        return of(contentWidth, text.getTotalRows(),
+                PADDING_WIDTH_DEFAULT, PADDING_HEIGHT_DEFAULT,
+                text, TEXT_ALIGN_DEFAULT, REQUIRES_ODD_DEFAULT);
+    }
+
+    public static FullRectangle of(int contentWidth, int contentHeight) {
+        return of(contentWidth, contentHeight,
+                PADDING_WIDTH_DEFAULT, PADDING_HEIGHT_DEFAULT,
+                EmptyText.INSTANCE, TEXT_ALIGN_DEFAULT, REQUIRES_ODD_DEFAULT);
+    }
+
+    public static FullRectangle of(
+            int contentWidth, int contentHeight,
+            int paddingWidth, int paddingHeight,
+            String[] array, TextAlign align, boolean requiresOdd) {
+        return of(contentWidth, contentHeight,
+                paddingWidth, paddingHeight,
+                Text.of(array), align, requiresOdd);
+    }
+
+    public static FullRectangle of(
+            int contentWidth, int contentHeight,
+            int paddingWidth, int paddingHeight,
+            List<String> lines, TextAlign align, boolean requiresOdd) {
+        return of(contentWidth, contentHeight,
+                paddingWidth, paddingHeight,
+                Text.of(lines), align, requiresOdd);
+    }
+
+    public static FullRectangle of(
+            int contentWidth, int contentHeight,
+            int paddingWidth, int paddingHeight,
+            Text text, TextAlign align, boolean requiresOdd) {
+        return new FullRectangle(contentWidth, contentHeight,
+                paddingWidth, paddingHeight,
+                text, align, requiresOdd);
     }
 }

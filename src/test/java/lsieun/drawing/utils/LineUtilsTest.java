@@ -60,8 +60,8 @@ class LineUtilsTest {
 
 
         // create two rectangles
-        FullRectangle rect1 = new FullRectangle(contentWidth, contentHeight);
-        FullRectangle rect2 = new FullRectangle(contentWidth, contentHeight);
+        FullRectangle rect1 = FullRectangle.of(contentWidth, contentHeight);
+        FullRectangle rect2 = FullRectangle.of(contentWidth, contentHeight);
 
         rect1.setStartRow(startRow1);
         rect1.setStartCol(startCol1);

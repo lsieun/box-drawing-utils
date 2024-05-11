@@ -16,7 +16,7 @@ class RectangleWithTextTest {
         lines.add("The greatest test of courage on earth is to bear defeat without losing heart.");
         lines.add("Sow nothing, reap nothing.");
         lines.add("Life is but a hard and tortuous journey.");
-        Drawable drawable = new RectangleWithText(50, 5, lines, TextAlign.CENTER);
+        Drawable drawable = new RectangleWithText(50, 5, lines, TextAlign.CENTER_MIDDLE);
         CanvasUtils.print(3, 10, drawable);
     }
 }

@@ -3,12 +3,13 @@ package lsieun.drawing.theme.table;
 import lsieun.drawing.canvas.Canvas;
 import lsieun.drawing.canvas.TextAlign;
 import lsieun.drawing.theme.shape.rect.FullRectangle;
+import lsieun.drawing.theme.text.Text;
 
 public class OneLineTable extends MatrixTable {
     public final TextAlign align;
 
     public OneLineTable(String[][] matrix) {
-        this(matrix, TextAlign.CENTER, 0, 1);
+        this(matrix, TextAlign.CENTER_MIDDLE, 0, 1);
     }
 
     public OneLineTable(String[][] matrix, TextAlign align) {
@@ -27,11 +28,16 @@ public class OneLineTable extends MatrixTable {
         int totalRows = getTotalRows();
         int totalCols = getTotalCols();
         FullRectangle[][] rectMatrix = new FullRectangle[totalRows][totalCols];
-        for(int i = 0; i < totalRows; i++) {
-            for(int j = 0; j < totalCols; j++) {
+        for (int i = 0; i < totalRows; i++) {
+            for (int j = 0; j < totalCols; j++) {
                 int contentWidth = getCellContentWidth(i, j);
                 String cellValue = getCellValue(i, j);
-                FullRectangle rect = new FullRectangle(contentWidth, cellInnerColPadding, cellInnerRowPadding,cellValue, align);
+                Text text = Text.of(cellValue);
+                FullRectangle rect = FullRectangle.of(
+                        contentWidth, text.getTotalRows(),
+                        cellInnerColPadding, cellInnerRowPadding,
+                        text,
+                        align, false);
                 rectMatrix[i][j] = rect;
             }
         }
@@ -40,9 +46,9 @@ public class OneLineTable extends MatrixTable {
         canvas.moveTo(startRow, startCol);
         int row = startRow;
 
-        for(int i = 0; i < totalRows; i++) {
+        for (int i = 0; i < totalRows; i++) {
             int col = startCol;
-            for(int j = 0; j < totalCols; j++) {
+            for (int j = 0; j < totalCols; j++) {
                 FullRectangle rect = rectMatrix[i][j];
                 canvas.draw(row, col, rect);
                 col += rect.getWidth() - getCellBorderWidth(i, j);

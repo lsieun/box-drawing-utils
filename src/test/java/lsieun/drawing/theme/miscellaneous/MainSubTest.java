@@ -1,5 +1,6 @@
 package lsieun.drawing.theme.miscellaneous;
 
+import lsieun.drawing.theme.text.Text;
 import lsieun.drawing.utils.CanvasUtils;
 import org.junit.jupiter.api.Test;
 
@@ -11,19 +12,22 @@ class MainSubTest {
                 "depth: 200m",
                 "depth: 300m"
             };
+        Text mainText = Text.of(mainLines);
 
-        String[][][] subCube = new String[3][5][3];
-        subCube[0][0] = new String[] {"Submarine-001", "30%", "Good"};
-        subCube[1][0] = new String[] {"Submarine-002", "60%", "Better"};
-        subCube[1][1] = new String[] {"Submarine-003", "60%", "Better"};
-        subCube[1][2] = new String[] {"Submarine-004", "60%", "Better"};
-        subCube[2][0] = new String[] {"Submarine-005", "90%", "Best"};
-        subCube[2][1] = new String[] {"Submarine-006", "90%", "Best"};
-        subCube[2][2] = new String[] {"Submarine-007", "90%", "Best"};
-        subCube[2][3] = new String[] {"Submarine-008", "90%", "Best"};
-        subCube[2][4] = new String[] {"Submarine-009", "90%", "Best"};
+        Text[][] subMatrix = new Text[3][5];
+        subMatrix[0][0] = Text.of("Submarine-001", "30%", "Good");
+        subMatrix[1][0] = Text.of("Submarine-002", "60%", "Better");
+        subMatrix[1][1] = Text.of("Submarine-003", "60%", "Better");
+        subMatrix[1][2] = Text.of("Submarine-004", "60%", "Better");
+        subMatrix[2][0] = Text.of("Submarine-005", "90%", "Best");
+        // subMatrix[2][0] = null;
+        subMatrix[2][1] = Text.of("Submarine-006", "90%", "Best");
+        subMatrix[2][2] = Text.of("Submarine-007", "90%", "Best");
+        subMatrix[2][3] = Text.of("Submarine-008", "90%", "Best");
+        subMatrix[2][4] = Text.of("Submarine-009", "90%", "Best");
+        // subMatrix[2][4] = null;
 
-        MainSub mainSub = new MainSub("Deep Blue Ocean", mainLines, subCube, 2, 5);
+        MainSub mainSub = new MainSub("Deep Blue Ocean", mainText, subMatrix, 2, 5);
         CanvasUtils.print(mainSub);
     }
 }

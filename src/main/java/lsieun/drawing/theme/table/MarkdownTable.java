@@ -11,7 +11,7 @@ public class MarkdownTable extends MatrixTable implements Drawable {
     public final TextAlign align;
 
     public MarkdownTable(String[][] matrix) {
-        this(matrix, TextAlign.LEFT);
+        this(matrix, TextAlign.LEFT_MIDDLE);
     }
 
     public MarkdownTable(String[][] matrix, TextAlign align) {
@@ -63,7 +63,7 @@ public class MarkdownTable extends MatrixTable implements Drawable {
 
             canvas.right(borderWidth + paddingWidth);
             String cellValue = getCellValue(matrixRowIndex, col);
-            canvas.drawText(contentWidth, cellValue, align);
+            canvas.drawText(contentWidth, cellValue, align.hAlign);
             currentCol += 2 * paddingWidth + contentWidth + borderWidth;
             canvas.moveTo(row, currentCol);
 

@@ -5,6 +5,7 @@ import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.theme.shape.line.ConnectionDirection;
 import lsieun.drawing.theme.shape.line.ContinuousLine;
 import lsieun.drawing.theme.shape.rect.FullRectangle;
+import lsieun.drawing.theme.text.Text;
 import lsieun.drawing.utils.LineUtils;
 import lsieun.drawing.utils.StringUtils;
 
@@ -23,7 +24,7 @@ public class TreeNodeRectGraph extends TreeNode<TreeNodeRectGraph> implements Dr
 
     public TreeNodeRectGraph(TreeNodeText node, int contentWidth, GraphDirection direction) {
         this.node = node;
-        this.rect = new FullRectangle(contentWidth, node.text);
+        this.rect = FullRectangle.of(contentWidth, Text.of(node.val));
         this.direction = direction;
     }
 
