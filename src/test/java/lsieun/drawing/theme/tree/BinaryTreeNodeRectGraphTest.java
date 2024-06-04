@@ -14,10 +14,10 @@ class BinaryTreeNodeRectGraphTest {
     @Order(1)
     void testBinaryTreeNodeRectGraph() {
         // create a binary tree
-        BinaryTreeNodeText root = BinaryTreeNodeText.of("root");
-        BinaryTreeNodeText node1 = BinaryTreeNodeText.of("node1");
-        BinaryTreeNodeText node2 = BinaryTreeNodeText.of("node2");
-        BinaryTreeNodeText node3 = BinaryTreeNodeText.of("node3");
+        BinaryTreeNodeText root = BinaryTreeNodeText.of("idx: 0", "root");
+        BinaryTreeNodeText node1 = BinaryTreeNodeText.of("idx: 1", "node1");
+        BinaryTreeNodeText node2 = BinaryTreeNodeText.of("idx: 2", "node2");
+        BinaryTreeNodeText node3 = BinaryTreeNodeText.of("idx: 3", "node3");
         BinaryTreeNodeText node4 = BinaryTreeNodeText.of("node4");
         BinaryTreeNodeText node5 = BinaryTreeNodeText.of("node5");
         BinaryTreeNodeText node6 = BinaryTreeNodeText.of("node6");
@@ -33,7 +33,7 @@ class BinaryTreeNodeRectGraphTest {
         node4.addRightChild(node8);
 
         // create a rect graph
-        for(GraphDirection direction : GraphDirection.values()) {
+        for (GraphDirection direction : GraphDirection.values()) {
             System.out.println("direction = " + direction);
             Drawable rectGraph = BinaryTreeNodeRectGraph.of(root, direction);
             CanvasUtils.print(rectGraph);
@@ -47,7 +47,7 @@ class BinaryTreeNodeRectGraphTest {
         BinaryTreeNodeText root = generateNodeTreeByDepth(1, 0, 4);
 
         // create a rect graph
-        for(GraphDirection direction : GraphDirection.values()) {
+        for (GraphDirection direction : GraphDirection.values()) {
             System.out.println("direction = " + direction);
             Drawable rectGraph = BinaryTreeNodeRectGraph.of(root, direction);
             CanvasUtils.print(rectGraph);
@@ -76,7 +76,7 @@ class BinaryTreeNodeRectGraphTest {
         BinaryTreeNodeText root = generateNodeTreeByIndex(1, 25);
 
         // create a rect graph
-        for(GraphDirection direction : GraphDirection.values()) {
+        for (GraphDirection direction : GraphDirection.values()) {
             System.out.println("direction = " + direction);
             Drawable rectGraph = BinaryTreeNodeRectGraph.of(root, direction);
             CanvasUtils.print(rectGraph);

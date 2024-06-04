@@ -5,14 +5,12 @@ import lsieun.drawing.canvas.Drawable;
 import lsieun.drawing.theme.shape.line.ConnectionDirection;
 import lsieun.drawing.theme.shape.line.ContinuousLine;
 import lsieun.drawing.theme.shape.rect.FullRectangle;
-import lsieun.drawing.theme.text.Text;
 import lsieun.drawing.utils.LineUtils;
 import lsieun.drawing.utils.StringUtils;
 
 public class BinaryTreeNodeRectGraph extends BinaryTreeNode<BinaryTreeNodeRectGraph> implements Drawable {
     private static final int HORIZONTAL_GAP = 5;
 
-    private final BinaryTreeNodeText node;
     private final FullRectangle rect;
     private final GraphDirection direction;
     private int low;
@@ -23,8 +21,7 @@ public class BinaryTreeNodeRectGraph extends BinaryTreeNode<BinaryTreeNodeRectGr
     }
 
     public BinaryTreeNodeRectGraph(BinaryTreeNodeText node, int contentWidth, GraphDirection direction) {
-        this.node = node;
-        this.rect = FullRectangle.of(contentWidth, Text.of(node.val));
+        this.rect = FullRectangle.of(contentWidth, node.val);
         this.direction = direction;
     }
 

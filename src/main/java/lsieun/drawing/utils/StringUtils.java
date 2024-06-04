@@ -86,7 +86,7 @@ public class StringUtils {
         if (root == null) {
             return 0;
         }
-        int max = root.val.length();
+        int max = root.val.getMaxColWidth();
         max = Math.max(max, maxLength(root.leftChild));
         max = Math.max(max, maxLength(root.rightChild));
         return max;
