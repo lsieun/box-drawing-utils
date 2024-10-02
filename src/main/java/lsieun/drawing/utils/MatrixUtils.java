@@ -1,5 +1,8 @@
 package lsieun.drawing.utils;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,18 +35,17 @@ public class MatrixUtils {
 
 
 
-    public static String[][] readMatrixFromFile(String filepath, String title) {
-        return readMatrixFromFile(filepath, title, ",");
+    public static String[][] readMatrix(Path path, String title) throws IOException {
+        return readMatrix(path, title, ",");
     }
 
-    public static String[][] readMatrixFromFile(String filepath, String title, final String cellSeparator) {
-        List<String> lines = FileUtils.readLines(filepath);
+    public static String[][] readMatrix(Path path, String title, final String cellSeparator) throws IOException {
+        List<String> lines = Files.readAllLines(path);
         return readMatrix(lines, title, cellSeparator);
     }
 
-    public static String[][] readMatrixFromClasspath(String relativePath, String title, final String cellSeparator) {
-        List<String> lines = FileUtils.readLinesFromClasspath(relativePath);
-        return readMatrix(lines, title, cellSeparator);
+    public static String[][] readMatrix(List<String> lines, String title) throws IOException {
+        return readMatrix(lines, title, ",");
     }
 
     @SuppressWarnings("UnnecessaryLocalVariable")

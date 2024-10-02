@@ -3,6 +3,9 @@ package lsieun.drawing.utils;
 import lsieun.drawing.theme.table.TableType;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Path;
+
 class TableUtilsTest {
 
     @Test
@@ -26,16 +29,18 @@ class TableUtilsTest {
     }
 
     @Test
-    void testPrintTableFromClasspath() {
-        String[][] matrix = MatrixUtils.readMatrixFromClasspath("table.md", "Common", ",");
+    void testPrintTableFromClasspath() throws IOException {
+        Path path = ResourceUtils.readFilePath("table.md", true);
+        String[][] matrix = MatrixUtils.readMatrix(path, "Common", ",");
         for (TableType type : TableType.values()) {
             TableUtils.printTable(matrix, type);
         }
     }
 
     @Test
-    void testPrintTableFromClasspathByCellSeparator() {
-        String[][] matrix = MatrixUtils.readMatrixFromClasspath("table.md", "Platform MXBeans", "\\|");
+    void testPrintTableFromClasspathByCellSeparator() throws IOException {
+        Path path = ResourceUtils.readFilePath("table.md", true);
+        String[][] matrix = MatrixUtils.readMatrix(path, "Platform MXBeans", "\\|");
         for (TableType type : TableType.values()) {
             TableUtils.printTable(matrix, type);
         }

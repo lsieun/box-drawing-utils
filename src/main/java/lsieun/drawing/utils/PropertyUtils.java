@@ -1,25 +1,17 @@
 package lsieun.drawing.utils;
 
 import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 public class PropertyUtils {
-    public static Properties loadPropertiesFromClasspath(String filename) {
-        Properties props = new Properties();
-        try {
-            props.load(PropertyUtils.class.getClassLoader().getResourceAsStream(filename));
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return props;
-    }
 
-    public static Properties loadPropertiesFromFilePath(String filepath) {
+    public static Properties readProperties(Path path) {
         Properties props = new Properties();
-        try (FileInputStream fis = new FileInputStream(filepath);
-             BufferedInputStream bis = new BufferedInputStream(fis)) {
+        try (InputStream in = Files.newInputStream(path);
+             BufferedInputStream bis = new BufferedInputStream(in)) {
             props.load(bis);
         }
         catch (Exception e) {

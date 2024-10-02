@@ -2,11 +2,32 @@
 
 :sunny:
 
+## Intro
+
 Use [box-drawing characters](https://unicode-table.com/en/blocks/box-drawing/) to draw different graphs.
+
+## Source Code
+
+Download Source Code:
 
 ```text
 git clone https://github.com/lsieun/box-drawing-utils
 ```
+
+Maven compile:
+
+```text
+mvn clean install -DskipTests
+```
+
+完整引用：
+
+- [ ] box-drawing-sample
+- [ ] learn-java-io
+
+代码复制：
+
+- [ ] learn-byte-buddy
 
 ## Examples
 

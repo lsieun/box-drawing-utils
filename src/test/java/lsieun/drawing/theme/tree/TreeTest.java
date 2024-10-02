@@ -7,13 +7,13 @@ class TreeTest {
 
     @Test
     void test() {
-        Tree root = Tree.valueOf("root");
-        Tree node1 = Tree.valueOf("node1");
-        Tree node2 = Tree.valueOf("node2");
-        Tree node3 = Tree.valueOf("node3");
-        Tree node4 = Tree.valueOf("node4");
-        Tree node5 = Tree.valueOf("node5");
-        Tree node6 = Tree.valueOf("node6");
+        Tree root = Tree.of("root");
+        Tree node1 = Tree.of("node1");
+        Tree node2 = Tree.of("node2");
+        Tree node3 = Tree.of("node3");
+        Tree node4 = Tree.of("node4");
+        Tree node5 = Tree.of("node5");
+        Tree node6 = Tree.of("node6");
 
         root.addChild(node1);
         root.addChild(node2);

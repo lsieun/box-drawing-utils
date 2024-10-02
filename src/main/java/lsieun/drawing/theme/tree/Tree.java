@@ -16,7 +16,7 @@ public class Tree implements Drawable {
     public Tree parent;
     public final List<Tree> children = new ArrayList<>();
 
-    public Tree(String line) {
+    private Tree(String line) {
         this.line = line;
     }
 
@@ -92,7 +92,7 @@ public class Tree implements Drawable {
         return canvas;
     }
 
-    public static Tree valueOf(String line) {
+    public static Tree of(String line) {
         return new Tree(line);
     }
 
@@ -114,7 +114,7 @@ public class Tree implements Drawable {
             String name = line.substring(index + 1).trim();
 
             if (index == 0) {
-                Tree tree = Tree.valueOf(name);
+                Tree tree = Tree.of(name);
                 list.add(tree);
                 currentTree = tree;
             }
@@ -133,7 +133,7 @@ public class Tree implements Drawable {
             tree = tree.children.get(size - 1);
         }
 
-        Tree newChild = Tree.valueOf(name);
+        Tree newChild = Tree.of(name);
         tree.addChild(newChild);
     }
 }

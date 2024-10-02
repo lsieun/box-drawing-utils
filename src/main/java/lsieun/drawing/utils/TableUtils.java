@@ -6,11 +6,19 @@ import lsieun.drawing.theme.table.MarkdownTable;
 import lsieun.drawing.theme.table.OneLineTable;
 import lsieun.drawing.theme.table.TableType;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Function;
 
 public class TableUtils {
-    public static void printTable(String filepath, String item, TableType tableType) {
-        String[][] matrix = MatrixUtils.readMatrixFromFile(filepath, item);
+    public static void printTable(Path path, String item, TableType tableType) throws IOException {
+        String[][] matrix = MatrixUtils.readMatrix(path, item);
+        printTable(matrix, tableType);
+    }
+
+    public static void printTable(List<String> lines, String item, TableType tableType) throws IOException {
+        String[][] matrix = MatrixUtils.readMatrix(lines, item);
         printTable(matrix, tableType);
     }
 

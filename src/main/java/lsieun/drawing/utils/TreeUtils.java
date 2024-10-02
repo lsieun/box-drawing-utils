@@ -7,6 +7,10 @@ import lsieun.drawing.theme.tree.Tree;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -40,15 +44,45 @@ public class TreeUtils {
         return (tree.leftChild != null) && (tree.rightChild != null);
     }
 
+    public static void trimTree(Tree root, String... trimNames) {
+        if (trimNames == null || trimNames.length == 0) {
+            return;
+        }
+
+        List<Tree> treeList = new ArrayList<>();
+        treeList.add(root);
+        for (int i = 0; i < treeList.size(); i++) {
+            Tree tree = treeList.get(i);
+            String name = tree.line;
+
+            List<Tree> children = tree.children;
+            if (children.isEmpty() && exists(name, trimNames)) {
+                Tree parent = tree.parent;
+                parent.children.remove(tree);
+            }
+            else {
+                treeList.addAll(children);
+            }
+        }
+    }
+
+    static boolean exists(String name, String... trimNames) {
+        for (String str : trimNames) {
+            if (name.equals(str)) {
+                return true;
+            }
+        }
+        return false;
+    }
     // endregion
 
     // region markdown
-    public static List<? extends Drawable> readTreeFromMarkdown(String filepath, String item) {
-        List<String> lines = FileUtils.readLines(filepath);
-        return readTreeFromMarkdown(lines, item);
+    public static List<? extends Drawable> readTree(Path path, String item) throws IOException {
+        List<String> lines = Files.readAllLines(path);
+        return readTree(lines, item);
     }
 
-    public static List<? extends Drawable> readTreeFromMarkdown(List<String> lines, String item) {
+    public static List<? extends Drawable> readTree(List<String> lines, String item) {
         List<Tree> list = Tree.parseLines(lines);
         List<Tree> resultList = new ArrayList<>();
         for (Tree tree : list) {
@@ -64,32 +98,29 @@ public class TreeUtils {
 
 
     // region directory
-    public static DirectoryTree readDirectory(String filepath, boolean includeEmptyDirectory) {
-        File file = new File(filepath);
-        String name = file.getName();
+    public static DirectoryTree readDirectory(Path dirPath, boolean includeEmptyDirectory) throws IOException {
+        String name = dirPath.getFileName().toString();
 
         DirectoryTree root = DirectoryTree.valueOf(name);
-        readDirectory(file, root, includeEmptyDirectory);
+        readDirectory(dirPath, root, includeEmptyDirectory);
 
         return root;
     }
 
-    public static void readDirectory(File file, DirectoryTree tree, boolean includeEmptyDirectory) {
-        if (!file.exists() || !file.isDirectory()) {
+    public static void readDirectory(Path dirPath, DirectoryTree tree, boolean includeEmptyDirectory) throws IOException {
+        if (!Files.exists(dirPath) || !Files.isDirectory(dirPath)) {
             return;
         }
 
-        File[] files = file.listFiles();
-        if (files != null) {
-            for (File f : files) {
-                String name = f.getName();
+        try (DirectoryStream<Path> paths = Files.newDirectoryStream(dirPath)) {
+            for (Path p : paths) {
+                String name = p.getFileName().toString();
                 if (name.startsWith(".")) continue;
 
                 DirectoryTree child = DirectoryTree.valueOf(name);
 
-
-                if (f.isDirectory()) {
-                    readDirectory(f, child, includeEmptyDirectory);
+                if (Files.isDirectory(p)) {
+                    readDirectory(p, child, includeEmptyDirectory);
 
                     // do not show empty folder
                     if (child.children.size() > 0) {
@@ -106,6 +137,7 @@ public class TreeUtils {
                 }
             }
         }
+
     }
     // endregion
 
@@ -137,8 +169,7 @@ public class TreeUtils {
                 list.add(entry.getName());
             }
             jarFile.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return list;
@@ -147,8 +178,9 @@ public class TreeUtils {
 
 
     // region java imports
-    public static List<? extends Drawable> readJavaFileImports(String filepath, String packageName) {
-        List<String> lines = FileUtils.readLines(filepath);
+    public static List<? extends Drawable> readJavaFileImports(String filepath, String packageName) throws IOException {
+        Path path = Paths.get(filepath);
+        List<String> lines = Files.readAllLines(path);
         String prefix = String.format("import %s", packageName);
         List<String> importClassList = new ArrayList<>();
         for (String line : lines) {
@@ -183,7 +215,7 @@ public class TreeUtils {
         }
 
         if (targetTree == null) {
-            targetTree = Tree.valueOf(item);
+            targetTree = Tree.of(item);
             treeList.add(targetTree);
         }
 

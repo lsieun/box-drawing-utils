@@ -4,13 +4,17 @@ import lsieun.drawing.canvas.Drawable;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 class TreeUtilsTest {
     @Test
-    void testReadTreeFromMarkDown() {
-        List<String> lines = FileUtils.readLinesFromClasspath("tree.md");
-        List<? extends Drawable> list = TreeUtils.readTreeFromMarkdown(lines, "Direction");
+    void testReadTreeFromMarkDown() throws IOException {
+        Path path = ResourceUtils.readFilePath("tree.md", true);
+        List<String> lines = ResourceUtils.readLines(path);
+        List<? extends Drawable> list = TreeUtils.readTree(lines, "Direction");
         if (list.size() == 0) {
             return;
         }
@@ -20,9 +24,10 @@ class TreeUtilsTest {
     }
 
     @Test
-    void testReadDirectory() {
+    void testReadDirectory() throws IOException {
         String dir = System.getProperty("user.dir");
-        Drawable drawable = TreeUtils.readDirectory(dir, false);
+        Path path = Paths.get(dir);
+        Drawable drawable = TreeUtils.readDirectory(path, false);
         CanvasUtils.print(drawable);
     }
 
@@ -41,7 +46,7 @@ class TreeUtilsTest {
     }
 
     @Test
-    void testReadJavaImports() {
+    void testReadJavaImports() throws IOException {
         String dir = System.getProperty("user.dir");
         String filepath = dir + File.separator + "src/main/java/lsieun/drawing/utils/TreeUtils.java";
         File f = new File(filepath);
