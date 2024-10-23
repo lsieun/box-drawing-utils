@@ -3,7 +3,7 @@ package lsieun.drawing.theme.table;
 import lsieun.drawing.canvas.TextAlign;
 import lsieun.drawing.utils.CanvasUtils;
 import lsieun.drawing.utils.MatrixUtils;
-import lsieun.drawing.utils.ResourceUtils;
+import lsieun.drawing.utils.io.resource.ResourceUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

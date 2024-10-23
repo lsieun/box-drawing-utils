@@ -117,7 +117,7 @@ public class ValueUtils {
         return formatValue(rawType) + "<" +
                 Arrays.stream(actualTypeArguments)
                         .map(ValueUtils::formatValue)
-                        .collect(Collectors.joining(" & "))
+                        .collect(Collectors.joining(", "))
                 + ">";
     }
 
