@@ -53,7 +53,7 @@ public class OneLineTable extends MatrixTable {
                 canvas.draw(row, col, rect);
                 col += rect.getWidth() - getCellBorderWidth(i, j);
             }
-            row += rectMatrix[i][0].getHeight() - getCellBorderWidth(i, 0);
+            row += rectMatrix[i][0].getHeight() - getCellBorderHeight(i, 0);
         }
     }
 }
